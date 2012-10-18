@@ -4,7 +4,7 @@
 * Lizard poisons Spock
 * Spock smashes scissors
 * Scissors decapitates lizard
-L* izard eats paper
+* Lizard eats paper
 * Paper disproves Spock
 * Spock vaporizes rock
-A* nd as it always has, rock crushes scissors
+* And as it always has, rock crushes scissors
