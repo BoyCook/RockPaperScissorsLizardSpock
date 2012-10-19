@@ -32,6 +32,4 @@ $(document).ready(function () {
     app.setup();
     new Workspace();
     Backbone.history.start();
-    $('.module').hide();
-    $('.game').show();
 });

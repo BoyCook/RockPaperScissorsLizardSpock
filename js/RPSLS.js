@@ -19,7 +19,7 @@ function RPSLS() {
 
 RPSLS.prototype.play = function (left, right) {
     var result = this.dueler.attack(left, right);
-    $('#result').html(result.message);
+    $('.result').text(result.message);
 };
 
 RPSLS.prototype.setup = function () {
@@ -39,4 +39,7 @@ RPSLS.prototype.setup = function () {
     $('#play').click(function() {
         context.play($('.left-dd').val(), $('.right-dd').val());
     });
+
+    $('.module').hide();
+    $('.game').show();
 };

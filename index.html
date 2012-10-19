@@ -4,7 +4,11 @@
 <head>
     <title>Rock Paper Scissors Lizard Spock</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="description" content="Rock Paper Scissors Lizard Spock">
+    <meta name="keywords" content="Rock Paper Scissors Lizard Spock">
+    <meta name="author" content="Craig Cook">
     <meta charset="utf-8">
+    <link rel="stylesheet" href="css/default.css" type="text/css" media="screen">
     <script type="text/javascript" src="js/lib/jquery-1.8.2.min.js"></script>
     <script type="text/javascript" src="js/lib/jquery-ui-1.8.2.custom.min.js"></script>
     <script type="text/javascript" src="js/lib/underscore-min-1.1.4.js"></script>
@@ -17,28 +21,44 @@
 </head>
 
 <body>
-	<div class="game module">
-        <select class="left-dd">
-            <option></option>
-        </select>
-
-        <select class="right-dd">
-            <option></option>
-        </select>
-
-        <input type="button" id="play" value="Play" />
-        <h1 id="result"></h1>
-	</div>
-
-    <div class="rules module">
-        <div>
-            <img src="images/hands.png">
-            <img src="images/moves.png">
+    <div class="global-nav">
+        <div class="global-nav-content">
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#rules">Rules</a></li>
+                <li><a href="#about">About</a></li>
+            </ul>
         </div>
     </div>
 
-    <div class="about module">
-        <a href="http://www.youtube.com/watch?v=iapcKVn7DdY" target="_blank">YouTube</a>
+    <div class="main-content">
+        <div class="banner">
+            <h3>This is still under development</h3>
+        </div>
+        <div class="game module">
+            <select class="left-dd">
+                <option></option>
+            </select>
+
+            <select class="right-dd">
+                <option></option>
+            </select>
+
+            <input type="button" id="play" value="Play" />
+
+            <div class="result"></div>
+        </div>
+
+        <div class="rules module">
+            <div>
+                <img src="images/hands.png" />
+                <img src="images/moves.png" />
+            </div>
+        </div>
+
+        <div class="about module">
+            <a href="http://www.youtube.com/watch?v=iapcKVn7DdY" target="_blank">YouTube</a>
+        </div>
     </div>
 </body>
 </html>
