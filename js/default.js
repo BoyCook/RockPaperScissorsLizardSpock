@@ -4,12 +4,12 @@
 var Workspace = Backbone.Controller.extend({
     initialized: true,
     routes: {
-        "home": "home",
+        "play": "play",
         "rules": "rules",
         "about": "about",
         "search/:type/:mode/:id":  "search"   // #search/service/108
     },
-    home: function() {
+    play: function() {
         $('.module').hide();
         $('.game').show();
     },

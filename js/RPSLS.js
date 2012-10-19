@@ -25,11 +25,10 @@ RPSLS.prototype.play = function (left, right) {
 RPSLS.prototype.setup = function () {
     var context = this;
     var directive = {
-        "option":{
+        "option.value":{
             "move <- moves":{
                 ".":"move",
-                "@value":"move",
-                "@selected":"move"
+                "@value":"move"
             }
         }
     };
