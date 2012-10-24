@@ -24,7 +24,7 @@ RPSLS.prototype.play = function (left, right) {
 
 RPSLS.prototype.setup = function () {
     var context = this;
-    var directive = {
+    var movesDirective = {
         "option.value":{
             "move <- moves":{
                 ".":"move",
@@ -32,13 +32,18 @@ RPSLS.prototype.setup = function () {
             }
         }
     };
+    var rulesDirective = {
+        "li":{
+            "rule <- rules":{
+                ".": "rule.message"
+            }
+        }
+    };
 
-    $('.left-dd, .right-dd').render({moves: this.moves}, directive);
+    $('.left-dd, .right-dd').render({moves: this.moves}, movesDirective);
+    $('.rules-list').render({rules: this.wins}, rulesDirective);
 
     $('#play').click(function() {
         context.play($('.left-dd').val(), $('.right-dd').val());
     });
-
-    $('.module').hide();
-    $('.game').show();
 };

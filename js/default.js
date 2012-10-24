@@ -4,14 +4,24 @@
 var Workspace = Backbone.Controller.extend({
     initialized: true,
     routes: {
-        "play": "play",
+        "play-remote": "playRemote",
+        "play-local": "playLocal",
+        "play-computer": "playComputer",
         "rules": "rules",
         "about": "about",
         "search/:type/:mode/:id":  "search"   // #search/service/108
     },
-    play: function() {
+    playRemote: function() {
         $('.module').hide();
-        $('.game').show();
+        $('.game-remote').show();
+    },
+    playLocal: function() {
+        $('.module').hide();
+        $('.game-local').show();
+    },
+    playComputer: function() {
+        $('.module').hide();
+        $('.game-computer').show();
     },
     rules: function() {
         $('.module').hide();
@@ -32,4 +42,7 @@ $(document).ready(function () {
     app.setup();
     new Workspace();
     Backbone.history.start();
+
+    $('.module').hide();
+    $('.rules').show();
 });

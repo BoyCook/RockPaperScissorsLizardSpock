@@ -1,0 +1,79 @@
+
+.menu-bar ul {
+    margin:0;
+    padding:0;
+    border:0;
+    outline:0;
+    font-size:100%;
+    vertical-align:baseline;
+    background:transparent;
+}
+
+/* Structure
+------------------------------------------*/
+.menu-bar,
+.menu-bar ul {
+    list-style: none;
+}
+.menu-bar {
+    float: left;
+}
+.menu-bar > li {
+    float: left;
+    margin-left: 0px;
+}
+
+.menu-bar li a {
+    display: block;
+    height: 2em;
+    line-height: 2em;
+    padding: 0 1.5em;
+    text-decoration: none;
+}
+.menu-bar ul {
+    position: absolute;
+    display: none;
+    z-index: 999;
+}
+.menu-bar ul li a {
+    width: 80px;
+}
+
+/*.menu-bar > li:hover {*/
+    /*border: 1px solid rgba(0, 0, 0, .1);*/
+    /*border-radius: 5px;*/
+/*}*/
+
+.menu-bar li:hover ul {
+    display: block;
+    border: 1px solid rgba(0, 0, 0, .1);
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+/* Main menu
+------------------------------------------*/
+.menu-bar {
+    font-family: Arial;
+    font-size: 12px;
+}
+.menu-bar > li > a {
+    color: #BBB;
+    font-weight: bold;
+}
+.menu-bar > li:hover > a {
+    background-color: #ffffff;
+    color: #000;
+}
+
+/* Submenu ------------------------------------------*/
+.menu-bar ul {
+    background-color: #ffffff;
+}
+.menu-bar ul li a {
+    color: #000;
+}
+.menu-bar ul li:hover a {
+    background-color: #BBB;
+}
