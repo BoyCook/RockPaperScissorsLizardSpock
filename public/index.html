@@ -1,0 +1,120 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>Rock Paper Scissors Lizard Spock</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="description" content="Rock Paper Scissors Lizard Spock">
+    <meta name="keywords" content="Rock Paper Scissors Lizard Spock">
+    <meta name="author" content="Craig Cook">
+    <meta name="google-site-verification" content="uvwqJQKUVT6C19MxK0Pbiv3CmtR-3PN_rk0VrEv1Beg"/>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="css/default.css" type="text/css" media="screen">
+    <link rel="stylesheet" href="css/menu.css" type="text/css" media="screen">
+    <script type="text/javascript" src="js/lib/jquery-1.8.2.min.js"></script>
+    <script type="text/javascript" src="js/lib/jquery-ui-1.8.2.custom.min.js"></script>
+    <script type="text/javascript" src="js/lib/underscore-min-1.1.4.js"></script>
+    <script type="text/javascript" src="js/lib/backbone-min-0.3.3.js"></script>
+    <script type="text/javascript" src="js/lib/pure.js"></script>
+    <script type="text/javascript" src="js/lib/Array.js"></script>
+    <script type="text/javascript" src="js/Dueler.js"></script>
+    <script type="text/javascript" src="js/RPSLS.js"></script>
+    <script type="text/javascript" src="js/default.js"></script>
+</head>
+
+<body>
+<div class="global-nav">
+    <div class="global-nav-content">
+        <ul class="menu-bar">
+            <li><a href="#rules">Rules</a></li>
+            <li>
+                <a href="#play">Play</a>
+                <ul>
+                    <li><a href="#play-remote">Vs. Remote</a></li>
+                    <li><a href="#play-local">Vs. Local</a></li>
+                    <li><a href="#play-computer">Vs. Computer</a></li>
+                </ul>
+            </li>
+            <li><a href="#about">About</a></li>
+        </ul>
+    </div>
+</div>
+
+<div class="main-content">
+    <div class="rules module">
+        <div>
+            <h5>The rules are simple:</h5>
+            <ul class="rules-list">
+                <li></li>
+            </ul>
+        </div>
+        <div>
+            <img src="images/hands.png"/>
+            <img src="images/moves.png"/>
+        </div>
+    </div>
+    <div class="game-remote module">
+        <table>
+            <tr>
+                <td>Enter Username: </td>
+                <td><input type="text" id="user-name" /></td>
+                <td><input type="button" id="addUser" value="Add"/></td>
+            </tr>
+        </table>
+
+        Select Opponent:
+        <select id="users-dd" class="users-dd">
+            <option value="-1" selected>-- Select --</option>
+            <option class="value"></option>
+        </select>
+
+        <div class="user-move">
+            Select Move:
+            <select class="user-moves-dd moves-dd">
+                <option value="-1" selected>-- Select --</option>
+                <option class="value"></option>
+            </select>
+            <input type="button" id="play-remote" value="Play"/>
+        </div>
+    </div>
+    <div class="game-local module">
+        <select class="left-dd moves-dd">
+            <option value="-1" selected>-- Select --</option>
+            <option class="value"></option>
+        </select>
+        vs.
+        <select class="right-dd moves-dd">
+            <option value="-1" selected>-- Select --</option>
+            <option class="value"></option>
+        </select>
+        <input type="button" id="play-local" value="Play"/>
+
+        <div class="result"></div>
+    </div>
+    <div class="game-computer module">
+        <h3>Play computer</h3>
+    </div>
+    <div class="about module">
+        <div class="banner">
+            <h3>This is still under development</h3>
+        </div>
+        <iframe width="420" height="315" src="http://www.youtube.com/embed/iapcKVn7DdY" frameborder="0" allowfullscreen></iframe>
+        <p>Developed by Craig Cook <a href="http://craigcook.co.uk" target="_blank">http://craigcook.co.uk</a></p>
+    </div>
+    <div class="no-js module">
+        <ul class="rules-list">
+            <li>Scissors cuts paper</li>
+            <li>Paper covers rock</li>
+            <li>Rock crushes lizard</li>
+            <li>Lizard poisons Spock</li>
+            <li>Spock smashes scissors</li>
+            <li>Scissors decapitates lizard</li>
+            <li>Lizard eats paper</li>
+            <li>Paper disproves Spock</li>
+            <li>Spock vaporizes rock</li>
+            <li>As it always has, rock crushes scissors</li>
+        </ul>
+    </div>
+</div>
+</body>
+</html>
