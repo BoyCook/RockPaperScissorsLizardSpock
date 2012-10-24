@@ -57,12 +57,9 @@ RPSLS.prototype.setup = function () {
     });
     $('#addUser').click(function() {
         $.ajax({
-            url: '/user',
+            url: '/user/' + $('#user-name').val(),
             type: 'PUT',
-            contentType: 'application/json',
-            data: JSON.stringify({
-                name: $('#user-name').val()
-            }),
+            contentType: 'application/x-www-form-urlencoded',
             dataType: 'json',
             complete: function() {
                 context.loadUsers(true);
@@ -87,8 +84,8 @@ RPSLS.prototype.renderUsers = function () {
     var usersDirective = {
         "option.value":{
             "user <- users":{
-                ".":"user.value",
-                "@value":"user.value"
+                ".":"user",
+                "@value":"user"
             }
         }
     };

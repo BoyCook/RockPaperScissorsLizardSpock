@@ -19,10 +19,12 @@
 //   });
 // });
 //
+
+//app.get('/online', function(req, res){
+//    res.send(req.online.length + ' users online');
+//});
+
 //app.use(function(req, res, next){
 //    console.log('SessionID: ' + req.sessionID);
 //    next();
-//});
-//app.get('/online', function(req, res){
-//    res.send(req.online.length + ' users online');
 //});
