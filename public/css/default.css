@@ -49,3 +49,24 @@
 .banner {
     color: red;
 }
+
+.session {
+    border-radius: 5px;
+    z-index: 100;
+    top: 50px;
+    position: absolute;
+    display: block;
+    width: 200px;
+    background-color: #ffffff;
+    font-family: "Helvetica Neue",Arial,sans-serif;
+    border: 1px solid rgba(0, 0, 0, .1);
+    border-radius: 5px;
+}
+
+.session fieldset {
+    border: none;
+}
+
+.session span {
+    font-size: 13px;
+}

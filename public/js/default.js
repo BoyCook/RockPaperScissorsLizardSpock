@@ -43,6 +43,6 @@ $(document).ready(function () {
     new Workspace();
     Backbone.history.start();
 
-    $('.module, .user-move').hide();
+    $('.module, .user-move, .session').hide();
     $('.rules').show();
 });

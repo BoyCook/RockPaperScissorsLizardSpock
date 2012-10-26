@@ -50,6 +50,11 @@ RPSLS.prototype.setup = function () {
     $('#play-remote').click(function() {
         context.play($('.left-dd').val(), $('.right-dd').val());
     });
+    $('.show-session').click(function(){
+        $('.session').toggle();
+        var newLeft = $('.show-session').position().left + 10;
+        $('.session').offset({top: 50, left: newLeft});
+    });
     $('#users-dd').live('change', function() {
         var val = $('.users-dd').val();
         console.log('Playing: ' + val);
@@ -66,8 +71,7 @@ RPSLS.prototype.setup = function () {
             }
         });
     });
-
-//    this.loadUsers(true);
+    this.loadUsers(true);
 };
 
 RPSLS.prototype.loadUsers = function (render) {
@@ -89,5 +93,8 @@ RPSLS.prototype.renderUsers = function () {
             }
         }
     };
+
+    $('.users-dd .value').remove();
+    $('.users-dd').append('<option class="value"></option>');
     $('.users-dd').render({users: this.users}, usersDirective);
 };

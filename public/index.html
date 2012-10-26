@@ -36,6 +36,7 @@
                 </ul>
             </li>
             <li><a href="#about">About</a></li>
+            <li class="show-session"><a href="#session">Login</a></li>
         </ul>
     </div>
 </div>
@@ -100,6 +101,30 @@
         </div>
         <iframe width="420" height="315" src="http://www.youtube.com/embed/iapcKVn7DdY" frameborder="0" allowfullscreen></iframe>
         <p>Developed by Craig Cook <a href="http://craigcook.co.uk" target="_blank">http://craigcook.co.uk</a></p>
+    </div>
+    <div class="session">
+        <div>
+            <form action="/login" class="js-signin signin" method="post">
+                <fieldset class="textbox">
+                    <label class="username js-username">
+                        <span>Username</span>
+                        <input class="js-username-field email-input" type="text" name="session[username_or_email]" autocomplete="on">
+                    </label>
+                    <label class="password js-password">
+                        <span>Password</span>
+                        <input class="js-password-field" type="password" value="" name="session[password]">
+                    </label>
+                </fieldset>
+                <fieldset class="subchck">
+                    <label class="remember">
+                        <input type="checkbox" value="1" name="remember_me">
+                        <span>Remember me</span>
+                    </label>
+                    <button type="submit" class="btn submit">Sign in</button>
+                </fieldset>
+                <input type="hidden" name="redirect_after_login" value="/BoyCook">
+            </form>
+        </div>
     </div>
     <div class="no-js module">
         <ul class="rules-list">
