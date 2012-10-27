@@ -28,7 +28,7 @@
         <ul class="menu-bar">
             <li><a href="#rules">Rules</a></li>
             <li>
-                <a href="#play">Play</a>
+                <a>Play</a>
                 <ul>
                     <li><a href="#play-remote">Vs. Remote</a></li>
                     <li><a href="#play-local">Vs. Local</a></li>
@@ -36,95 +36,110 @@
                 </ul>
             </li>
             <li><a href="#about">About</a></li>
-            <li class="show-session"><a href="#session">Login</a></li>
+            <li class="show-login"><a href="#login">Login</a></li>
         </ul>
     </div>
 </div>
 
 <div class="main-content">
-    <div class="rules module">
-        <div>
-            <h5>The rules are simple:</h5>
-            <ul class="rules-list">
-                <li></li>
-            </ul>
+    <div class="modules bordered">
+        <div class="rules module">
+            <div>
+                <h5>The rules are simple:</h5>
+                <ul class="rules-list">
+                    <li></li>
+                </ul>
+            </div>
+            <div>
+                <img src="images/hands.png"/>
+                <img src="images/moves.png"/>
+            </div>
         </div>
-        <div>
-            <img src="images/hands.png"/>
-            <img src="images/moves.png"/>
-        </div>
-    </div>
-    <div class="game-remote module">
-        <table>
-            <tr>
-                <td>Enter Username: </td>
-                <td><input type="text" id="user-name" /></td>
-                <td><input type="button" id="addUser" value="Add"/></td>
-            </tr>
-        </table>
-
-        Select Opponent:
-        <select id="users-dd" class="users-dd">
-            <option value="-1" selected>-- Select --</option>
-            <option class="value"></option>
-        </select>
-
-        <div class="user-move">
-            Select Move:
-            <select class="user-moves-dd moves-dd">
+        <div class="game-remote module">
+            Select Opponent:
+            <select id="users-dd" class="users-dd">
                 <option value="-1" selected>-- Select --</option>
                 <option class="value"></option>
             </select>
-            <input type="button" id="play-remote" value="Play"/>
-        </div>
-    </div>
-    <div class="game-local module">
-        <select class="left-dd moves-dd">
-            <option value="-1" selected>-- Select --</option>
-            <option class="value"></option>
-        </select>
-        vs.
-        <select class="right-dd moves-dd">
-            <option value="-1" selected>-- Select --</option>
-            <option class="value"></option>
-        </select>
-        <input type="button" id="play-local" value="Play"/>
 
-        <div class="result"></div>
-    </div>
-    <div class="game-computer module">
-        <h3>Play computer</h3>
-    </div>
-    <div class="about module">
-        <div class="banner">
-            <h3>This is still under development</h3>
+            <div class="user-move">
+                Select Move:
+                <select class="user-moves-dd moves-dd">
+                    <option value="-1" selected>-- Select --</option>
+                    <option class="value"></option>
+                </select>
+                <input type="button" id="play-remote" value="Play"/>
+            </div>
         </div>
-        <iframe width="420" height="315" src="http://www.youtube.com/embed/iapcKVn7DdY" frameborder="0" allowfullscreen></iframe>
-        <p>Developed by Craig Cook <a href="http://craigcook.co.uk" target="_blank">http://craigcook.co.uk</a></p>
-    </div>
-    <div class="session">
-        <div>
-            <form action="/login" class="js-signin signin" method="post">
-                <fieldset class="textbox">
-                    <label class="username js-username">
-                        <span>Username</span>
-                        <input class="js-username-field email-input" type="text" name="session[username_or_email]" autocomplete="on">
-                    </label>
-                    <label class="password js-password">
-                        <span>Password</span>
-                        <input class="js-password-field" type="password" value="" name="session[password]">
-                    </label>
-                </fieldset>
-                <fieldset class="subchck">
-                    <label class="remember">
-                        <input type="checkbox" value="1" name="remember_me">
-                        <span>Remember me</span>
-                    </label>
-                    <button type="submit" class="btn submit">Sign in</button>
-                </fieldset>
-                <input type="hidden" name="redirect_after_login" value="/BoyCook">
-            </form>
+        <div class="game-local module">
+            <select class="left-dd moves-dd">
+                <option value="-1" selected>-- Select --</option>
+                <option class="value"></option>
+            </select>
+            vs.
+            <select class="right-dd moves-dd">
+                <option value="-1" selected>-- Select --</option>
+                <option class="value"></option>
+            </select>
+            <input type="button" id="play-local" value="Play"/>
+
+            <div class="result"></div>
         </div>
+        <div class="game-computer module">
+            <h3>Play computer</h3>
+        </div>
+        <div class="about module">
+            <div class="banner">
+                <h3>This is still under development</h3>
+            </div>
+            <iframe width="420" height="315" src="http://www.youtube.com/embed/iapcKVn7DdY" frameborder="0"
+                    allowfullscreen></iframe>
+            <p>Developed by Craig Cook <a href="http://craigcook.co.uk" target="_blank">http://craigcook.co.uk</a></p>
+        </div>
+    </div>
+    <div class="login module bordered pop-up">
+        <label>
+            <span>Username</span>
+            <input class="username" type="text" autocomplete="on">
+        </label>
+        <label>
+            <span>Password</span>
+            <input class="password" type="password" value="">
+        </label>
+        <input type="button" id="login" value="Sign in"/>
+
+        <p class="show-sign-up"><span><a href="#sign-up">Not a user? Sign up...</a></span></p>
+    </div>
+    <div class="sign-up module bordered pop-up">
+        <table>
+            <tr>
+                <td><span>Username</span></td>
+                <td><input class="new-username" type="text"></td>
+            </tr>
+            <tr>
+                <td><span>Password</span></td>
+                <td><input class="new-password" type="password" value=""></td>
+            </tr>
+            <tr>
+                <td><span>Confirm Password</span></td>
+                <td><input class="new-password-confirm" type="password" value="">
+                </td>
+            </tr>
+            <tr>
+                <td><span>First name</span></td>
+                <td><input class="new-first-name" type="text"></td>
+            </tr>
+            <tr>
+                <td><span>Last name</span></td>
+                <td><input class="new-last-name" type="text"></td>
+            </tr>
+            <tr>
+                <td><span>Email</span></td>
+                <td><input class="new-email" type="text"></td>
+            </tr>
+        </table>
+        <input type="button" id="signUp" value="Sign up"/>
+        <input type="button" id="cancelSignUp" value="Cancel"/>
     </div>
     <div class="no-js module">
         <ul class="rules-list">

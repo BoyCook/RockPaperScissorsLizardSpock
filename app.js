@@ -20,15 +20,18 @@ app.configure(function() {
     app.use(express.static(__dirname + '/public'));
 });
 
-app.put('/user/:name', user.add);
 app.get('/user', user.list);
+app.get('/user/:name', user.get);
 app.put('/user/:name/challenge/:challenges', user.challenge);
 app.get('/user/:name/challenge', user.listChallenges);
 app.post('/user/:name/challenge/:challenges/:move', user.makeMove);
 
+app.get('/session', user.session);
 app.put('/signup', user.signUp);
 app.get('/logout', user.logout);
-app.post('/login', passport.authenticate('local', { successRedirect: '/', failureRedirect: '/login' }));
+app.post('/login', passport.authenticate('local'), user.authenticateSuccess);
+
+//app.post('/login', passport.authenticate('local', { successRedirect: '/', failureRedirect: '/' }));
 
 app.listen(3000);
 console.log('Listening on port 3000');

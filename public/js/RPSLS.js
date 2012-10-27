@@ -16,11 +16,42 @@ function RPSLS() {
     this.wins.push(new Win('Rock', 'Scissors', 'As it always has, rock crushes scissors'));
     this.dueler = new Dueler(this.moves, this.wins);
     this.users = undefined;
+    this.user = undefined;
 }
 
 RPSLS.prototype.play = function (left, right) {
     var result = this.dueler.attack(left, right);
     $('.result').text(result.message);
+};
+
+RPSLS.prototype.login = function (username, password) {
+    var context = this;
+    $.ajax({
+        url:'/login/?username=' + username + '&password=' + password,
+        type:'POST',
+        contentType:'application/x-www-form-urlencoded',
+        error:function () {
+            alert('Failed to authenticate user');
+        },
+        success:function (data) {
+            context.user = data;
+            $('.login').hide();
+        }
+    });
+};
+
+RPSLS.prototype.signup = function (user) {
+    $.ajax({
+        url:'/signup/',
+        type:'PUT',
+        contentType: 'application/json',
+        dataType: 'json',
+        data: JSON.stringify(user),
+        complete:function () {
+            $('.sign-up').hide();
+            $('.modules').show();
+        }
+    });
 };
 
 RPSLS.prototype.setup = function () {
@@ -36,40 +67,55 @@ RPSLS.prototype.setup = function () {
     var rulesDirective = {
         "li":{
             "rule <- rules":{
-                ".": "rule.message"
+                ".":"rule.message"
             }
         }
     };
 
-    $('.moves-dd').render({moves: this.moves}, movesDirective);
-    $('.rules-list').render({rules: this.wins}, rulesDirective);
+    $('.moves-dd').render({moves:this.moves}, movesDirective);
+    $('.rules-list').render({rules:this.wins}, rulesDirective);
 
-    $('#play-local').click(function() {
+    $('#play-local').click(function () {
         context.play($('.left-dd').val(), $('.right-dd').val());
     });
-    $('#play-remote').click(function() {
+    $('#play-remote').click(function () {
         context.play($('.left-dd').val(), $('.right-dd').val());
     });
-    $('.show-session').click(function(){
-        $('.session').toggle();
-        var newLeft = $('.show-session').position().left + 10;
-        $('.session').offset({top: 50, left: newLeft});
+    $('.show-login').click(function () {
+        //This is hacky - need to sort with CSS later
+        $('.login').toggle();
+        var newLeft = $('.show-login').position().left + 10;
+        $('.login').offset({top:50, left:newLeft});
     });
-    $('#users-dd').live('change', function() {
+    $('.show-sign-up').click(function(){
+        //This is hacky - need to sort with CSS later
+        $('.login, .modules').hide();
+        $('.sign-up').show();
+        var newLeft = $('.menu-bar li:eq(0)').position().left;
+        $('.sign-up').offset({top:50, left:newLeft});
+    });
+    $('#users-dd').live('change', function () {
         var val = $('.users-dd').val();
         console.log('Playing: ' + val);
         $('.user-move').show();
     });
-    $('#addUser').click(function() {
-        $.ajax({
-            url: '/user/' + $('#user-name').val(),
-            type: 'PUT',
-            contentType: 'application/x-www-form-urlencoded',
-            dataType: 'json',
-            complete: function() {
-                context.loadUsers(true);
-            }
-        });
+    $('#login').click(function () {
+        context.login($('.username').val(), $('.password').val())
+    });
+    $('#signUp').click(function () {
+        //TODO: validate input + passwords match
+        var user = {
+            username: $('.new-username').val(),
+            firstName: $('.new-first-name').val(),
+            lastName: $('.new-last-name').val(),
+            password: $('.new-password').val(),
+            email: $('.new-email').val()
+        };
+        context.signup(user);
+    });
+    $('#cancelSignUp').click(function(){
+        $('.sign-up').hide();
+        $('.modules').show();
     });
     this.loadUsers(true);
 };
@@ -96,5 +142,5 @@ RPSLS.prototype.renderUsers = function () {
 
     $('.users-dd .value').remove();
     $('.users-dd').append('<option class="value"></option>');
-    $('.users-dd').render({users: this.users}, usersDirective);
+    $('.users-dd').render({users:this.users}, usersDirective);
 };

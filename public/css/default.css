@@ -1,3 +1,8 @@
+body {
+    /*font-family: 'Bitstream Vera Sans Mono', Courier, monospace;*/
+    font-family: "Helvetica Neue",Arial,sans-serif;
+}
+
 .global-nav {
     position: fixed;
     width: 100%;
@@ -9,7 +14,7 @@
     top: 0;
     margin-top: 0;
     padding-top: 0;
-
+    z-index: 100;
     background-position: 0, -50;
     background-repeat: repeat-x;
     background-image: url(../images/background_nav.png);
@@ -29,15 +34,10 @@
 .main-content {
     position: relative;
     top: 50px;
-    z-index: -1;
     width: 600px;
     margin-left: auto;
     margin-right: auto;
     padding: 10px;
-    border: 1px solid rgba(0, 0, 0, .1);
-    border-radius: 5px;
-    /*font-family: 'Bitstream Vera Sans Mono', Courier, monospace;*/
-    font-family: 'OpenSans',Arial,Helvetica,sans-serif
 }
 
 .result {
@@ -50,23 +50,37 @@
     color: red;
 }
 
-.session {
-    border-radius: 5px;
-    z-index: 100;
-    top: 50px;
-    position: absolute;
-    display: block;
-    width: 200px;
-    background-color: #ffffff;
-    font-family: "Helvetica Neue",Arial,sans-serif;
+.show-sign-up {
+    padding: 0;
+    margin: 0;
+}
+
+.bordered {
     border: 1px solid rgba(0, 0, 0, .1);
     border-radius: 5px;
 }
 
-.session fieldset {
-    border: none;
+.pop-up {
+    padding: 10px;
+    border-radius: 5px;
+    z-index: 10;
+    top: 50px;
+    position: absolute;
+    display: block;
+    background-color: #ffffff;
+    font-size: 13px;
 }
 
-.session span {
-    font-size: 13px;
+.login {
+    width: 200px;
+}
+
+.sign-up {
+    width: 300px;
+}
+
+.hide-background {
+    z-index: -10;
+    background-color: #e0ffff;
+    display: none;
 }
