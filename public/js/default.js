@@ -12,8 +12,12 @@ var Workspace = Backbone.Controller.extend({
         "search/:type/:mode/:id":  "search"   // #search/service/108
     },
     playRemote: function() {
-        $('.module').hide();
-        $('.game-remote').show();
+//        if (app.session == undefined) {
+//            alert('You must login to play remotely')
+//        } else {
+            $('.module').hide();
+            $('.game-remote').show();
+//        }
     },
     playLocal: function() {
         $('.module').hide();
@@ -30,9 +34,6 @@ var Workspace = Backbone.Controller.extend({
     about: function() {
         $('.module').hide();
         $('.about').show();
-    },
-    search: function(type, id, version) {
-
     }
 });
 

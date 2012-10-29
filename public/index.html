@@ -2,7 +2,7 @@
         "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-    <title>Rock Paper Scissors Lizard Spock</title>
+    <title>Rock Paper Scissors Lizard Spock [beta]</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="description" content="Rock Paper Scissors Lizard Spock">
     <meta name="keywords" content="Rock Paper Scissors Lizard Spock">
@@ -56,12 +56,19 @@
             </div>
         </div>
         <div class="game-remote module">
-            Select Opponent:
-            <select id="users-dd" class="users-dd">
-                <option value="-1" selected>-- Select --</option>
-                <option class="value"></option>
-            </select>
-
+            <div class="select-opponent">
+                Select Opponent:
+                <select id="users-dd" class="users-dd">
+                    <option value="-1" selected>-- Select --</option>
+                    <option class="value"></option>
+                </select>
+                <input type="button" id="challenge" value="Challenge"/>
+            </div>
+            <div class="challenges">
+                <ul class="challenge-list">
+                    <li class="accept-challenge"><a href="#accept"></a></li>
+                </ul>
+            </div>
             <div class="user-move">
                 Select Move:
                 <select class="user-moves-dd moves-dd">
@@ -69,6 +76,7 @@
                     <option class="value"></option>
                 </select>
                 <input type="button" id="play-remote" value="Play"/>
+                <div class="result-remote"></div>
             </div>
         </div>
         <div class="game-local module">

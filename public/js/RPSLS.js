@@ -15,13 +15,78 @@ function RPSLS() {
     this.wins.push(new Win('Spock', 'Rock', 'Spock vaporizes rock'));
     this.wins.push(new Win('Rock', 'Scissors', 'As it always has, rock crushes scissors'));
     this.dueler = new Dueler(this.moves, this.wins);
+    this.session = undefined;
     this.users = undefined;
-    this.user = undefined;
 }
 
 RPSLS.prototype.play = function (left, right) {
     var result = this.dueler.attack(left, right);
     $('.result').text(result.message);
+};
+
+RPSLS.prototype.playRemote = function (move, challengee) {
+    var context = this;
+    $.ajax({
+        url:'/user/' + this.session.user.username + '/challenges/' + challengee + '/' + move,
+        type:'PUT',
+        contentType:'application/x-www-form-urlencoded',
+        success:function () {
+            context.checkResult(challengee);
+        }
+    });
+};
+
+RPSLS.prototype.challenge = function (challengee) {
+    $.ajax({
+        url:'/user/' + this.session.user.username + '/challenges/' + challengee,
+        type:'PUT',
+        contentType:'application/x-www-form-urlencoded'
+    });
+};
+
+RPSLS.prototype.getChallenges = function () {
+    var context = this;
+    $.getJSON('/user/' + this.session.user.username + '/challenges/', function(data){
+        var directive = {
+            "li":{
+                "challenge <- challenges":{
+                    "li":"challenge.challenger",
+                    "@href":"move"
+                }
+            }
+        };
+
+        $('.challenge-list').render({challenges:data}, directive);
+    });
+};
+
+RPSLS.prototype.checkResult = function (challengee) {
+    var context = this;
+    setTimeout(function(){
+        context.getResult(challengee, function(){
+            context.checkResult(challengee)
+        }, function(){
+            $('.result-remote').text(challengee);
+        })
+    }, 1000);
+};
+
+RPSLS.prototype.getResult = function (challengee, error, success) {
+    $.ajax({
+        url: '/user/' + this.session.user.username + '/challenges/' + challengee,
+        type:'GET',
+        contentType:'application/json',
+        dataType: 'json',
+        error: error,
+        success: success
+    });
+};
+
+RPSLS.prototype.getSession = function () {
+    var context = this;
+    $.getJSON('/session', function(data){
+        context.session = data;
+    });
 };
 
 RPSLS.prototype.login = function (username, password) {
@@ -34,7 +99,7 @@ RPSLS.prototype.login = function (username, password) {
             alert('Failed to authenticate user');
         },
         success:function (data) {
-            context.user = data;
+            context.session = data;
             $('.login').hide();
         }
     });
@@ -52,6 +117,31 @@ RPSLS.prototype.signup = function (user) {
             $('.modules').show();
         }
     });
+};
+
+RPSLS.prototype.loadUsers = function (render) {
+    var context = this;
+    $.getJSON('/user', function (data) {
+        context.users = data;
+        if (render) {
+            context.renderUsers();
+        }
+    });
+};
+
+RPSLS.prototype.renderUsers = function () {
+    var usersDirective = {
+        "option.value":{
+            "user <- users":{
+                ".":"user",
+                "@value":"user"
+            }
+        }
+    };
+
+    $('.users-dd .value').remove();
+    $('.users-dd').append('<option class="value"></option>');
+    $('.users-dd').render({users:this.users}, usersDirective);
 };
 
 RPSLS.prototype.setup = function () {
@@ -79,7 +169,10 @@ RPSLS.prototype.setup = function () {
         context.play($('.left-dd').val(), $('.right-dd').val());
     });
     $('#play-remote').click(function () {
-        context.play($('.left-dd').val(), $('.right-dd').val());
+        context.playRemote($('.user-moves-dd').val(), $('.users-dd').val());
+    });
+    $('#challenge').click(function(){
+        context.challenge($('.users-dd').val());
     });
     $('.show-login').click(function () {
         //This is hacky - need to sort with CSS later
@@ -97,10 +190,9 @@ RPSLS.prototype.setup = function () {
     $('#users-dd').live('change', function () {
         var val = $('.users-dd').val();
         console.log('Playing: ' + val);
-        $('.user-move').show();
     });
     $('#login').click(function () {
-        context.login($('.username').val(), $('.password').val())
+        context.login($('.username').val(), $('.password').val());
     });
     $('#signUp').click(function () {
         //TODO: validate input + passwords match
@@ -118,29 +210,5 @@ RPSLS.prototype.setup = function () {
         $('.modules').show();
     });
     this.loadUsers(true);
-};
-
-RPSLS.prototype.loadUsers = function (render) {
-    var context = this;
-    $.getJSON('/user', function (data) {
-        context.users = data;
-        if (render) {
-            context.renderUsers();
-        }
-    });
-};
-
-RPSLS.prototype.renderUsers = function () {
-    var usersDirective = {
-        "option.value":{
-            "user <- users":{
-                ".":"user",
-                "@value":"user"
-            }
-        }
-    };
-
-    $('.users-dd .value').remove();
-    $('.users-dd').append('<option class="value"></option>');
-    $('.users-dd').render({users:this.users}, usersDirective);
+    this.getSession();
 };
