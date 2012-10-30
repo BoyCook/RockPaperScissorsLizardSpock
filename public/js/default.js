@@ -9,6 +9,7 @@ var Router = Backbone.Router.extend({
         "play-computer":"playComputer",
         "rules":"rules",
         "about":"about",
+        "accept/:key":"accept",
         "search/:type/:mode/:id":"search"   // #search/service/108
     },
     playRemote:function () {
@@ -17,6 +18,7 @@ var Router = Backbone.Router.extend({
         } else {
             $('.module').hide();
             $('.game-remote').show();
+            $('.select-opponent, .challenges').show();
         }
     },
     playLocal:function () {
@@ -34,6 +36,11 @@ var Router = Backbone.Router.extend({
     about:function () {
         $('.module').hide();
         $('.about').show();
+    },
+    accept:function (key) {
+        $('.select-opponent, .challenges').hide();
+        $('.user-move').show();
+        app.challengeKey = key;
     }
 });
 

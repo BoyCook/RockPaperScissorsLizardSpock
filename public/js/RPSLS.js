@@ -17,6 +17,7 @@ function RPSLS() {
     this.dueler = new Dueler(this.moves, this.wins);
     this.session = undefined;
     this.users = undefined;
+    this.challengeKey = undefined;
 }
 
 RPSLS.prototype.play = function (left, right) {
@@ -24,14 +25,14 @@ RPSLS.prototype.play = function (left, right) {
     $('.result').text(result.message);
 };
 
-RPSLS.prototype.playRemote = function (move, challengee) {
+RPSLS.prototype.playRemote = function (move) {
     var context = this;
     $.ajax({
-        url:'/user/' + this.session.user.username + '/challenges/' + challengee + '/' + move,
+        url:'/challenge/' + this.challengeKey + '/' + this.session.user.username + '/' + move,
         type:'PUT',
         contentType:'application/x-www-form-urlencoded',
         success:function () {
-            context.checkResult(challengee);
+            context.checkResult(context.challengeKey);
         }
     });
 };
@@ -55,30 +56,22 @@ RPSLS.prototype.checkForChallenges = function () {
 
 RPSLS.prototype.getChallenges = function () {
     $.getJSON('/user/' + this.session.user.username + '/challenges/', function (data) {
-        challengesList.render({challenges:data != undefined ? data : []})
+        challengesList.render(data != undefined ? data : []);
     });
 };
 
-RPSLS.prototype.checkResult = function (challengee) {
+RPSLS.prototype.checkResult = function (key) {
     var context = this;
-    setTimeout(function () {
-        context.getResult(challengee, function () {
-            context.checkResult(challengee)
-        }, function () {
-            $('.result-remote').text(challengee);
+    var pid = setInterval(function(){
+        context.getResult(key, function (result) {
+            $('.result-remote').text(JSON.stringify(result));
+            clearInterval(pid);
         })
     }, 1000);
 };
 
-RPSLS.prototype.getResult = function (challengee, error, success) {
-    $.ajax({
-        url:'/user/' + this.session.user.username + '/challenges/' + challengee,
-        type:'GET',
-        contentType:'application/json',
-        dataType:'json',
-        error:error,
-        success:success
-    });
+RPSLS.prototype.getResult = function (key, success) {
+    $.getJSON('/challenge/' + key, success);
 };
 
 RPSLS.prototype.getSession = function (fn) {
@@ -142,7 +135,7 @@ RPSLS.prototype.setup = function (fn) {
         context.play($('.left-dd').val(), $('.right-dd').val());
     });
     $('#play-remote').click(function () {
-        context.playRemote($('.user-moves-dd').val(), $('.users-dd').val());
+        context.playRemote($('.user-moves-dd').val());
     });
     $('#challenge').click(function () {
         context.challenge($('.users-dd').val());
