@@ -1,5 +1,5 @@
 /*
-    Core Dueler capability
+ Core Dueler capability
  */
 function Dueler(moves, wins) {
     this.moves = moves;
@@ -22,13 +22,13 @@ Dueler.prototype.initVariations = function () {
     for (var x = 0; x < this.moves.length; x++) {
         var xMove = this.moves[x];
         this.variations[xMove] = {};
-        for (var y=0; y< this.moves.length; y++) {
+        for (var y = 0; y < this.moves.length; y++) {
             var yMove = this.moves[y];
 
             if (xMove == yMove) {
-                this.variations[xMove][yMove] = { message: "It's a draw"};
+                this.variations[xMove][yMove] = { message:"It's a draw"};
             } else {
-                this.variations[xMove][yMove] = this.getWinner(xMove,yMove);
+                this.variations[xMove][yMove] = this.getWinner(xMove, yMove);
             }
         }
     }
@@ -36,9 +36,9 @@ Dueler.prototype.initVariations = function () {
 
 Dueler.prototype.getWinner = function (left, right) {
     var result = undefined;
-    for (var i=0; i<this.wins.length; i++) {
+    for (var i = 0; i < this.wins.length; i++) {
         var win = this.wins[i];
-        if ( (win.winner == left || win.winner == right) &&
+        if ((win.winner == left || win.winner == right) &&
             (win.loser == left || win.loser == right)) {
             result = win;
         }
@@ -63,3 +63,6 @@ function Win(winner, loser, message) {
     this.loser = loser;
     this.message = message;
 }
+//
+//exports.Win = Win;
+//exports.Dueler = Dueler;

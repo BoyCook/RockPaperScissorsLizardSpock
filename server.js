@@ -24,8 +24,8 @@ app.get('/user', session.list);
 app.get('/user/:name', session.getUser);
 app.get('/user/:name/challenges', game.getChallenges);
 app.put('/user/:name/challenges/:challengee', game.challenge);
-app.get('/challenge/:id', game.getChallenge);
-app.put('/challenge/:id/:user/:move', game.makeMove);
+app.get('/challenge/:key', game.getChallenge);
+app.put('/challenge/:key/:user/:move', game.makeMove);
 
 app.get('/session', session.getUserSession);
 app.put('/signup', session.signUp);

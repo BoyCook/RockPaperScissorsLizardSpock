@@ -75,6 +75,10 @@ body {
     width: 200px;
 }
 
+.pop-up input {
+    margin: 5px;
+}
+
 .sign-up {
     width: 300px;
 }

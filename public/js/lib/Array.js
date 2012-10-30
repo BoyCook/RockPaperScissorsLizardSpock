@@ -13,3 +13,5 @@ Array.prototype.contains = function(obj) {
     }
     return result;
 };
+
+//exports.Array = Array;

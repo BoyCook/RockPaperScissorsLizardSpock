@@ -44,28 +44,27 @@ RPSLS.prototype.challenge = function (challengee) {
     });
 };
 
-RPSLS.prototype.getChallenges = function () {
+RPSLS.prototype.checkForChallenges = function () {
     var context = this;
-    $.getJSON('/user/' + this.session.user.username + '/challenges/', function(data){
-        var directive = {
-            "li":{
-                "challenge <- challenges":{
-                    "li":"challenge.challenger",
-                    "@href":"move"
-                }
-            }
-        };
+    var pid = setInterval(function () {
+        if (context.session != undefined && context.session.user.username != undefined) {
+            context.getChallenges();
+        }
+    }, 5000);
+};
 
-        $('.challenge-list').render({challenges:data}, directive);
+RPSLS.prototype.getChallenges = function () {
+    $.getJSON('/user/' + this.session.user.username + '/challenges/', function (data) {
+        challengesList.render({challenges:data != undefined ? data : []})
     });
 };
 
 RPSLS.prototype.checkResult = function (challengee) {
     var context = this;
-    setTimeout(function(){
-        context.getResult(challengee, function(){
+    setTimeout(function () {
+        context.getResult(challengee, function () {
             context.checkResult(challengee)
-        }, function(){
+        }, function () {
             $('.result-remote').text(challengee);
         })
     }, 1000);
@@ -73,19 +72,22 @@ RPSLS.prototype.checkResult = function (challengee) {
 
 RPSLS.prototype.getResult = function (challengee, error, success) {
     $.ajax({
-        url: '/user/' + this.session.user.username + '/challenges/' + challengee,
+        url:'/user/' + this.session.user.username + '/challenges/' + challengee,
         type:'GET',
         contentType:'application/json',
-        dataType: 'json',
-        error: error,
-        success: success
+        dataType:'json',
+        error:error,
+        success:success
     });
 };
 
-RPSLS.prototype.getSession = function () {
+RPSLS.prototype.getSession = function (fn) {
     var context = this;
-    $.getJSON('/session', function(data){
+    $.getJSON('/session', function (data) {
         context.session = data;
+        if (fn) {
+            fn()
+        }
     });
 };
 
@@ -109,9 +111,9 @@ RPSLS.prototype.signup = function (user) {
     $.ajax({
         url:'/signup/',
         type:'PUT',
-        contentType: 'application/json',
-        dataType: 'json',
-        data: JSON.stringify(user),
+        contentType:'application/json',
+        dataType:'json',
+        data:JSON.stringify(user),
         complete:function () {
             $('.sign-up').hide();
             $('.modules').show();
@@ -130,40 +132,11 @@ RPSLS.prototype.loadUsers = function (render) {
 };
 
 RPSLS.prototype.renderUsers = function () {
-    var usersDirective = {
-        "option.value":{
-            "user <- users":{
-                ".":"user",
-                "@value":"user"
-            }
-        }
-    };
-
-    $('.users-dd .value').remove();
-    $('.users-dd').append('<option class="value"></option>');
-    $('.users-dd').render({users:this.users}, usersDirective);
+    usersListDD.render(this.users);
 };
 
-RPSLS.prototype.setup = function () {
+RPSLS.prototype.setup = function (fn) {
     var context = this;
-    var movesDirective = {
-        "option.value":{
-            "move <- moves":{
-                ".":"move",
-                "@value":"move"
-            }
-        }
-    };
-    var rulesDirective = {
-        "li":{
-            "rule <- rules":{
-                ".":"rule.message"
-            }
-        }
-    };
-
-    $('.moves-dd').render({moves:this.moves}, movesDirective);
-    $('.rules-list').render({rules:this.wins}, rulesDirective);
 
     $('#play-local').click(function () {
         context.play($('.left-dd').val(), $('.right-dd').val());
@@ -171,7 +144,7 @@ RPSLS.prototype.setup = function () {
     $('#play-remote').click(function () {
         context.playRemote($('.user-moves-dd').val(), $('.users-dd').val());
     });
-    $('#challenge').click(function(){
+    $('#challenge').click(function () {
         context.challenge($('.users-dd').val());
     });
     $('.show-login').click(function () {
@@ -180,7 +153,7 @@ RPSLS.prototype.setup = function () {
         var newLeft = $('.show-login').position().left + 10;
         $('.login').offset({top:50, left:newLeft});
     });
-    $('.show-sign-up').click(function(){
+    $('.show-sign-up').click(function () {
         //This is hacky - need to sort with CSS later
         $('.login, .modules').hide();
         $('.sign-up').show();
@@ -197,18 +170,23 @@ RPSLS.prototype.setup = function () {
     $('#signUp').click(function () {
         //TODO: validate input + passwords match
         var user = {
-            username: $('.new-username').val(),
-            firstName: $('.new-first-name').val(),
-            lastName: $('.new-last-name').val(),
-            password: $('.new-password').val(),
-            email: $('.new-email').val()
+            username:$('.new-username').val(),
+            firstName:$('.new-first-name').val(),
+            lastName:$('.new-last-name').val(),
+            password:$('.new-password').val(),
+            email:$('.new-email').val()
         };
         context.signup(user);
     });
-    $('#cancelSignUp').click(function(){
+    $('#cancelSignUp').click(function () {
         $('.sign-up').hide();
         $('.modules').show();
     });
     this.loadUsers(true);
     this.getSession();
+    this.checkForChallenges();
+
+    if (fn) {
+        fn()
+    }
 };

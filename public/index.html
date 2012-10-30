@@ -13,13 +13,30 @@
     <link rel="stylesheet" href="css/menu.css" type="text/css" media="screen">
     <script type="text/javascript" src="js/lib/jquery-1.8.2.min.js"></script>
     <script type="text/javascript" src="js/lib/jquery-ui-1.8.2.custom.min.js"></script>
-    <script type="text/javascript" src="js/lib/underscore-min-1.1.4.js"></script>
-    <script type="text/javascript" src="js/lib/backbone-min-0.3.3.js"></script>
-    <script type="text/javascript" src="js/lib/pure.js"></script>
+    <script type="text/javascript" src="js/lib/underscore-min-1.4.2.js"></script>
+    <script type="text/javascript" src="js/lib/backbone-min-0.9.2.js"></script>
     <script type="text/javascript" src="js/lib/Array.js"></script>
     <script type="text/javascript" src="js/Dueler.js"></script>
     <script type="text/javascript" src="js/RPSLS.js"></script>
     <script type="text/javascript" src="js/default.js"></script>
+
+    <script type="text/template" id="rules_template">
+        <ul class="rules-list">
+            <% _.each(rules, function(rule) { %>  <li><%= rule.message %></li> <% }); %>
+        </ul>
+    </script>
+    <script type="text/template" id="dd_template">
+        <% _.each(items, function(item) { %>  <option value="<%= item %>"><%= item %></option> <% }); %>
+    </script>
+    <script type="text/template" id="challenges_template">
+        <table>
+            <% _.each(challenges, function(challenge) { %>
+            <tr>
+                <td><%= challenge.challenger %></td>
+            </tr>
+            <% }); %>
+        </table>
+    </script>
 </head>
 
 <body>
@@ -46,9 +63,8 @@
         <div class="rules module">
             <div>
                 <h5>The rules are simple:</h5>
-                <ul class="rules-list">
-                    <li></li>
-                </ul>
+                <div class="rules-list">
+                </div>
             </div>
             <div>
                 <img src="images/hands.png"/>
@@ -60,14 +76,11 @@
                 Select Opponent:
                 <select id="users-dd" class="users-dd">
                     <option value="-1" selected>-- Select --</option>
-                    <option class="value"></option>
                 </select>
                 <input type="button" id="challenge" value="Challenge"/>
             </div>
             <div class="challenges">
-                <ul class="challenge-list">
-                    <li class="accept-challenge"><a href="#accept"></a></li>
-                </ul>
+
             </div>
             <div class="user-move">
                 Select Move:
@@ -82,15 +95,12 @@
         <div class="game-local module">
             <select class="left-dd moves-dd">
                 <option value="-1" selected>-- Select --</option>
-                <option class="value"></option>
             </select>
             vs.
             <select class="right-dd moves-dd">
                 <option value="-1" selected>-- Select --</option>
-                <option class="value"></option>
             </select>
             <input type="button" id="play-local" value="Play"/>
-
             <div class="result"></div>
         </div>
         <div class="game-computer module">
