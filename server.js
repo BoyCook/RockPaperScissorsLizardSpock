@@ -1,25 +1,41 @@
 var express = require('express');
 var app = express();
-var game = require('./lib/rpsls');
-
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
-var session = require('./lib/session').newSession;
 var RedisStore = require('connect-redis')(express);
+var db = undefined;
+var session = undefined;
+var game = undefined;
 
-passport.use(new LocalStrategy(session.authenticate));
-passport.serializeUser(session.serializeUser);
-passport.deserializeUser(session.deserializeUser);
+app.configure('testing', function (next) {
+    console.log("Doing 'testing' env configure");
+    db = require('fakeredis').createClient('testdb');
+});
 
-app.configure(function() {
+app.configure('development', function () {
+    console.log("Doing 'development' env configure");
+    db = require('redis').createClient();  //127.0.0.1:6379
+});
+
+app.configure(function () {
+    console.log("Doing default configure");
+    session = require('./lib/session').newSession(db);
+    game = require('./lib/rpsls').newRPSLS(db);
+
+    passport.use(new LocalStrategy(session.authenticate));
+    passport.serializeUser(session.serializeUser);
+    passport.deserializeUser(session.deserializeUser);
     app.use(express.cookieParser('appsecret'));
     app.use(express.bodyParser());
-    app.use(express.session({ secret: 'appsecret', store: new RedisStore, cookie: { maxAge: 60000 } }));
+    app.use(express.session({ secret:'appsecret', store:new RedisStore, cookie:{ maxAge:60000 } }));
     app.use(passport.initialize());
     app.use(passport.session());
     app.use(app.router);
     app.use(express.static(__dirname + '/public'));
+    app.set('redisdb', 1);
+    //db.select(app.set('redisdb'), function(err,res){});
 });
+
 
 app.get('/user', session.list);
 app.get('/user/:name', session.getUser);

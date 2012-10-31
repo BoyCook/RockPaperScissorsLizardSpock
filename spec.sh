@@ -1,10 +1,4 @@
 #!/bin/sh
 
-REDIS_HOME=/usr/share/redis
-$REDIS_HOME/src/redis-server &
-node server.js &
-jasmine-node test/spec --junitreport
-
-$REDIS_HOME/src/redis-cli SHUTDOWN
-
-jasmine-node test/spec/ServiceSpec.js --forceexit --junitreport
+export NODE_ENV=testing
+jasmine-node test/spec/ServiceSpec.js --junitreport --forceexit

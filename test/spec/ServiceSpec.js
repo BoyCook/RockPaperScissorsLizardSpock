@@ -3,18 +3,22 @@ var request = require('request');
 
 describe('RestService', function () {
 
+    beforeEach(function (done) {
+        require('./testdata').createTestData(require('fakeredis').createClient('testdb'), done);
+    });
+
     var expectedBoyCook = {
         "username":"BoyCook", "firstName":"Craig", "lastName":"Cook", "password":"password", "email":"boycook@me.com"
     };
     var expectedChallenge = {
-        "challenger":"BoyCook", "challengee":"Jassie", "key":"BoyCook:Jassie1", "Jassie":"Rock", "BoyCook":"Spock"
+        BoyCook:'null', Craig:'null', challengee:'Craig', challenger:'BoyCook', key:'BoyCook:Craig:1', winner:'null'
     };
 
     it("should return all users", function (done) {
         request("http://localhost:3000/user", function (error, response, body) {
             body = JSON.parse(body);
             expect(body.length).toEqual(2);
-            expect(body).toContain('Jassie');
+            expect(body).toContain('Craig');
             expect(body).toContain('BoyCook');
             done();
         });
@@ -28,26 +32,26 @@ describe('RestService', function () {
         });
     });
 
-//    it("should return a given users challenges", function (done) {
-//        request("http://localhost:3000/user/BoyCook/challenges", function (error, response, body) {
-////            body = JSON.parse(body);
-//            done();
-//        });
-//    });
-
-    it("should return all challenges", function (done) {
-        request("http://localhost:3000/challenge", function (error, response, body) {
+    it("should return a given users challenges", function (done) {
+        request("http://localhost:3000/user/BoyCook/challenges", function (error, response, body) {
             body = JSON.parse(body);
-            expect(body.length).toEqual(3);
-            expect(body).toContain('BoyCook:Jassie1');
-            expect(body).toContain('BoyCook:Jassie2');
-            expect(body).toContain('BoyCook:Jassie3');
+            //TODO: finish assertions
             done();
         });
     });
 
+    it("should return all challenges", function (done) {
+        request("http://localhost:3000/challenge", function (error, response, body) {
+            body = JSON.parse(body);
+            expect(body.length).toEqual(1);
+            expect(body).toContain('BoyCook:Craig:1');
+            done();
+        });
+    });
+
+
     it("should return a given challenge", function (done) {
-        request("http://localhost:3000/challenge/BoyCook:Jassie1", function (error, response, body) {
+        request("http://localhost:3000/challenge/BoyCook:Craig:1", function (error, response, body) {
             body = JSON.parse(body);
             expect(body).toEqual(expectedChallenge);
             done();
