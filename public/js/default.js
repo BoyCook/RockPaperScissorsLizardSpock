@@ -40,7 +40,7 @@ var Router = Backbone.Router.extend({
     accept:function (key) {
         $('.select-opponent, .challenges').hide();
         $('.user-move').show();
-        app.challengeKey = key;
+        app.accept(key);
     }
 });
 

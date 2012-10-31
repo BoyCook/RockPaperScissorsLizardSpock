@@ -18,6 +18,7 @@ function RPSLS() {
     this.session = undefined;
     this.users = undefined;
     this.challengeKey = undefined;
+    this.cPid = undefined
 }
 
 RPSLS.prototype.play = function (left, right) {
@@ -37,6 +38,11 @@ RPSLS.prototype.playRemote = function (move) {
     });
 };
 
+RPSLS.prototype.accept = function (key) {
+    app.challengeKey = key;
+    clearInterval(this.cPid);
+};
+
 RPSLS.prototype.challenge = function (challengee) {
     $.ajax({
         url:'/user/' + this.session.user.username + '/challenges/' + challengee,
@@ -47,7 +53,7 @@ RPSLS.prototype.challenge = function (challengee) {
 
 RPSLS.prototype.checkForChallenges = function () {
     var context = this;
-    var pid = setInterval(function () {
+    this.cPid = setInterval(function () {
         if (context.session != undefined && context.session.user.username != undefined) {
             context.getChallenges();
         }
@@ -64,8 +70,12 @@ RPSLS.prototype.checkResult = function (key) {
     var context = this;
     var pid = setInterval(function(){
         context.getResult(key, function (result) {
-            $('.result-remote').text(JSON.stringify(result));
-            clearInterval(pid);
+            var p1 = result.challenger;
+            var p2 = result.challengee;
+            if (result[p1] != undefined && result[p2] != undefined) {
+                $('.result-remote').text(JSON.stringify(result));
+                clearInterval(pid);
+            }
         })
     }, 1000);
 };

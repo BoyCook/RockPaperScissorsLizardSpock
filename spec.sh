@@ -6,3 +6,5 @@ node server.js &
 jasmine-node test/spec --junitreport
 
 $REDIS_HOME/src/redis-cli SHUTDOWN
+
+jasmine-node test/spec/ServiceSpec.js --forceexit --junitreport

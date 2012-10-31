@@ -32,7 +32,7 @@
         <p>Accept Challenge:</p>
         <table>
             <% _.each(challenges, function(item) { %>
-                <tr><td><a href="#accept/<%= item.key %>"><%= item.challenger %></a></td></tr>
+                <tr><td><a href="#accept/<%= item.key %>"><%= item.challenger %> vs. <%= item.challengee %></a></td></tr>
             <% }); %>
         </table>
     </script>
