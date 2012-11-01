@@ -1,4 +1,8 @@
+[![Build Status](http://craigcook.co.uk/build/job/Parrot/badge/icon)](http://craigcook.co.uk/build/job/Parrot/)
+
 http://rockpaperscissorslizardspock.co.uk
+
+## Rules
 
 * Scissors cuts paper
 * Paper covers rock
