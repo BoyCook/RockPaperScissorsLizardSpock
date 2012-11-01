@@ -14,7 +14,7 @@ TestData.prototype.install = function (fn) {
 
     this.db.get('installed', function (err, obj) {
         if (obj == null) {
-            console.log('INSTALLING TEST DATA [%s]', obj);
+            console.log('INSTALLING TEST DATA');
             //TODO: replace with synchroniser
             context.addUser(user1, function () {
                 context.addUser(user2, function () {
