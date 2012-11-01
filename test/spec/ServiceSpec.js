@@ -3,6 +3,8 @@ var request = require('request');
 
 describe('RestService', function () {
 
+    var url = 'http://localhost:3003'; 
+    
     beforeEach(function (done) {
         require('./testdata').createTestData(require('fakeredis').createClient('testdb'), done);
     });
@@ -15,7 +17,7 @@ describe('RestService', function () {
     };
 
     it("should return all users", function (done) {
-        request("http://localhost:3000/user", function (error, response, body) {
+        request(url + "/user", function (error, response, body) {
             body = JSON.parse(body);
             expect(body.length).toEqual(2);
             expect(body).toContain('Craig');
@@ -25,7 +27,7 @@ describe('RestService', function () {
     });
 
     it("should return a given user", function (done) {
-        request("http://localhost:3000/user/BoyCook", function (error, response, body) {
+        request(url + "/user/BoyCook", function (error, response, body) {
             body = JSON.parse(body);
             expect(body).toEqual(expectedBoyCook);
             done();
@@ -33,7 +35,7 @@ describe('RestService', function () {
     });
 
     it("should return a given users challenges", function (done) {
-        request("http://localhost:3000/user/BoyCook/challenges", function (error, response, body) {
+        request(url + "/user/BoyCook/challenges", function (error, response, body) {
             body = JSON.parse(body);
             //TODO: finish assertions
             done();
@@ -41,7 +43,7 @@ describe('RestService', function () {
     });
 
     it("should return all challenges", function (done) {
-        request("http://localhost:3000/challenge", function (error, response, body) {
+        request(url + "/challenge", function (error, response, body) {
             body = JSON.parse(body);
             expect(body.length).toEqual(1);
             expect(body).toContain('BoyCook:Craig:1');
@@ -51,7 +53,7 @@ describe('RestService', function () {
 
 
     it("should return a given challenge", function (done) {
-        request("http://localhost:3000/challenge/BoyCook:Craig:1", function (error, response, body) {
+        request(url + "/challenge/BoyCook:Craig:1", function (error, response, body) {
             body = JSON.parse(body);
             expect(body).toEqual(expectedChallenge);
             done();
@@ -59,7 +61,7 @@ describe('RestService', function () {
     });
 
 //    it("should return the logged in users session", function (done) {
-//        request("http://localhost:3000/session", function (error, response, body) {
+//        request(url + "/session", function (error, response, body) {
 ////            body = JSON.parse(body);
 //            done();
 //        });

@@ -6,10 +6,12 @@ var RedisStore = require('connect-redis')(express);
 var db = undefined;
 var session = undefined;
 var game = undefined;
+var port = 3000;
 
 app.configure('testing', function (next) {
     console.log("Doing 'testing' env configure");
     db = require('fakeredis').createClient('testdb');
+    port = 3003;
 });
 
 app.configure('development', function () {
@@ -52,5 +54,5 @@ app.post('/login', passport.authenticate('local'), session.authenticateSuccess);
 
 //app.post('/login', passport.authenticate('local', { successRedirect: '/', failureRedirect: '/' }));
 
-app.listen(3000);
-console.log('Listening on port 3000');
+app.listen(port);
+console.log('Listening on port [%s]', port);

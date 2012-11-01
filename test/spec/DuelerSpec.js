@@ -29,11 +29,71 @@ describe('Dueler', function(){
         expect(dueler).toBeDefined();
     });
 
-    it('should have the correct moves', function(){
+    it('should have the correct amount of moves', function(){
         expect(dueler.moves).toEqual(moves);
     });
 
-    it('should have the correct wins', function(){
+    it('should have the correct amount of wins', function(){
         expect(dueler.wins).toEqual(wins);
+    });
+
+    it('Scissors should beat Paper', function(){
+        var attack = dueler.attack('Scissors', 'Paper');
+        expect(attack.winner).toEqual('Scissors');
+        expect(attack.message).toEqual('Scissors cuts paper');
+    });
+
+    it('Paper should beat Rock', function(){
+        var attack = dueler.attack('Paper', 'Rock');
+        expect(attack.winner).toEqual('Paper');
+        expect(attack.message).toEqual('Paper covers rock');
+    });
+
+    it('Rock should beat Lizard', function(){
+        var attack = dueler.attack('Rock', 'Lizard');
+        expect(attack.winner).toEqual('Rock');
+        expect(attack.message).toEqual('Rock crushes lizard');
+    });
+
+    it('Lizard should beat Spock', function(){
+        var attack = dueler.attack('Lizard', 'Spock');
+        expect(attack.winner).toEqual('Lizard');
+        expect(attack.message).toEqual('Lizard poisons Spock');
+    });
+
+    it('Spock should beat Scissors', function(){
+        var attack = dueler.attack('Spock', 'Scissors');
+        expect(attack.winner).toEqual('Spock');
+        expect(attack.message).toEqual('Spock smashes scissors');
+    });
+
+    it('Scissors should beat Lizard', function(){
+        var attack = dueler.attack('Scissors', 'Lizard');
+        expect(attack.winner).toEqual('Scissors');
+        expect(attack.message).toEqual('Scissors decapitates lizard');
+    });
+
+    it('Lizard should beat Paper', function(){
+        var attack = dueler.attack('Lizard', 'Paper');
+        expect(attack.winner).toEqual('Lizard');
+        expect(attack.message).toEqual('Lizard eats paper');
+    });
+
+    it('Paper should beat Spock', function(){
+        var attack = dueler.attack('Paper', 'Spock');
+        expect(attack.winner).toEqual('Paper');
+        expect(attack.message).toEqual('Paper disproves Spock');
+    });
+
+    it('Spock should beat Rock', function(){
+        var attack = dueler.attack('Spock', 'Rock');
+        expect(attack.winner).toEqual('Spock');
+        expect(attack.message).toEqual('Spock vaporizes rock');
+    });
+
+    it('Rock should beat Scissors', function(){
+        var attack = dueler.attack('Rock', 'Scissors');
+        expect(attack.winner).toEqual('Rock');
+        expect(attack.message).toEqual('As it always has, rock crushes scissors');
     });
 });

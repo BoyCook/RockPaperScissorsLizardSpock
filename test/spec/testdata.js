@@ -1,5 +1,5 @@
 /*
-    Test Data installer
+ Test Data installer
  */
 function TestData(inDb) {
     this.db = inDb;
@@ -7,15 +7,15 @@ function TestData(inDb) {
 
 TestData.prototype.install = function (fn) {
     var context = this;
-    var user1 = {username:'BoyCook', firstName: 'Craig', lastName: 'Cook', email: 'boycook@me.com', password: 'password'};
-    var user2 = {username:'Craig', firstName: 'Craig', lastName: 'Cook', email: 'boycook@me.com', password: 'password'};
+    var user1 = {username:'BoyCook', firstName:'Craig', lastName:'Cook', email:'boycook@me.com', password:'password'};
+    var user2 = {username:'Craig', firstName:'Craig', lastName:'Cook', email:'boycook@me.com', password:'password'};
 
-    this.db.get('installed', function(obj){
+    this.db.get('installed', function (err, obj) {
         if (obj == null) {
             console.log('INSTALLING TEST DATA [%s]', obj);
-            context.addUser(user1, function(){
-                context.addUser(user2, function(){
-                    context.addChallenge('BoyCook', 'Craig', 'BoyCook:Craig:1', function(){
+            context.addUser(user1, function () {
+                context.addUser(user2, function () {
+                    context.addChallenge('BoyCook', 'Craig', 'BoyCook:Craig:1', function () {
                         console.log('Setting installed [true]');
                         context.db.set('installed', 'true', fn);
                     });
@@ -51,7 +51,7 @@ TestData.prototype.addChallenge = function (user, challengee, key, fn) {
 };
 
 exports.TestData = TestData;
-exports.createTestData = function(db, fn) {
+exports.createTestData = function (db, fn) {
     var td = new TestData(db);
     td.install(fn);
 };

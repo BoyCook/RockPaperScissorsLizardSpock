@@ -14,4 +14,7 @@ Array.prototype.contains = function(obj) {
     return result;
 };
 
-//exports.Array = Array;
+if (exports != undefined) {
+    exports.Array = Array;
+}
+

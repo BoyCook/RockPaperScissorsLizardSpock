@@ -63,6 +63,8 @@ function Win(winner, loser, message) {
     this.loser = loser;
     this.message = message;
 }
-//
-//exports.Win = Win;
-//exports.Dueler = Dueler;
+
+if (exports != undefined) {
+    exports.Win = Win;
+    exports.Dueler = Dueler;
+}
