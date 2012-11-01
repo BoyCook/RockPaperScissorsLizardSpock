@@ -1,31 +1,26 @@
 var app = require('../../server');
 var request = require('request');
+var url = 'http://localhost:3003';
 
 describe('RestService', function () {
-
-    var url = 'http://localhost:3003';
 
     beforeEach(function (done) {
         require('./testdata').createTestData(require('fakeredis').createClient('testdb'), done);
     });
 
-    var expectedBoyCook = {
-        "username":"BoyCook", "firstName":"Craig", "lastName":"Cook", "password":"password", "email":"boycook@me.com"
-    };
-    var expectedChallenge = {
-        BoyCook:'null', Craig:'null', challengee:'Craig', challenger:'BoyCook', key:'BoyCook:Craig:1', winner:'null'
-    };
-
-    var newUserHulk = {
-        "username":"Hulk", "firstName":"Bruce", "lastName":"Banner", "password":"password", "email":"hulk@me.com"
-    };
+    var expectedBoyCook = { username:'BoyCook', firstName:'Craig', lastName:'Cook', email:'boycook@me.com', password:'password'};
+    var newUserSpiderMan = {username:'SpiderMan', firstName:'Peter', lastName:'Parker', email:'spiderman@me.com', password:'password'};
+    var expectedChallenge = {BoyCook:'', Craig:'', challengee:'Craig', challenger:'BoyCook', key:'BoyCook:Craig:1', winner:''};
+    var expectedNewChallenge = {Hulk:'', Superman:'', challengee:'Superman', challenger:'Hulk', key:'Hulk:Superman:1', winner:''};
 
     it("should return all users", function (done) {
         request(url + "/user", function (error, response, body) {
             body = JSON.parse(body);
-            expect(body.length).toEqual(2);
+            expect(body.length).toEqual(4);
             expect(body).toContain('Craig');
             expect(body).toContain('BoyCook');
+            expect(body).toContain('Superman');
+            expect(body).toContain('Hulk');
             done();
         });
     });
@@ -67,12 +62,12 @@ describe('RestService', function () {
         request.put({
                 url:url + '/signup',
                 headers:{'content-type':'application/json', dataType:'json'},
-                body:JSON.stringify(newUserHulk)
+                body:JSON.stringify(newUserSpiderMan)
             },
             function (error, response, body) {
                 body = JSON.parse(body);
                 expect(response.statusCode).toEqual(201);
-                expect(body).toEqual(newUserHulk);
+                expect(body).toEqual(newUserSpiderMan);
                 done();
             });
     });
@@ -81,12 +76,12 @@ describe('RestService', function () {
         request.put({
                 url:url + '/signup',
                 headers:{'content-type':'application/json', dataType:'json'},
-                body:JSON.stringify(newUserHulk)
+                body:JSON.stringify(newUserSpiderMan)
             },
             function (error, response, body) {
                 body = JSON.parse(body);
                 expect(response.statusCode).toEqual(409);
-                expect(body).toEqual({message:'User with name [Hulk] already exists'});
+                expect(body).toEqual({message:'User with name [SpiderMan] already exists'});
                 done();
             });
     });
@@ -126,8 +121,66 @@ describe('RestService', function () {
             });
     });
 
+    it("should allow a user to challenge", function (done) {
+        request.put(url + '/user/Hulk/challenges/Superman',
+            function (error, response, body) {
+                expect(response.statusCode).toEqual(201);
+                request(url + "/challenge/Hulk:Superman:1", function (error, response, body) {
+                    body = JSON.parse(body);
+                    expect(body).toEqual(expectedNewChallenge);
+                    assertChallenges(2, done);
+                });
+            });
+    });
 
-//    app.put('/user/:name/challenges/:challengee', game.challenge);
-//    app.put('/challenge/:key/:user/:move', game.makeMove);
-//    app.post('/login', passport.authenticate('local'), session.authenticateSuccess);
+    it("should not allow a duplicate active challenge", function (done) {
+        request.put(url + '/user/Hulk/challenges/Superman',
+            function (error, response, body) {
+                expect(response.statusCode).toEqual(409);
+                assertChallenges(2, done);
+            });
+    });
+
+    it("should not allow a duplicate active challenge in reverse", function (done) {
+        request.put(url + '/user/Superman/challenges/Hulk',
+            function (error, response, body) {
+                expect(response.statusCode).toEqual(409);
+                assertChallenges(2, done);
+            });
+    });
+
+    it("should allow updates to challenge by challenger", function (done) {
+        request.put(url + '/challenge/Hulk:Superman:1/Hulk/Rock',
+            function (error, response, body) {
+                expect(response.statusCode).toEqual(201);
+                request(url + "/challenge/Hulk:Superman:1", function (error, response, body) {
+                    body = JSON.parse(body);
+                    expectedNewChallenge.Hulk = 'Rock';
+                    expect(body).toEqual(expectedNewChallenge);
+                    done();
+                });
+            });
+    });
+
+    it("should allow updates to challenge by challengee", function (done) {
+        request.put(url + '/challenge/Hulk:Superman:1/Superman/Spock',
+            function (error, response, body) {
+                expect(response.statusCode).toEqual(201);
+                request(url + "/challenge/Hulk:Superman:1", function (error, response, body) {
+                    body = JSON.parse(body);
+                    expectedNewChallenge.Hulk = 'Rock';
+                    expectedNewChallenge.Superman = 'Spock';
+                    expect(body).toEqual(expectedNewChallenge);
+                    done();
+                });
+            });
+    });
 });
+
+function assertChallenges(cnt, done) {
+    request(url + "/challenge", function (error, response, body) {
+        body = JSON.parse(body);
+        expect(body.length).toEqual(cnt);
+        done();
+    });
+}
