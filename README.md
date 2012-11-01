@@ -1,3 +1,5 @@
+http://rockpaperscissorslizardspock.co.uk
+
 * Scissors cuts paper
 * Paper covers rock
 * Rock crushes lizard
@@ -8,5 +10,3 @@
 * Paper disproves Spock
 * Spock vaporizes rock
 * And as it always has, rock crushes scissors
-
-http://rockpaperscissorslizardspock.co.uk
