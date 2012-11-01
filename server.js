@@ -8,8 +8,8 @@ var session = undefined;
 var game = undefined;
 var port = 3000;
 
-app.configure('testing', function (next) {
-    console.log("Doing 'testing' env configure");
+app.configure('test', function () {
+    console.log("Doing 'test' env configure");
     db = require('fakeredis').createClient('testdb');
     port = 3003;
 });
@@ -21,8 +21,10 @@ app.configure('development', function () {
 
 app.configure(function () {
     console.log("Doing default configure");
-    session = require('./lib/session').newSession(db);
-    game = require('./lib/rpsls').newRPSLS(db);
+
+    //TODO make imports cleaner
+    session = process.env.RPSLP_COV ? require('./lib-cov/session').newSession(db) : require('./lib/session').newSession(db);
+    game = process.env.RPSLP_COV? require('./lib-cov/rpsls').newRPSLS(db) : require('./lib/rpsls').newRPSLS(db);
 
     passport.use(new LocalStrategy(session.authenticate));
     passport.serializeUser(session.serializeUser);
