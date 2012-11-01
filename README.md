@@ -1,4 +1,4 @@
-[![Build Status](http://craigcook.co.uk/build/job/Parrot/badge/icon)](http://craigcook.co.uk/build/job/Parrot/)
+[![Build Status](http://craigcook.co.uk/build/job/RockPaperScissorsLizardSpock/badge/icon)](http://craigcook.co.uk/build/job/RockPaperScissorsLizardSpock/)
 
 http://rockpaperscissorslizardspock.co.uk
 
