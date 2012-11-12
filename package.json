@@ -3,6 +3,7 @@
     "description":"Rock Paper Scissors Lizard Spock",
     "version":"0.0.1",
     "private":true,
+	"directories" : { "lib": "./lib" }, 
     "dependencies":{
         "express":"3.x",
         "sessions": "*",

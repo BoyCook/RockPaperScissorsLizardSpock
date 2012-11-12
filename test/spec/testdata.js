@@ -29,7 +29,6 @@ TestData.prototype.install = function (fn) {
                 });
             });
         } else {
-            console.log('TEST DATA ALREADY INSTALLED');
             if (fn) {
                 fn();
             }

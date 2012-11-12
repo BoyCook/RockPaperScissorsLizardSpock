@@ -82,12 +82,12 @@ var ChallengesView = Backbone.View.extend({
     }
 });
 
-var app = new RPSLS();
+var app = undefined;
 var usersListDD = undefined;
 var challengesList = undefined;
 
 $(document).ready(function () {
-    app = new RPSLS();
+    app = new ClientApp();
     app.setup(function () {
         new Router();
         new RulesView({ el:$('.rules-list') });

@@ -1,5 +1,5 @@
-Win = require('../../public/js/Dueler.js').Win;
-Dueler = require('../../public/js/Dueler.js').Dueler;
+Win = require('../../lib/Dueler.js').Win;
+Dueler = require('../../lib/Dueler.js').Dueler;
 Array = require('../../public/js/lib/Array.js').Array;
 
 describe('Dueler', function(){

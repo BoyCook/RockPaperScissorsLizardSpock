@@ -1,32 +1,20 @@
 /*
  Rock Paper Scissors Lizard Spock :-)
  */
-function RPSLS() {
-    this.moves = ['Rock', 'Paper', 'Scissors', 'Lizard', 'Spock'];
-    this.wins = new Array();
-    this.wins.push(new Win('Scissors', 'Paper', 'Scissors cuts paper'));
-    this.wins.push(new Win('Paper', 'Rock', 'Paper covers rock'));
-    this.wins.push(new Win('Rock', 'Lizard', 'Rock crushes lizard'));
-    this.wins.push(new Win('Lizard', 'Spock', 'Lizard poisons Spock'));
-    this.wins.push(new Win('Spock', 'Scissors', 'Spock smashes scissors'));
-    this.wins.push(new Win('Scissors', 'Lizard', 'Scissors decapitates lizard'));
-    this.wins.push(new Win('Lizard', 'Paper', 'Lizard eats paper'));
-    this.wins.push(new Win('Paper', 'Spock', 'Paper disproves Spock'));
-    this.wins.push(new Win('Spock', 'Rock', 'Spock vaporizes rock'));
-    this.wins.push(new Win('Rock', 'Scissors', 'As it always has, rock crushes scissors'));
-    this.dueler = new Dueler(this.moves, this.wins);
+function ClientApp() {
+    this.game = new RPSLS();
     this.session = undefined;
     this.users = undefined;
     this.challengeKey = undefined;
     this.cPid = undefined
 }
 
-RPSLS.prototype.play = function (left, right) {
-    var result = this.dueler.attack(left, right);
+ClientApp.prototype.play = function (left, right) {
+    var result = this.game.play(left, right);
     $('.result').text(result.message);
 };
 
-RPSLS.prototype.playRemote = function (move) {
+ClientApp.prototype.playRemote = function (move) {
     var context = this;
     $.ajax({
         url:'/challenge/' + this.challengeKey + '/' + this.session.user.username + '/' + move,
@@ -38,12 +26,12 @@ RPSLS.prototype.playRemote = function (move) {
     });
 };
 
-RPSLS.prototype.accept = function (key) {
+ClientApp.prototype.accept = function (key) {
     app.challengeKey = key;
     clearInterval(this.cPid);
 };
 
-RPSLS.prototype.challenge = function (challengee) {
+ClientApp.prototype.challenge = function (challengee) {
     $.ajax({
         url:'/user/' + this.session.user.username + '/challenges/' + challengee,
         type:'PUT',
@@ -51,7 +39,7 @@ RPSLS.prototype.challenge = function (challengee) {
     });
 };
 
-RPSLS.prototype.checkForChallenges = function () {
+ClientApp.prototype.checkForChallenges = function () {
     var context = this;
     this.cPid = setInterval(function () {
         if (context.session != undefined && context.session.user.username != undefined) {
@@ -60,13 +48,13 @@ RPSLS.prototype.checkForChallenges = function () {
     }, 5000);
 };
 
-RPSLS.prototype.getChallenges = function () {
+ClientApp.prototype.getChallenges = function () {
     $.getJSON('/user/' + this.session.user.username + '/challenges/', function (data) {
         challengesList.render(data != undefined ? data : []);
     });
 };
 
-RPSLS.prototype.checkResult = function (key) {
+ClientApp.prototype.checkResult = function (key) {
     var context = this;
     var pid = setInterval(function(){
         context.getResult(key, function (result) {
@@ -80,11 +68,11 @@ RPSLS.prototype.checkResult = function (key) {
     }, 1000);
 };
 
-RPSLS.prototype.getResult = function (key, success) {
+ClientApp.prototype.getResult = function (key, success) {
     $.getJSON('/challenge/' + key, success);
 };
 
-RPSLS.prototype.getSession = function (fn) {
+ClientApp.prototype.getSession = function (fn) {
     var context = this;
     $.getJSON('/session', function (data) {
         context.session = data;
@@ -94,7 +82,7 @@ RPSLS.prototype.getSession = function (fn) {
     });
 };
 
-RPSLS.prototype.login = function (username, password) {
+ClientApp.prototype.login = function (username, password) {
     var context = this;
     $.ajax({
         url:'/login/?username=' + username + '&password=' + password,
@@ -110,7 +98,7 @@ RPSLS.prototype.login = function (username, password) {
     });
 };
 
-RPSLS.prototype.signup = function (user) {
+ClientApp.prototype.signup = function (user) {
     $.ajax({
         url:'/signup/',
         type:'PUT',
@@ -124,7 +112,7 @@ RPSLS.prototype.signup = function (user) {
     });
 };
 
-RPSLS.prototype.loadUsers = function (render) {
+ClientApp.prototype.loadUsers = function (render) {
     var context = this;
     $.getJSON('/user', function (data) {
         context.users = data;
@@ -134,11 +122,11 @@ RPSLS.prototype.loadUsers = function (render) {
     });
 };
 
-RPSLS.prototype.renderUsers = function () {
+ClientApp.prototype.renderUsers = function () {
     usersListDD.render(this.users);
 };
 
-RPSLS.prototype.setup = function (fn) {
+ClientApp.prototype.setup = function (fn) {
     var context = this;
 
     $('#play-local').click(function () {
