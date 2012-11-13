@@ -28,6 +28,15 @@ describe('RestService', function () {
         });
     });
 
+    it("should return all challenges between users", function (done) {
+        request(url + "/challenge/between/BoyCook/and/Craig", function (error, response, body) {
+            body = JSON.parse(body);
+            expect(body.length).toEqual(1);
+            expect(body).toContain(expectedChallenge);
+            done();
+        });
+    });
+
     it("should return a given challenge", function (done) {
         request(url + "/challenge/BoyCook:Craig:1", function (error, response, body) {
             body = JSON.parse(body);
