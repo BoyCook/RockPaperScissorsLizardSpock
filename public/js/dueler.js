@@ -64,7 +64,7 @@ function Win(winner, loser, message) {
     this.message = message;
 }
 
-if (exports != undefined) {
+if (!(typeof exports === "undefined")) {
     exports.Win = Win;
     exports.Dueler = Dueler;
 }

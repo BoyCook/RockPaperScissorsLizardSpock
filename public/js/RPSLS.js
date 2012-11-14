@@ -2,14 +2,13 @@
  Rock Paper Scissors Lizard Spock :-)
  */
 
-if (exports != undefined) {
-    exports.RPSLS = RPSLS;
-    exports.newGame = new RPSLS();
-//    var Win = require('./dueler').Win;
-//    var Dueler = require('./dueler').Dueler;
-}
-
 function RPSLS() {
+    if (!(typeof exports === "undefined")) {
+        Win = require('./dueler').Win;
+        Dueler = require('./dueler').Dueler;
+        Array = require('./Array').Array;
+    }
+
     this.moves = ['Rock', 'Paper', 'Scissors', 'Lizard', 'Spock'];
     this.wins = new Array();
     this.wins.push(new Win('Scissors', 'Paper', 'Scissors cuts paper'));
@@ -28,3 +27,8 @@ function RPSLS() {
 RPSLS.prototype.play = function (left, right) {
     return this.dueler.attack(left, right);
 };
+
+if (!(typeof exports === "undefined")) {
+    exports.RPSLS = RPSLS;
+    exports.newGame = new RPSLS();
+}

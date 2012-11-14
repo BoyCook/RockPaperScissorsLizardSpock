@@ -3,9 +3,9 @@
  * @param obj
  * @return {Boolean}
  */
-Array.prototype.contains = function(obj) {
+Array.prototype.contains = function (obj) {
     var result = false;
-    for (var i=0; i< this.length; i++) {
+    for (var i = 0; i < this.length; i++) {
         if (this[i] == obj) {
             result = true;
             break;
@@ -14,7 +14,6 @@ Array.prototype.contains = function(obj) {
     return result;
 };
 
-if (exports != undefined) {
+if (!(typeof exports === "undefined")) {
     exports.Array = Array;
 }
-
