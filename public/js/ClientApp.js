@@ -181,14 +181,16 @@ ClientApp.prototype.setup = function (fn) {
     });
     $('#signUp').click(function () {
         //TODO: validate input + passwords match
-        var user = {
-            username:$('.new-username').val(),
-            firstName:$('.new-first-name').val(),
-            lastName:$('.new-last-name').val(),
-            password:$('.new-password').val(),
-            email:$('.new-email').val()
-        };
-        context.signup(user);
+        if ($('#sign-up-box').validate()) {
+            var user = {
+                username:$('.new-username').val(),
+                firstName:$('.new-first-name').val(),
+                lastName:$('.new-last-name').val(),
+                password:$('.new-password').val(),
+                email:$('.new-email').val()
+            };
+            context.signup(user);
+        }
     });
     $('#cancelSignUp').click(function () {
         $('.sign-up').hide();
