@@ -60,7 +60,7 @@ ClientApp.prototype.getChallenges = function () {
 
 ClientApp.prototype.checkResult = function (key) {
     var context = this;
-    var pid = setInterval(function(){
+    var pid = setInterval(function () {
         context.getChallenge(key, function (challenge) {
             var p1 = challenge.challenger;
             var p2 = challenge.challengee;
@@ -69,7 +69,7 @@ ClientApp.prototype.checkResult = function (key) {
             //TODO: better undefined check
             if (m1 != undefined && m2 != undefined) {
                 var result = context.game.play(m1, m2);
-                $('.result-remote').text(result.message);
+                resultDisplay.render({move: result, outcome: (challenge[context.username] == result.winner ? 'Winner' : 'Loser')});
                 clearInterval(pid);
             }
         })
@@ -148,11 +148,19 @@ ClientApp.prototype.renderUsers = function () {
 ClientApp.prototype.setup = function (fn) {
     var context = this;
 
+    $('#username').hintBox('Username');
+    //TODO: use label overlay for password txt
+    $('#password').hintBox('Password');
     $('#play-local').click(function () {
-        context.play($('.left-dd').val(), $('.right-dd').val());
+        if ($('#game-local').validate()) {
+            context.play($('.left-dd').val(), $('.right-dd').val());
+        }
     });
     $('#play-remote').click(function () {
-        context.playRemote($('.user-moves-dd').val());
+        if ($('#user-move').validate()) {
+            context.playRemote($('.user-moves-dd').val());
+            $('#user-move').hide();
+        }
     });
     $('#challenge').click(function () {
         if ($('#select-opponent').validate()) {

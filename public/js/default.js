@@ -65,6 +65,15 @@ var MovesView = Backbone.View.extend({
     }
 });
 
+var ResultView = Backbone.View.extend({
+    initialize:function () {
+    },
+    render:function (result) {
+        var template = _.template($('#result_template').html(), {result: result});
+        this.$el.html(template);
+    }
+});
+
 var UsersListView = Backbone.View.extend({
     initialize:function () {
     },
@@ -86,6 +95,7 @@ var ChallengesView = Backbone.View.extend({
 var app = undefined;
 var usersListDD = undefined;
 var challengesList = undefined;
+var resultDisplay = undefined;
 
 $(document).ready(function () {
     app = new ClientApp();
@@ -97,6 +107,7 @@ $(document).ready(function () {
         new MovesView({ el:$('.right-dd')});
         usersListDD = new UsersListView({ el:$('.users-dd')});
         challengesList = new ChallengesView({ el:$('.challenges')});
+        resultDisplay = new ResultView({ el:$('.result-remote')})
         Backbone.history.start();
         $('.module, .user-move').hide();
         $('.rules').show();
