@@ -19,6 +19,12 @@ app.configure('test', function () {
 
 app.configure('development', function () {
     console.log('Doing [development] env configure');
+    db = require('fakeredis').createClient('testdb');
+    require('./test/spec/testdata').createTestData(db);
+});
+
+app.configure('production', function () {
+    console.log('Doing [production] env configure');
     db = require('redis').createClient();  //127.0.0.1:6379
 });
 

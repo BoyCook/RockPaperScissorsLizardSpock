@@ -4,6 +4,7 @@
 function ClientApp() {
     this.game = new RPSLS();
     this.session = undefined;
+    this.username = undefined;
     this.users = undefined;
     this.challengeKey = undefined;
     this.cPid = undefined
@@ -76,6 +77,8 @@ ClientApp.prototype.getSession = function (fn) {
     var context = this;
     $.getJSON('/session', function (data) {
         context.session = data;
+        context.username = data.user.username;
+        context.loadUsers(true);
         if (fn) {
             fn()
         }
@@ -93,6 +96,8 @@ ClientApp.prototype.login = function (username, password) {
         },
         success:function (data) {
             context.session = data;
+            context.username = username;
+            context.loadUsers(true);
             $('.login').hide();
         }
     });
@@ -115,6 +120,7 @@ ClientApp.prototype.signup = function (user) {
 ClientApp.prototype.loadUsers = function (render) {
     var context = this;
     $.getJSON('/user', function (data) {
+        data.remove(context.username);
         context.users = data;
         if (render) {
             context.renderUsers();
@@ -173,7 +179,12 @@ ClientApp.prototype.setup = function (fn) {
         $('.sign-up').hide();
         $('.modules').show();
     });
-    this.loadUsers(true);
+    $('.password, .username').keyup(function (e) {
+        if (e.keyCode == 13) {
+            context.login($('.username').val(), $('.password').val());
+        }
+    });
+
     this.getSession();
     this.checkForChallenges();
 
