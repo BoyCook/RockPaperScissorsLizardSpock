@@ -11,11 +11,13 @@
     <meta charset="utf-8">
     <link rel="stylesheet" href="css/default.css" type="text/css" media="screen">
     <link rel="stylesheet" href="css/menu.css" type="text/css" media="screen">
+    <link rel="stylesheet" href="css/jquery.validator.css" type="text/css" media="screen">
+    <script type="text/javascript" src="js/Array.js"></script>
     <script type="text/javascript" src="js/lib/jquery-1.8.2.min.js"></script>
     <script type="text/javascript" src="js/lib/jquery-ui-1.8.2.custom.min.js"></script>
     <script type="text/javascript" src="js/lib/underscore-min-1.4.2.js"></script>
     <script type="text/javascript" src="js/lib/backbone-min-0.9.2.js"></script>
-    <script type="text/javascript" src="js/Array.js"></script>
+    <script type="text/javascript" src="js/lib/jquery.validator.js"></script>
     <script type="text/javascript" src="js/dueler.js"></script>
     <script type="text/javascript" src="js/RPSLS.js"></script>
     <script type="text/javascript" src="js/ClientApp.js"></script>
@@ -30,12 +32,15 @@
         <% _.each(items, function(item) { %>  <option value="<%= item %>"><%= item %></option> <% }); %>
     </script>
     <script type="text/template" id="challenges_template">
+        <% if (challenges.length > 0) { %>
+        <p>or</p>
         <p>Accept Challenge:</p>
         <table>
             <% _.each(challenges, function(item) { %>
                 <tr><td><a href="#accept/<%= item.key %>"><%= item.challenger %> vs. <%= item.challengee %></a></td></tr>
             <% }); %>
         </table>
+        <% } %>
     </script>
 </head>
 
@@ -72,9 +77,9 @@
             </div>
         </div>
         <div class="game-remote module">
-            <div class="select-opponent">
-                Select Opponent:
-                <select id="users-dd" class="users-dd">
+            <div id="select-opponent" class="select-opponent">
+                Challenge Opponent:
+                <select id="users-dd" class="users-dd required validate-dd">
                     <option value="-1" selected>-- Select --</option>
                 </select>
                 <input type="button" id="challenge" value="Challenge"/>
@@ -112,14 +117,14 @@
             <p>Developed by Craig Cook <a href="http://craigcook.co.uk" target="_blank">http://craigcook.co.uk</a></p>
         </div>
     </div>
-    <div class="login module bordered pop-up">
+    <div id="login-box" class="login module bordered pop-up">
         <label>
             <span>Username</span>
-            <input class="username" type="text" autocomplete="on">
+            <input class="username required" type="text" autocomplete="on">
         </label>
         <label>
             <span>Password</span>
-            <input class="password" type="password" value="">
+            <input class="password required" type="password" value="">
         </label>
         <input type="button" id="login" value="Sign in"/>
 

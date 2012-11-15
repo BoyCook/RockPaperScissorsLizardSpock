@@ -40,7 +40,7 @@ app.configure(function () {
     passport.deserializeUser(session.deserializeUser);
     app.use(express.cookieParser('appsecret'));
     app.use(express.bodyParser());
-    app.use(express.session({ secret:'appsecret', store:new RedisStore, cookie:{ maxAge:60000 } }));
+    app.use(express.session({ secret:'appsecret', store:new RedisStore, cookie:{ maxAge:60000, expires: false } }));
     app.use(passport.initialize());
     app.use(passport.session());
     app.use(app.router);

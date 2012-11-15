@@ -14,6 +14,7 @@ var Router = Backbone.Router.extend({
     },
     playRemote:function () {
         if (app.session == undefined) {
+            document.location = '#';
             alert('You must login to play remotely')
         } else {
             $('.module').hide();
@@ -49,7 +50,7 @@ var RulesView = Backbone.View.extend({
         this.render();
     },
     render:function () {
-        var template = _.template($('#rules_template').html(), {rules: app.wins});
+        var template = _.template($('#rules_template').html(), {rules: app.game.wins});
         this.$el.html(template);
     }
 });
@@ -59,7 +60,7 @@ var MovesView = Backbone.View.extend({
         this.render();
     },
     render:function () {
-        var template = _.template($('#dd_template').html(), {items: app.moves});
+        var template = _.template($('#dd_template').html(), {items: app.game.moves});
         this.$el.append(template);
     }
 });

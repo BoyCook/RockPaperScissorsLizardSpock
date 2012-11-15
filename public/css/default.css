@@ -60,6 +60,10 @@ body {
     border-radius: 5px;
 }
 
+.module {
+    padding: 10px;
+}
+
 .pop-up {
     padding: 10px;
     border-radius: 5px;

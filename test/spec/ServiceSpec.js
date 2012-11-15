@@ -8,7 +8,7 @@ describe('RestService', function () {
         require('./testdata').createTestData(require('fakeredis').createClient('testdb'), done);
     });
 
-    var expectedChallenge = {BoyCook:'', Craig:'', challengee:'Craig', challenger:'BoyCook', key:'BoyCook:Craig:1', winner:''};
+    var expectedChallenge = {BoyCook:'', Craig:'Rock', challengee:'Craig', challenger:'BoyCook', key:'BoyCook:Craig:1', winner:''};
     var expectedNewChallenge = {Hulk:'', Superman:'', challengee:'Superman', challenger:'Hulk', key:'Hulk:Superman:1', winner:''};
 
     it("should return a given users challenges", function (done) {

@@ -36,7 +36,10 @@ ClientApp.prototype.challenge = function (challengee) {
     $.ajax({
         url:'/user/' + this.session.user.username + '/challenges/' + challengee,
         type:'PUT',
-        contentType:'application/x-www-form-urlencoded'
+        contentType:'application/x-www-form-urlencoded',
+        error:function () {
+            alert('Challenge against [' + challengee + '] is already open - select it from the list below');
+        }
     });
 };
 
@@ -58,18 +61,22 @@ ClientApp.prototype.getChallenges = function () {
 ClientApp.prototype.checkResult = function (key) {
     var context = this;
     var pid = setInterval(function(){
-        context.getResult(key, function (result) {
-            var p1 = result.challenger;
-            var p2 = result.challengee;
-            if (result[p1] != undefined && result[p2] != undefined) {
-                $('.result-remote').text(JSON.stringify(result));
+        context.getChallenge(key, function (challenge) {
+            var p1 = challenge.challenger;
+            var p2 = challenge.challengee;
+            var m1 = challenge[p1];
+            var m2 = challenge[p2];
+            //TODO: better undefined check
+            if (m1 != undefined && m2 != undefined) {
+                var result = context.game.play(m1, m2);
+                $('.result-remote').text(result.message);
                 clearInterval(pid);
             }
         })
     }, 1000);
 };
 
-ClientApp.prototype.getResult = function (key, success) {
+ClientApp.prototype.getChallenge = function (key, success) {
     $.getJSON('/challenge/' + key, success);
 };
 
@@ -85,6 +92,12 @@ ClientApp.prototype.getSession = function (fn) {
     });
 };
 
+ClientApp.prototype.loginForm = function () {
+    if ($('#login-box').validate()) {
+        this.login($('.username').val(), $('.password').val());
+    }
+};
+
 ClientApp.prototype.login = function (username, password) {
     var context = this;
     $.ajax({
@@ -92,7 +105,7 @@ ClientApp.prototype.login = function (username, password) {
         type:'POST',
         contentType:'application/x-www-form-urlencoded',
         error:function () {
-            alert('Failed to authenticate user');
+            alert('Failed to authenticate user [' + username + ']');
         },
         success:function (data) {
             context.session = data;
@@ -142,7 +155,9 @@ ClientApp.prototype.setup = function (fn) {
         context.playRemote($('.user-moves-dd').val());
     });
     $('#challenge').click(function () {
-        context.challenge($('.users-dd').val());
+        if ($('#select-opponent').validate()) {
+            context.challenge($('.users-dd').val());
+        }
     });
     $('.show-login').click(function () {
         //This is hacky - need to sort with CSS later
@@ -162,7 +177,7 @@ ClientApp.prototype.setup = function (fn) {
         console.log('Playing: ' + val);
     });
     $('#login').click(function () {
-        context.login($('.username').val(), $('.password').val());
+        context.loginForm();
     });
     $('#signUp').click(function () {
         //TODO: validate input + passwords match
@@ -181,7 +196,7 @@ ClientApp.prototype.setup = function (fn) {
     });
     $('.password, .username').keyup(function (e) {
         if (e.keyCode == 13) {
-            context.login($('.username').val(), $('.password').val());
+            context.loginForm();
         }
     });
 

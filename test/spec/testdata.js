@@ -20,7 +20,7 @@ TestData.prototype.install = function (fn) {
                 context.addUser(user2, function () {
                     context.addUser(user3, function () {
                         context.addUser(user4, function () {
-                            context.addChallenge('BoyCook', 'Craig', 'BoyCook:Craig:1', function () {
+                            context.addChallenge('BoyCook', 'Craig', '', 'Rock', 'BoyCook:Craig:1', function () {
                                 console.log('Setting installed [true]');
                                 context.db.set('installed', 'true', fn);
                             });
@@ -42,7 +42,7 @@ TestData.prototype.addUser = function (user, fn) {
     this.db.hmset(user.username, 'user', JSON.stringify(user), fn);
 };
 
-TestData.prototype.addChallenge = function (user, challengee, key, fn) {
+TestData.prototype.addChallenge = function (user, challengee, userVal, challengeeVal, key, fn) {
     console.log('Adding test challenge');
     this.db.sadd('challenges', key);
     this.db.sadd(challengee + ':challenges', key);
@@ -51,8 +51,8 @@ TestData.prototype.addChallenge = function (user, challengee, key, fn) {
         'key', key,
         'challenger', user,
         'challengee', challengee,
-        user, '',
-        challengee, '',
+        user, userVal,
+        challengee, challengeeVal,
         'winner', '', fn);
 };
 
