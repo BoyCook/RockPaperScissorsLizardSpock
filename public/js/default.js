@@ -68,9 +68,9 @@ var MovesView = Backbone.View.extend({
 var ResultView = Backbone.View.extend({
     initialize:function () {
     },
-    render:function (result) {
+    render:function (selector, result) {
         var template = _.template($('#result_template').html(), {result: result});
-        this.$el.html(template);
+        $(selector).html(template);
     }
 });
 
@@ -107,7 +107,7 @@ $(document).ready(function () {
         new MovesView({ el:$('.right-dd')});
         usersListDD = new UsersListView({ el:$('.users-dd')});
         challengesList = new ChallengesView({ el:$('.challenges')});
-        resultDisplay = new ResultView({ el:$('.result-remote')})
+        resultDisplay = new ResultView()
         Backbone.history.start();
         $('.module, .user-move').hide();
         $('.rules').show();

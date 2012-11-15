@@ -12,7 +12,7 @@ function ClientApp() {
 
 ClientApp.prototype.play = function (left, right) {
     var result = this.game.play(left, right);
-    $('.result').text(result.message);
+    resultDisplay.render('.result-local', {move:result, message:result.message});
 };
 
 ClientApp.prototype.playRemote = function (move) {
@@ -69,7 +69,8 @@ ClientApp.prototype.checkResult = function (key) {
             //TODO: better undefined check
             if (m1 != undefined && m2 != undefined) {
                 var result = context.game.play(m1, m2);
-                resultDisplay.render({move: result, outcome: (challenge[context.username] == result.winner ? 'Winner' : 'Loser')});
+                var message = (challenge[context.username] == result.winner ? 'Winner' : 'Loser') + ' - ' + result.message;
+                resultDisplay.render('.result-remote', {move:result, message:message});
                 clearInterval(pid);
             }
         })

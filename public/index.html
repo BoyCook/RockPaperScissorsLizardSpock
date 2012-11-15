@@ -45,7 +45,7 @@
         <% } %>
     </script>
     <script type="text/template" id="result_template">
-        <p><%= result.outcome %> - <%= result.move.message %></p>
+        <p><%= result.message %>
         <p><img src="images/moves/<%= result.move.winner %>.png" alt="<%= result.move.winner %>" /><img src="images/moves/<%= result.move.loser %>.png" alt="<%= result.move.loser %>" /></p>
     </script>
 </head>
@@ -106,7 +106,7 @@
                 <option value="-1" selected>-- Select --</option>
             </select>
             <input type="button" id="play-local" value="Play"/>
-            <div class="result"></div>
+            <div class="result-local"></div>
         </div>
         <div class="game-computer module">
             <h3>Play computer</h3>
