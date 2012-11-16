@@ -92,12 +92,16 @@ ClientApp.prototype.loginForm = function () {
 };
 
 ClientApp.prototype.logout = function () {
+    var context = this;
     $.ajax({
         url:'/logout',
         type:'GET',
         contentType:'application/x-www-form-urlencoded',
         success:function () {
+            document.location = '#rules';
             clearInterval(this.cPid);
+            context.session = undefined;
+            context.username = undefined;
             $('.show-user').replaceWith($('#login_menu_template').html());
         }
     });
@@ -113,7 +117,7 @@ ClientApp.prototype.login = function (username, password) {
             alert('Failed to authenticate user [' + username + ']');
         },
         success:function (data) {
-            context.getSession(function(){
+            context.getSession(function () {
                 $('.login').hide();
             });
         }
@@ -144,7 +148,7 @@ ClientApp.prototype.signup = function (user) {
         data:JSON.stringify(user),
         complete:function () {
             context.session = {
-                user: user
+                user:user
             };
             context.username = user.username;
             $('.sign-up').hide();
