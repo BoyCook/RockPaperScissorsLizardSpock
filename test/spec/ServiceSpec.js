@@ -11,8 +11,8 @@ describe('RestService', function () {
     var expectedChallenge = {BoyCook:'', Craig:'Rock', challengee:'Craig', challenger:'BoyCook', key:'BoyCook:Craig:1', winner:''};
     var expectedNewChallenge = {Hulk:'', Superman:'', challengee:'Superman', challenger:'Hulk', key:'Hulk:Superman:1', winner:''};
 
-    it("should return a given users challenges", function (done) {
-        request(url + "/user/BoyCook/challenges", function (error, response, body) {
+    it("should return a given users active challenges", function (done) {
+        request(url + "/user/BoyCook/challenges?active=true", function (error, response, body) {
             body = JSON.parse(body);
             expect(body.length).toEqual(1);
             expect(body).toContain(expectedChallenge);
@@ -127,7 +127,7 @@ describe('RestService', function () {
     });
 
     it("should now have no active challenges between users", function (done) {
-        request(url + "/user/BoyCook/challenges", function (error, response, body) {
+        request(url + "/user/BoyCook/challenges?active=true", function (error, response, body) {
             body = JSON.parse(body);
             expect(body.length).toEqual(0);
             done();
@@ -137,6 +137,15 @@ describe('RestService', function () {
     it("should allow a user to challenge again after previous one complete", function (done) {
         request.put(url + '/user/Hulk/challenges/Superman', function (error, response, body) {
             expect(response.statusCode).toEqual(201);
+            done();
+        });
+    });
+
+    it("should return all of a given users challenges", function (done) {
+        request(url + "/user/BoyCook/challenges", function (error, response, body) {
+            body = JSON.parse(body);
+            expect(body.length).toEqual(1);
+            expect(body).toContain(expectedChallenge);
             done();
         });
     });
