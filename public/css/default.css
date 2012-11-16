@@ -91,6 +91,25 @@ body {
 
 .rules ul {
     list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.rules ul li img {
+    padding: 5px;
+    /*padding-left: 5px;*/
+    /*padding-right: 5px;*/
+}
+
+.rules ul li label {
+    position: absolute;
+    margin-top: 25px;
+    margin-left: 5px;
+    /*vertical-align: middle;*/
+    /*margin-top: 20px;*/
+    /*margin-bottom: 20px;*/
+    /*padding-top: 20px;*/
+    /*padding-bottom: 20px;*/
 }
 
 .login {

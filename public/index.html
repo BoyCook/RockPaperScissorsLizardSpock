@@ -27,7 +27,13 @@
 
     <script type="text/template" id="rules_template">
         <ul class="rules-list">
-            <% _.each(rules, function(rule) { %>  <li><img src="images/moves/<%= rule.winner %>.png" alt="<%= rule.winner %>" /><img src="images/moves/<%= rule.loser %>.png" alt="<%= rule.loser %>" /> <%= rule.message %> </li> <% }); %>
+            <% _.each(rules, function(rule) { %>
+            <li>
+                <img src="images/moves/<%= rule.winner %>.png" alt="<%= rule.winner %>" />
+                <img src="images/moves/<%= rule.loser %>.png" alt="<%= rule.loser %>" />
+                <label><%= rule.message %></label>
+            </li>
+            <% }); %>
         </ul>
     </script>
     <script type="text/template" id="dd_template">
@@ -36,7 +42,7 @@
     <script type="text/template" id="challenges_template">
         <% if (challenges.length > 0) { %>
         <p>or</p>
-        <p>Accept Challenge:</p>
+        <p>Play existing challenge:</p>
         <table>
             <% _.each(challenges, function(item) { %>
                 <tr><td><a href="#accept/<%= item.key %>"><%= item.challenger %> vs. <%= item.challengee %></a></td></tr>
@@ -58,9 +64,9 @@
             <li>
                 <a>Play</a>
                 <ul>
-                    <li><a href="#play-remote">Vs. Remote</a></li>
-                    <li><a href="#play-local">Vs. Local</a></li>
-                    <li><a href="#play-computer">Vs. Computer</a></li>
+                    <li><a href="#play-remote">vs. Remote</a></li>
+                    <li><a href="#play-local">vs. Local</a></li>
+                    <li><a href="#play-computer">vs. Computer</a></li>
                 </ul>
             </li>
             <li><a href="#about">About</a></li>
@@ -80,7 +86,7 @@
         </div>
         <div class="game-remote module">
             <div id="select-opponent" class="select-opponent">
-                Challenge Opponent:
+                Create new challenge:
                 <select id="users-dd" class="users-dd required validate-dd">
                     <option value="-1" selected>-- Select --</option>
                 </select>
@@ -95,6 +101,7 @@
                 </select>
                 <input type="button" id="play-remote" value="Play"/>
             </div>
+            <div class="result-waiting">Waiting for opponent move...</div>
             <div class="result-remote"></div>
         </div>
         <div id="game-local" class="game-local module">
@@ -109,7 +116,7 @@
             <div class="result-local"></div>
         </div>
         <div class="game-computer module">
-            <h3>Play computer</h3>
+            <h3>Play computer - coming soon...</h3>
         </div>
         <div class="about module">
             <div class="banner">

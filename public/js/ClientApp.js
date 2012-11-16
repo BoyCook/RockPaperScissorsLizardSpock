@@ -45,17 +45,18 @@ ClientApp.prototype.challenge = function (challengee) {
 
 ClientApp.prototype.checkForChallenges = function () {
     var context = this;
+    context.getChallenges();
     this.cPid = setInterval(function () {
-        if (context.session != undefined && context.session.user.username != undefined) {
-            context.getChallenges();
-        }
+        context.getChallenges();
     }, 5000);
 };
 
 ClientApp.prototype.getChallenges = function () {
-    $.getJSON('/user/' + this.session.user.username + '/challenges/', function (data) {
-        challengesList.render(data != undefined ? data : []);
-    });
+    if (this.session != undefined && this.session.user.username != undefined) {
+        $.getJSON('/user/' + this.session.user.username + '/challenges/', function (data) {
+            challengesList.render(data != undefined ? data : []);
+        });
+    }
 };
 
 ClientApp.prototype.checkResult = function (key) {
@@ -66,12 +67,14 @@ ClientApp.prototype.checkResult = function (key) {
             var p2 = challenge.challengee;
             var m1 = challenge[p1];
             var m2 = challenge[p2];
-            //TODO: better undefined check
-            if (m1 != undefined && m2 != undefined) {
+            if (isNotEmpty(m1) && isNotEmpty(m2)) {
                 var result = context.game.play(m1, m2);
                 var message = (challenge[context.username] == result.winner ? 'Winner' : 'Loser') + ' - ' + result.message;
+                $('.result-waiting').hide();
+                $('.result-remote').show();
                 resultDisplay.render('.result-remote', {move:result, message:message});
                 clearInterval(pid);
+                context.checkForChallenges();
             }
         })
     }, 1000);
@@ -118,6 +121,7 @@ ClientApp.prototype.login = function (username, password) {
 };
 
 ClientApp.prototype.signup = function (user) {
+    var context = this;
     $.ajax({
         url:'/signup/',
         type:'PUT',
@@ -125,6 +129,10 @@ ClientApp.prototype.signup = function (user) {
         dataType:'json',
         data:JSON.stringify(user),
         complete:function () {
+            context.session = {
+                user: user
+            };
+            context.username = user.username;
             $('.sign-up').hide();
             $('.modules').show();
         }
@@ -160,6 +168,7 @@ ClientApp.prototype.setup = function (fn) {
     $('#play-remote').click(function () {
         if ($('#user-move').validate()) {
             context.playRemote($('.user-moves-dd').val());
+            $('.result-waiting').show();
             $('#user-move').hide();
         }
     });
@@ -218,3 +227,11 @@ ClientApp.prototype.setup = function (fn) {
         fn()
     }
 };
+
+function isNotEmpty(val) {
+    return (val != null && val.length > 0);
+}
+
+function isEmpty(val) {
+    return !isNotEmpty(val);
+}

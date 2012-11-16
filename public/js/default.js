@@ -17,9 +17,8 @@ var Router = Backbone.Router.extend({
             document.location = '#';
             alert('You must login to play remotely')
         } else {
-            $('.module').hide();
-            $('.game-remote').show();
-            $('.select-opponent, .challenges').show();
+            $('.module, .result-remote, .result-waiting, #user-move').hide();
+            $('.game-remote, .select-opponent, .challenges').show();
         }
     },
     playLocal:function () {
