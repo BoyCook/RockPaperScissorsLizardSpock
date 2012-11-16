@@ -57,6 +57,19 @@
         <img src="images/moves/<%= result.move.loser %>.png" alt="<%= result.move.loser %>" />
         <% } %>
     </script>
+    <script type="text/template" id="user_menu_template">
+        <li class="show-user">
+            <a><%= user.username %></a>
+            <ul>
+                <li><a href="#view-use">View</a></li>
+                <li><a href="#user-history">History</a></li>
+                <li><a href="#logout">Logout</a></li>
+            </ul>
+        </li>
+    </script>
+    <script type="text/template" id="login_menu_template">
+        <li class="show-login"><a href="#login">Login</a></li>
+    </script>
 </head>
 
 <body>

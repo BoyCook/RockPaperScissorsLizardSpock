@@ -9,6 +9,7 @@ var Router = Backbone.Router.extend({
         "play-computer":"playComputer",
         "rules":"rules",
         "about":"about",
+        "logout":"logout",
         "accept/:key":"accept",
         "search/:type/:mode/:id":"search"   // #search/service/108
     },
@@ -41,6 +42,9 @@ var Router = Backbone.Router.extend({
         $('.select-opponent, .challenges').hide();
         $('.user-move').show();
         app.accept(key);
+    },
+    logout: function(){
+        app.logout();
     }
 });
 
@@ -49,7 +53,7 @@ var RulesView = Backbone.View.extend({
         this.render();
     },
     render:function () {
-        var template = _.template($('#rules_template').html(), {rules: app.game.wins});
+        var template = _.template($('#rules_template').html(), {rules:app.game.wins});
         this.$el.html(template);
     }
 });
@@ -59,7 +63,7 @@ var MovesView = Backbone.View.extend({
         this.render();
     },
     render:function () {
-        var template = _.template($('#dd_template').html(), {items: app.game.moves});
+        var template = _.template($('#dd_template').html(), {items:app.game.moves});
         this.$el.append(template);
     }
 });
@@ -68,7 +72,7 @@ var ResultView = Backbone.View.extend({
     initialize:function () {
     },
     render:function (selector, result) {
-        var template = _.template($('#result_template').html(), {result: result});
+        var template = _.template($('#result_template').html(), {result:result});
         $(selector).html(template);
     }
 });
@@ -77,7 +81,7 @@ var UsersListView = Backbone.View.extend({
     initialize:function () {
     },
     render:function (users) {
-        var template = _.template($('#dd_template').html(), {items: users});
+        var template = _.template($('#dd_template').html(), {items:users});
         this.$el.append(template);
     }
 });
@@ -86,8 +90,17 @@ var ChallengesView = Backbone.View.extend({
     initialize:function () {
     },
     render:function (challenges) {
-        var template = _.template($('#challenges_template').html(), {challenges: challenges});
+        var template = _.template($('#challenges_template').html(), {challenges:challenges});
         this.$el.html(template);
+    }
+});
+
+var UserMenuView = Backbone.View.extend({
+    initialize:function () {
+    },
+    render:function (user) {
+        var template = _.template($('#user_menu_template').html(), {user:user});
+        $(this.$el.selector).replaceWith(template);
     }
 });
 
@@ -95,6 +108,7 @@ var app = undefined;
 var usersListDD = undefined;
 var challengesList = undefined;
 var resultDisplay = undefined;
+var userMenu = undefined;
 
 $(document).ready(function () {
     app = new ClientApp();
@@ -106,7 +120,8 @@ $(document).ready(function () {
         new MovesView({ el:$('.right-dd')});
         usersListDD = new UsersListView({ el:$('.users-dd')});
         challengesList = new ChallengesView({ el:$('.challenges')});
-        resultDisplay = new ResultView()
+        resultDisplay = new ResultView();
+        userMenu = new UserMenuView({ el:$('.show-login')});
         Backbone.history.start();
         $('.module, .user-move').hide();
         $('.rules').show();

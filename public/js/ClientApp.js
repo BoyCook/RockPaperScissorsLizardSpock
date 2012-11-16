@@ -85,26 +85,24 @@ ClientApp.prototype.getChallenge = function (key, success) {
     $.getJSON('/challenge/' + key, success);
 };
 
-ClientApp.prototype.getSession = function (fn) {
-    var context = this;
-    $.getJSON('/session', function (data) {
-        context.session = data;
-        context.username = data.user.username;
-        context.loadUsers(true);
-        context.checkForChallenges();
-        if (fn) {
-            fn()
-        }
-    });
-};
-
 ClientApp.prototype.loginForm = function () {
     if ($('#login-box').validate()) {
         this.login($('.username').val(), $('.password').val());
     }
 };
 
-//TODO: have a single function to handle client session object
+ClientApp.prototype.logout = function () {
+    $.ajax({
+        url:'/logout',
+        type:'GET',
+        contentType:'application/x-www-form-urlencoded',
+        success:function () {
+            clearInterval(this.cPid);
+            $('.show-user').replaceWith($('#login_menu_template').html());
+        }
+    });
+};
+
 ClientApp.prototype.login = function (username, password) {
     var context = this;
     $.ajax({
@@ -115,11 +113,23 @@ ClientApp.prototype.login = function (username, password) {
             alert('Failed to authenticate user [' + username + ']');
         },
         success:function (data) {
-            context.session = data;
-            context.username = username;
-            context.loadUsers(true);
-            context.checkForChallenges();
-            $('.login').hide();
+            context.getSession(function(){
+                $('.login').hide();
+            });
+        }
+    });
+};
+
+ClientApp.prototype.getSession = function (fn) {
+    var context = this;
+    $.getJSON('/session', function (data) {
+        context.session = data;
+        context.username = data.user.username;
+        context.loadUsers(true);
+        context.checkForChallenges();
+        userMenu.render(data.user);
+        if (fn) {
+            fn()
         }
     });
 };
@@ -181,7 +191,7 @@ ClientApp.prototype.setup = function (fn) {
             context.challenge($('.users-dd').val());
         }
     });
-    $('.show-login').click(function () {
+    $('.show-login').live('click', function () {
         //This is hacky - need to sort with CSS later
         $('.login').toggle();
         var newLeft = $('.show-login').position().left + 10;
