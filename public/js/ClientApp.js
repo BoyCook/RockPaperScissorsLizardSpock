@@ -90,6 +90,7 @@ ClientApp.prototype.getSession = function (fn) {
         context.session = data;
         context.username = data.user.username;
         context.loadUsers(true);
+        context.checkForChallenges();
         if (fn) {
             fn()
         }
@@ -102,6 +103,7 @@ ClientApp.prototype.loginForm = function () {
     }
 };
 
+//TODO: have a single function to handle client session object
 ClientApp.prototype.login = function (username, password) {
     var context = this;
     $.ajax({
@@ -115,6 +117,7 @@ ClientApp.prototype.login = function (username, password) {
             context.session = data;
             context.username = username;
             context.loadUsers(true);
+            context.checkForChallenges();
             $('.login').hide();
         }
     });
@@ -221,7 +224,6 @@ ClientApp.prototype.setup = function (fn) {
     });
 
     this.getSession();
-    this.checkForChallenges();
 
     if (fn) {
         fn()
