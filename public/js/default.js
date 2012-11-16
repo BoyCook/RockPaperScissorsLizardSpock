@@ -22,7 +22,7 @@ var Router = Backbone.Router.extend({
         }
     },
     playLocal:function () {
-        $('.module').hide();
+        $('.module, .result-local').hide();
         $('.game-local').show();
     },
     playComputer:function () {

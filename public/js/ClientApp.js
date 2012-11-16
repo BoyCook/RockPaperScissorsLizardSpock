@@ -13,6 +13,7 @@ function ClientApp() {
 ClientApp.prototype.play = function (left, right) {
     var result = this.game.play(left, right);
     resultDisplay.render('.result-local', {move:result, message:result.message});
+    $('.result-local').show();
 };
 
 ClientApp.prototype.playRemote = function (move) {
