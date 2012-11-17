@@ -7,6 +7,7 @@ var Router = Backbone.Router.extend({
         "play-remote":"playRemote",
         "play-local":"playLocal",
         "play-computer":"playComputer",
+        "user-history": "userHistory",
         "rules":"rules",
         "about":"about",
         "logout":"logout",
@@ -29,6 +30,10 @@ var Router = Backbone.Router.extend({
     playComputer:function () {
         $('.module').hide();
         $('.game-computer').show();
+    },
+    userHistory:function () {
+        $('.module').hide();
+        $('.user-history').show();
     },
     rules:function () {
         $('.module').hide();
@@ -104,11 +109,21 @@ var UserMenuView = Backbone.View.extend({
     }
 });
 
+var UserHistoryView = Backbone.View.extend({
+    initialize:function () {
+    },
+    render:function (challenges) {
+        var template = _.template($('#user_history_template').html(), {challenges:challenges});
+        $(this.$el.selector).html(template);
+    }
+});
+
 var app = undefined;
 var usersListDD = undefined;
 var challengesList = undefined;
 var resultDisplay = undefined;
 var userMenu = undefined;
+var userHistory = undefined;
 
 $(document).ready(function () {
     app = new ClientApp();
@@ -122,6 +137,7 @@ $(document).ready(function () {
         challengesList = new ChallengesView({ el:$('.challenges')});
         resultDisplay = new ResultView();
         userMenu = new UserMenuView({ el:$('.show-login')});
+        userHistory = new UserHistoryView({ el:$('.user-history')});
         Backbone.history.start();
         $('.module, .user-move').hide();
         $('.rules').show();

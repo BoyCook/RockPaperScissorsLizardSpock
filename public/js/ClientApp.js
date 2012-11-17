@@ -60,6 +60,14 @@ ClientApp.prototype.getChallenges = function () {
     }
 };
 
+ClientApp.prototype.loadUserHistory = function () {
+    if (this.session != undefined && this.session.user.username != undefined) {
+        $.getJSON('/user/' + this.session.user.username + '/challenges/', function (data) {
+            userHistory.render(data != undefined ? data : []);
+        });
+    }
+};
+
 ClientApp.prototype.checkResult = function (key) {
     var context = this;
     var pid = setInterval(function () {
@@ -131,6 +139,7 @@ ClientApp.prototype.getSession = function (fn) {
         context.username = data.user.username;
         context.loadUsers(true);
         context.checkForChallenges();
+        context.loadUserHistory();
         userMenu.render(data.user);
         if (fn) {
             fn()
