@@ -52,12 +52,12 @@ app.configure(function () {
 
 app.get('/user', session.list);
 app.get('/user/:name', session.getUser);
-app.get('/user/:name/challenges', game.getUsersChallenges);
+app.get('/user/:name/challenges', game.getUsersChallenges); //?active
 app.put('/user/:name/challenges/:challengee', game.challenge);
 app.get('/challenge', game.allChallengeKeys);
 app.get('/challenge/:key', game.getChallenge);
 app.put('/challenge/:key/:user/:move', game.makeMove);
-app.get('/challenge/between/:user1/and/:user2', game.getChallengesForUsers);
+app.get('/challenge/between/:user1/and/:user2', game.getChallengesBetweenUsers); //?active
 
 app.get('/session', session.getUserSession);
 app.put('/signup', session.signUp);
