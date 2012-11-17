@@ -70,6 +70,28 @@
     <script type="text/template" id="login_menu_template">
         <li class="show-login"><a href="#login">Login</a></li>
     </script>
+    <script type="text/template" id="user_history_template">
+        <% if (challenges.length > 0) { %>
+        <table>
+            <thead>
+                <tr>
+                    <th>Challenger</th><th>Challengee</th><th>Challenger Move</th><th>Challengee Move</th><th>Winner</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% _.each(challenges, function(item) { %>
+                <tr>
+                    <td><%= item.challenger %></td>
+                    <td><%= item.challengee %></td>
+                    <td><%= item[item.challenger] %></td>
+                    <td><%= item[item.challengee] %></td>
+                    <td><%= item.winner %></td>
+                </tr>
+                <% }); %>
+            </tbody>
+        </table>
+        <% } %>
+    </script>
 </head>
 
 <body>
@@ -86,7 +108,7 @@
                 </ul>
             </li>
             <li><a href="#about">About</a></li>
-            <li class="show-login"><a href="#login">Login</a></li>
+            <li class="show-login"><a>Login</a></li>
         </ul>
     </div>
 </div>
@@ -145,6 +167,8 @@
                 and <a href="http://redis.io" target="_blank">redis</a>
             </p>
             <p><a href="https://github.com/BoyCook/HorizontalPaginate" target="_blank">View on GitHub</a></p>
+        </div>
+        <div class="user-history module">
         </div>
     </div>
     <div id="login-box" class="login module bordered pop-up">
