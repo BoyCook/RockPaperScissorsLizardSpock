@@ -75,7 +75,12 @@
         <table>
             <thead>
                 <tr>
-                    <th>Challenger</th><th>Challengee</th><th>Challenger Move</th><th>Challengee Move</th><th>Winner</th>
+                    <th>Challenger</th>
+                    <th>Challengee</th>
+                    <th>Challenger Move</th>
+                    <th>Challengee Move</th>
+                    <th>Winner</th>
+                    <th>Date</th>
                 </tr>
             </thead>
             <tbody>
@@ -86,6 +91,7 @@
                     <td><%= item[item.challenger] %></td>
                     <td><%= item[item.challengee] %></td>
                     <td><%= item.winner %></td>
+                    <td><%= item.date %></td>
                 </tr>
                 <% }); %>
             </tbody>

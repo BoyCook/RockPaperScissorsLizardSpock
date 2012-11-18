@@ -53,7 +53,9 @@ TestData.prototype.addChallenge = function (user, challengee, userVal, challenge
         'challengee', challengee,
         user, userVal,
         challengee, challengeeVal,
-        'winner', '', fn);
+        'winner', '',
+        'date', '2012-10-18 0:40',
+        fn);
 };
 
 exports.TestData = TestData;
