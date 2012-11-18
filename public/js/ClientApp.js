@@ -54,7 +54,7 @@ ClientApp.prototype.checkForChallenges = function () {
 
 ClientApp.prototype.getChallenges = function () {
     if (this.session != undefined && this.session.user.username != undefined) {
-        $.getJSON('/user/' + this.session.user.username + '/challenges/', function (data) {
+        $.getJSON('/user/' + this.session.user.username + '/challenges', function (data) {
             challengesList.render(data != undefined ? data : []);
         });
     }
@@ -62,7 +62,7 @@ ClientApp.prototype.getChallenges = function () {
 
 ClientApp.prototype.loadUserHistory = function () {
     if (this.session != undefined && this.session.user.username != undefined) {
-        $.getJSON('/user/' + this.session.user.username + '/challenges/', function (data) {
+        $.getJSON('/user/' + this.session.user.username + '/challenges?active=false', function (data) {
             userHistory.render(data != undefined ? data : []);
         });
     }

@@ -149,6 +149,14 @@ describe('RestService', function () {
             done();
         });
     });
+
+    it("should now have no inactive challenges between users", function (done) {
+        request(url + "/user/BoyCook/challenges?active=false", function (error, response, body) {
+            body = JSON.parse(body);
+            expect(body.length).toEqual(0);
+            done();
+        });
+    });
 });
 
 function assertChallenges(cnt, done) {

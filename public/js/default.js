@@ -34,6 +34,7 @@ var Router = Backbone.Router.extend({
     userHistory:function () {
         $('.module').hide();
         $('.user-history').show();
+        app.loadUserHistory();
     },
     rules:function () {
         $('.module').hide();
