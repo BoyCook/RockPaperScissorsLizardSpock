@@ -93,6 +93,10 @@ body {
     font-weight: 200;
 }
 
+.rules h2 {
+    margin-top: 5px;
+}
+
 .rules ul {
     list-style-type: none;
     margin: 0;

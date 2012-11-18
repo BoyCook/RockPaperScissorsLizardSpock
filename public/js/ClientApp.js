@@ -28,6 +28,12 @@ ClientApp.prototype.playRemote = function (move) {
     });
 };
 
+ClientApp.prototype.playComputer = function (move) {
+    var cnt = app.game.moves.length;
+    var index = Math.floor(Math.random() * cnt);
+    var compMove = app.game.moves[index];
+};
+
 ClientApp.prototype.accept = function (key, opponent) {
     this.challengeKey = key;
     clearInterval(this.cPid);
