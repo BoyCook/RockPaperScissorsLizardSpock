@@ -28,9 +28,10 @@ ClientApp.prototype.playRemote = function (move) {
     });
 };
 
-ClientApp.prototype.accept = function (key) {
-    app.challengeKey = key;
+ClientApp.prototype.accept = function (key, opponent) {
+    this.challengeKey = key;
     clearInterval(this.cPid);
+    this.loadOpponentHistory(opponent);
 };
 
 ClientApp.prototype.challenge = function (challengee) {
@@ -54,7 +55,7 @@ ClientApp.prototype.checkForChallenges = function () {
 
 ClientApp.prototype.getChallenges = function () {
     if (this.session != undefined && this.session.user.username != undefined) {
-        $.getJSON('/user/' + this.session.user.username + '/challenges', function (data) {
+        $.getJSON('/user/' + this.session.user.username + '/challenges?active=true', function (data) {
             challengesList.render(data != undefined ? data : []);
         });
     }
@@ -63,7 +64,15 @@ ClientApp.prototype.getChallenges = function () {
 ClientApp.prototype.loadUserHistory = function () {
     if (this.session != undefined && this.session.user.username != undefined) {
         $.getJSON('/user/' + this.session.user.username + '/challenges?active=false', function (data) {
-            userHistory.render(data != undefined ? data : []);
+            userHistory.render('.user-history', data != undefined ? data : []);
+        });
+    }
+};
+
+ClientApp.prototype.loadOpponentHistory = function (opponent) {
+    if (this.session != undefined && this.session.user.username != undefined) {
+        $.getJSON('/challenge/between/' + this.session.user.username + '/and/' + opponent + '?active=false', function (data) {
+            userHistory.render('.opponent-history', data != undefined ? data : []);
         });
     }
 };
@@ -273,3 +282,14 @@ function getOpponent(challenge) {
     }
     throw "No match to user";
 }
+
+function extractOpponent(key, user) {
+    var items = key.split(':');
+    if (items[0] == user) {
+        return items[1];
+    } else if (items[1] == user) {
+        return items[0];
+    }
+    throw "No match to user";
+}
+

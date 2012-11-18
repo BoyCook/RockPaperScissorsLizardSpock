@@ -47,7 +47,7 @@ var Router = Backbone.Router.extend({
     accept:function (key) {
         $('.select-opponent, .challenges').hide();
         $('.user-move').show();
-        app.accept(key);
+        app.accept(key, extractOpponent(key, app.username));
     },
     logout: function(){
         app.logout();
@@ -113,9 +113,9 @@ var UserMenuView = Backbone.View.extend({
 var UserHistoryView = Backbone.View.extend({
     initialize:function () {
     },
-    render:function (challenges) {
+    render:function (selector, challenges) {
         var template = _.template($('#user_history_template').html(), {challenges:challenges});
-        $(this.$el.selector).html(template);
+        $(selector).html(template);
     }
 });
 
@@ -134,11 +134,11 @@ $(document).ready(function () {
         new MovesView({ el:$('.user-moves-dd')});
         new MovesView({ el:$('.left-dd')});
         new MovesView({ el:$('.right-dd')});
+        resultDisplay = new ResultView();
+        userHistory = new UserHistoryView();
         usersListDD = new UsersListView({ el:$('.users-dd')});
         challengesList = new ChallengesView({ el:$('.challenges')});
-        resultDisplay = new ResultView();
         userMenu = new UserMenuView({ el:$('.show-login')});
-        userHistory = new UserHistoryView({ el:$('.user-history')});
         Backbone.history.start();
         $('.module, .user-move').hide();
         $('.rules').show();

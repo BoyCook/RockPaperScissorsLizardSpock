@@ -44,6 +44,7 @@ TestData.prototype.addUser = function (user, fn) {
 
 TestData.prototype.addChallenge = function (user, challengee, userVal, challengeeVal, key, fn) {
     console.log('Adding test challenge');
+    this.db.incr('challenges-seq');
     this.db.sadd('challenges', key);
     this.db.sadd(challengee + ':challenges', key);
     this.db.sadd(user + ':challenges', key);

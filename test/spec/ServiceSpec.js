@@ -10,7 +10,7 @@ describe('RestService', function () {
 
     var tmpDate = '2012-10-18 0:40';
     var expectedChallenge = {BoyCook:'', Craig:'Rock', challengee:'Craig', challenger:'BoyCook', date: tmpDate, key:'BoyCook:Craig:1', winner:''};
-    var expectedNewChallenge = {Hulk:'', Superman:'', challengee:'Superman', challenger:'Hulk', date: tmpDate, key:'Hulk:Superman:1', winner:''};
+    var expectedNewChallenge = {Hulk:'', Superman:'', challengee:'Superman', challenger:'Hulk', date: tmpDate, key:'Hulk:Superman:2', winner:''};
 
     it("should return a given users active challenges", function (done) {
         request(url + "/user/BoyCook/challenges?active=true", function (error, response, body) {
@@ -55,7 +55,7 @@ describe('RestService', function () {
     });
 
     it("should have created the challenge", function (done) {
-        request(url + "/challenge/Hulk:Superman:1", function (error, response, body) {
+        request(url + "/challenge/Hulk:Superman:2", function (error, response, body) {
             body = JSON.parse(body);
             body.date = tmpDate;
             expect(body).toEqual(expectedNewChallenge);
@@ -78,14 +78,14 @@ describe('RestService', function () {
     });
 
     it("should allow updates to challenge by challenger", function (done) {
-        request.put(url + '/challenge/Hulk:Superman:1/Hulk/Rock', function (error, response, body) {
+        request.put(url + '/challenge/Hulk:Superman:2/Hulk/Rock', function (error, response, body) {
             expect(response.statusCode).toEqual(201);
             done();
         });
     });
 
     it("should have updated challenge by challenger", function (done) {
-        request(url + "/challenge/Hulk:Superman:1", function (error, response, body) {
+        request(url + "/challenge/Hulk:Superman:2", function (error, response, body) {
             body = JSON.parse(body);
             body.date = tmpDate;
             expectedNewChallenge.Hulk = 'Rock';
@@ -95,14 +95,14 @@ describe('RestService', function () {
     });
 
     it("should allow updates to challenge by challengee", function (done) {
-        request.put(url + '/challenge/Hulk:Superman:1/Superman/Spock', function (error, response, body) {
+        request.put(url + '/challenge/Hulk:Superman:2/Superman/Spock', function (error, response, body) {
             expect(response.statusCode).toEqual(201);
             done();
         });
     });
 
     it("should have updated challenge by challengee and should set winner", function (done) {
-        request(url + "/challenge/Hulk:Superman:1", function (error, response, body) {
+        request(url + "/challenge/Hulk:Superman:2", function (error, response, body) {
             body = JSON.parse(body);
             body.date = tmpDate;
             expectedNewChallenge.Hulk = 'Rock';
