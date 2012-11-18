@@ -75,21 +75,21 @@
         <table>
             <thead>
                 <tr>
-                    <th>Challenger</th>
-                    <th>Challengee</th>
-                    <th>Challenger Move</th>
-                    <th>Challengee Move</th>
+                    <th>Opponent</th>
+                    <th>Opponent Move</th>
+                    <th><%= app.username %> Move</th>
                     <th>Winner</th>
                     <th>Date</th>
                 </tr>
             </thead>
             <tbody>
-                <% _.each(challenges, function(item) { %>
+                <% _.each(challenges, function(item) {
+                    opponent = getOpponent(item)
+                %>
                 <tr>
-                    <td><%= item.challenger %></td>
-                    <td><%= item.challengee %></td>
-                    <td><%= item[item.challenger] %></td>
-                    <td><%= item[item.challengee] %></td>
+                    <td><%= opponent %></td>
+                    <td><%= item[opponent] %></td>
+                    <td><%= item[app.username] %></td>
                     <td><%= item.winner %></td>
                     <td><%= item.date %></td>
                 </tr>

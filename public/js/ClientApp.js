@@ -261,3 +261,15 @@ function isNotEmpty(val) {
 function isEmpty(val) {
     return !isNotEmpty(val);
 }
+
+function getOpponent(challenge) {
+    var p1 = challenge.challenger;
+    var p2 = challenge.challengee;
+
+    if (p1 == app.username) {
+        return p2;
+    } else if (p2 == app.username) {
+        return p1;
+    }
+    throw "No match to user";
+}

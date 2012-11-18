@@ -83,7 +83,11 @@ body {
     font-size: 13px;
 }
 
-.rules {
+.user-history {
+    text-align: left;
+}
+
+.rules, .user-history {
     font-size: 15px;
     text-shadow: 0 1px 0 white;
     font-weight: 200;
