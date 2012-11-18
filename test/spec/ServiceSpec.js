@@ -8,8 +8,9 @@ describe('RestService', function () {
         require('./testdata').createTestData(require('fakeredis').createClient('testdb'), done);
     });
 
-    var expectedChallenge = {BoyCook:'', Craig:'Rock', challengee:'Craig', challenger:'BoyCook', key:'BoyCook:Craig:1', winner:''};
-    var expectedNewChallenge = {Hulk:'', Superman:'', challengee:'Superman', challenger:'Hulk', key:'Hulk:Superman:1', winner:''};
+    var tmpDate = '2012-10-18 0:40';
+    var expectedChallenge = {BoyCook:'', Craig:'Rock', challengee:'Craig', challenger:'BoyCook', date: tmpDate, key:'BoyCook:Craig:1', winner:''};
+    var expectedNewChallenge = {Hulk:'', Superman:'', challengee:'Superman', challenger:'Hulk', date: tmpDate, key:'Hulk:Superman:1', winner:''};
 
     it("should return a given users active challenges", function (done) {
         request(url + "/user/BoyCook/challenges?active=true", function (error, response, body) {
@@ -53,9 +54,10 @@ describe('RestService', function () {
         });
     });
 
-    it("should have updated the challenge", function (done) {
+    it("should have created the challenge", function (done) {
         request(url + "/challenge/Hulk:Superman:1", function (error, response, body) {
             body = JSON.parse(body);
+            body.date = tmpDate;
             expect(body).toEqual(expectedNewChallenge);
             assertChallenges(2, done);
         });
@@ -85,6 +87,7 @@ describe('RestService', function () {
     it("should have updated challenge by challenger", function (done) {
         request(url + "/challenge/Hulk:Superman:1", function (error, response, body) {
             body = JSON.parse(body);
+            body.date = tmpDate;
             expectedNewChallenge.Hulk = 'Rock';
             expect(body).toEqual(expectedNewChallenge);
             done();
@@ -101,6 +104,7 @@ describe('RestService', function () {
     it("should have updated challenge by challengee and should set winner", function (done) {
         request(url + "/challenge/Hulk:Superman:1", function (error, response, body) {
             body = JSON.parse(body);
+            body.date = tmpDate;
             expectedNewChallenge.Hulk = 'Rock';
             expectedNewChallenge.Superman = 'Spock';
             expectedNewChallenge.winner = 'Superman';
@@ -134,6 +138,15 @@ describe('RestService', function () {
         });
     });
 
+
+    it("should now have an inactive challenges between users", function (done) {
+        request(url + "/user/BoyCook/challenges?active=false", function (error, response, body) {
+            body = JSON.parse(body);
+            expect(body.length).toEqual(1);
+            done();
+        });
+    });
+
     it("should allow a user to challenge again after previous one complete", function (done) {
         request.put(url + '/user/Hulk/challenges/Superman', function (error, response, body) {
             expect(response.statusCode).toEqual(201);
@@ -146,14 +159,6 @@ describe('RestService', function () {
             body = JSON.parse(body);
             expect(body.length).toEqual(1);
             expect(body).toContain(expectedChallenge);
-            done();
-        });
-    });
-
-    it("should now have no inactive challenges between users", function (done) {
-        request(url + "/user/BoyCook/challenges?active=false", function (error, response, body) {
-            body = JSON.parse(body);
-            expect(body.length).toEqual(0);
             done();
         });
     });
