@@ -63,8 +63,9 @@ ClientApp.prototype.getChallenges = function () {
 
 ClientApp.prototype.loadUserHistory = function () {
     if (this.session != undefined && this.session.user.username != undefined) {
+        var emptyMessage = 'No previous challenges';
         $.getJSON('/user/' + this.session.user.username + '/challenges?active=false', function (data) {
-            userHistory.render('.user-history', data != undefined ? data : []);
+            userHistory.render('.user-history', data != undefined ? data : [], emptyMessage);
         });
     }
 };
@@ -73,6 +74,7 @@ ClientApp.prototype.loadOpponentHistory = function (opponent) {
     if (this.session != undefined && this.session.user.username != undefined) {
         $.getJSON('/challenge/between/' + this.session.user.username + '/and/' + opponent + '?active=false', function (data) {
             userHistory.render('.opponent-history', data != undefined ? data : []);
+            $('.opponent-history').show();
         });
     }
 };

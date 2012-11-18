@@ -19,7 +19,7 @@ var Router = Backbone.Router.extend({
             document.location = '#';
             alert('You must login to play remotely')
         } else {
-            $('.module, .result-remote, .result-waiting, #user-move').hide();
+            $('.module, .result-remote, .result-waiting, .opponent-history, #user-move').hide();
             $('.game-remote, .select-opponent, .challenges').show();
         }
     },
@@ -113,11 +113,16 @@ var UserMenuView = Backbone.View.extend({
 var UserHistoryView = Backbone.View.extend({
     initialize:function () {
     },
-    render:function (selector, challenges) {
-        var template = _.template($('#user_history_template').html(), {challenges:challenges});
+    render:function (selector, challenges, emptyMessage) {
+        var template = _.template($('#user_history_template').html(), {challenges:challenges, emptyMessage: emptyMessage});
         $(selector).html(template);
     }
 });
+
+function toggleUI(hide, show) {
+    $(hide).hide();
+    $(show).show();
+}
 
 var app = undefined;
 var usersListDD = undefined;

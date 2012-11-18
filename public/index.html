@@ -96,8 +96,8 @@
                 <% }); %>
             </tbody>
         </table>
-        <% } else { %>
-        <h5>No previous challenges</h5>
+        <% } else if (emptyMessage != undefined && emptyMessage.length > 0) { %>
+        <h5><%= emptyMessage %></h5>
         <% } %>
     </script>
 </head>
