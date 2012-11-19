@@ -5,10 +5,17 @@
     "private":true,
 	"directories" : { "lib": "./lib" }, 
     "dependencies":{
-        "express":"3.x",
-        "sessions": "*",
         "connect-redis": "*",
+        "express":"3.x",
+        "fakeredis": "*",
+        "hiredis": "*",
+        "jasmine-node": "*",
+        "jscoverage-reported": "*",
+        "passport": "*",
+        "passport-local": "*",
         "redis": "*",
-        "hiredis": "*"
+        "request": "*",
+        "sessions": "*",
+        "should": "*"
     }
 }
