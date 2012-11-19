@@ -37,9 +37,14 @@ TestData.prototype.install = function (fn) {
 };
 
 TestData.prototype.addUser = function (user, fn) {
-    console.log('Adding test user');
+    console.log('Adding test user [%s]', user.username);
     this.db.sadd('usernames', user.username);
-    this.db.hmset(user.username, 'user', JSON.stringify(user), fn);
+    this.db.hmset(user.username,
+        'username', user.username,
+        'firstname', user.firstName,
+        'lastname', user.lastName,
+        'email', user.email,
+        'password', user.password, fn);
 };
 
 TestData.prototype.addChallenge = function (user, challengee, userVal, challengeeVal, key, fn) {

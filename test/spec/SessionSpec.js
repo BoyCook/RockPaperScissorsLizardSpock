@@ -4,12 +4,14 @@ var url = 'http://localhost:3003';
 
 describe('SessionService', function () {
 
+    var expectedBoyCook = undefined;
+    var newUserSpiderMan = undefined;
+
     beforeEach(function (done) {
         require('./testdata').createTestData(require('fakeredis').createClient('testdb'), done);
+        expectedBoyCook = { email : 'boycook@me.com', firstname : 'Craig', lastname : 'Cook', username : 'BoyCook' };
+        newUserSpiderMan = {username:'SpiderMan', firstName:'Peter', lastName:'Parker', email:'spiderman@me.com'};
     });
-
-    var expectedBoyCook = { username:'BoyCook', firstName:'Craig', lastName:'Cook', email:'boycook@me.com', password:'password'};
-    var newUserSpiderMan = {username:'SpiderMan', firstName:'Peter', lastName:'Parker', email:'spiderman@me.com', password:'password'};
 
     it("should return all users", function (done) {
         request(url + "/user", function (error, response, body) {
@@ -32,6 +34,7 @@ describe('SessionService', function () {
     });
 
     it("should allow signup", function (done) {
+        newUserSpiderMan.password = 'password';
         request.put({
                 url:url + '/signup',
                 headers:{'content-type':'application/json', dataType:'json'},
@@ -39,6 +42,7 @@ describe('SessionService', function () {
             },
             function (error, response, body) {
                 body = JSON.parse(body);
+                delete newUserSpiderMan['password'];
                 expect(response.statusCode).toEqual(201);
                 expect(body).toEqual(newUserSpiderMan);
                 done();
@@ -69,15 +73,14 @@ describe('SessionService', function () {
             });
     });
 
-    //Need to resolve session persistence issue
-//    it("should return the logged in users session", function (done) {
-//        request(url + "/session", function (error, response, body) {
-//            body = JSON.parse(body);
-//            expect(response.statusCode).toEqual(200);
-//            expect(body).toEqual({user:expectedBoyCook});
-//            done();
-//        });
-//    });
+    it("should return the logged in users session", function (done) {
+        request(url + "/session", function (error, response, body) {
+            body = JSON.parse(body);
+            expect(response.statusCode).toEqual(200);
+            expect(body).toEqual({user:expectedBoyCook});
+            done();
+        });
+    });
 
     it("should fail login for invalid user", function (done) {
         request.post(url + '/login?username=INVALID&password=password',
