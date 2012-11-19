@@ -32,6 +32,10 @@ ClientApp.prototype.playComputer = function (move) {
     var cnt = app.game.moves.length;
     var index = Math.floor(Math.random() * cnt);
     var compMove = app.game.moves[index];
+    var result = this.game.play(move, compMove);
+
+    resultDisplay.render('.result-computer', {move:result, message:result.message});
+    $('.result-computer').show();
 };
 
 ClientApp.prototype.accept = function (key, opponent) {
@@ -214,6 +218,12 @@ ClientApp.prototype.setup = function (fn) {
             context.playRemote($('.user-moves-dd').val());
             $('.result-waiting').show();
             $('#user-move').hide();
+        }
+    });
+    $('#play-computer').click(function () {
+        if ($('#game-computer').validate()) {
+            context.playComputer($('.local-move').val());
+//            $('#game-computer').hide();
         }
     });
     $('#challenge').click(function () {

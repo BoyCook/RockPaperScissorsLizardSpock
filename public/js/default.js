@@ -136,9 +136,12 @@ $(document).ready(function () {
     app.setup(function () {
         new Router();
         new RulesView({ el:$('.rules-list') });
+        //TODO: generify MovesView
         new MovesView({ el:$('.user-moves-dd')});
         new MovesView({ el:$('.left-dd')});
         new MovesView({ el:$('.right-dd')});
+        new MovesView({ el:$('.right-dd')});
+        new MovesView({ el:$('.local-move')});
         resultDisplay = new ResultView();
         userHistory = new UserHistoryView();
         usersListDD = new UsersListView({ el:$('.users-dd')});
