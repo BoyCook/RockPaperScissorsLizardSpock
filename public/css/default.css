@@ -4,6 +4,12 @@ body {
     letter-spacing: 0.5px;
 }
 
+h1, h2, h3, h4, h5 {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+
 .global-nav {
     position: fixed;
     width: 100%;
@@ -130,16 +136,6 @@ body {
 
 .sign-up {
     width: 300px;
-}
-
-.about p {
-    margin-top: 5px;
-    margin-bottom: 5px;
-}
-
-.about h3 {
-    margin-top: 10px;
-    margin-bottom: 10px;
 }
 
 .about div {

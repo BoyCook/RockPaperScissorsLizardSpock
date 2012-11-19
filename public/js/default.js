@@ -4,10 +4,11 @@
 var Router = Backbone.Router.extend({
     initialized:true,
     routes:{
-        "play-remote":"playRemote",
-        "play-local":"playLocal",
-        "play-computer":"playComputer",
-        "user-history": "userHistory",
+        "play/remote":"playRemote",
+        "play/local":"playLocal",
+        "play/computer":"playComputer",
+        "user/history": "userHistory",
+        "user/view": "userDetails",
         "rules":"rules",
         "about":"about",
         "logout":"logout",
@@ -35,6 +36,10 @@ var Router = Backbone.Router.extend({
         $('.module').hide();
         $('.user-history').show();
         app.loadUserHistory();
+    },
+    userDetails:function () {
+        $('.module').hide();
+        $('.user-details').show();
     },
     rules:function () {
         $('.module').hide();
