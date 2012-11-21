@@ -32,7 +32,7 @@ app.configure(function () {
     console.log('Doing [default] configure');
 
     //TODO make imports cleaner
-    session = process.env.RPSLP_COV ? require('./lib-cov/session').newSession(db) : require('./lib/session').newSession(db);
+    session = process.env.RPSLP_COV ? require('./lib-cov/local-auth').newAuth(db) : require('./lib/local-auth').newAuth(db);
     game = process.env.RPSLP_COV ? require('./lib-cov/rpsls-app').newRPSLS(db) : require('./lib/rpsls-app').newApp(db);
 
     passport.use(new LocalStrategy(session.authenticate));
