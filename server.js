@@ -35,15 +35,15 @@ app.configure(function () {
     session = process.env.RPSLP_COV ? require('./lib-cov/local-auth').newAuth(db) : require('./lib/local-auth').newAuth(db);
     game = process.env.RPSLP_COV ? require('./lib-cov/rpsls-app').newRPSLS(db) : require('./lib/rpsls-app').newApp(db);
 
-//    passport.use(new LocalStrategy(session.authenticate));
-//    passport.serializeUser(session.serializeUser);
-//    passport.deserializeUser(session.deserializeUser);
-//    app.use(express.cookieParser('appsecret'));
-//    app.use(express.bodyParser());
-//    app.use(express.session({ secret:'appsecret', store:new RedisStore, cookie:{ maxAge:60000, expires: false } }));
-//    app.use(express.cookieSession());
-//    app.use(passport.initialize());
-//    app.use(passport.session());
+    passport.use(new LocalStrategy(session.authenticate));
+    passport.serializeUser(session.serializeUser);
+    passport.deserializeUser(session.deserializeUser);
+    app.use(express.cookieParser('appsecret'));
+    app.use(express.bodyParser());
+    app.use(express.session({ secret:'appsecret', store:new RedisStore, cookie:{ maxAge:60000, expires: false } }));
+    app.use(express.cookieSession());
+    app.use(passport.initialize());
+    app.use(passport.session());
     app.use(app.router);
     app.use(express.static(__dirname + '/public'));
     app.set('redisdb', 1);
