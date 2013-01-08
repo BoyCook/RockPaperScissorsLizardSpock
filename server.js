@@ -46,7 +46,7 @@ app.configure(function () {
     app.use(passport.session());
     app.use(app.router);
     app.use(express.static(__dirname + '/public'));
-    app.set('redisdb', 1);
+    // app.set('redisdb', 1);
     //db.select(app.set('redisdb'), function(err,res){});
 });
 

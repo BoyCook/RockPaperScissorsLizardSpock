@@ -20,7 +20,7 @@ if [ "$ACTION" == "START" ] || [ "$ACTION" == "start" ]
 then
 	echo 'Starting service...'
 	ulimit -n 5000
-	export NODE_ENV=production
+#	export NODE_ENV=production
 	nohup node server.js | tee  server.log &
 elif [ "$ACTION" == "STOP" ] || [ "$ACTION" == "stop" ]
 then
