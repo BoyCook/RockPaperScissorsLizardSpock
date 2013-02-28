@@ -1,12 +1,7 @@
-var app = require('../../server');
 var request = require('request');
 var url = 'http://localhost:3003';
 
 describe('RestService', function () {
-
-    beforeEach(function (done) {
-        require('./testdata').createTestData(require('fakeredis').createClient('testdb'), done);
-    });
 
     var tmpDate = '2012-10-18 0:40';
     var expectedChallenge = {BoyCook:'', Craig:'Rock', challengee:'Craig', challenger:'BoyCook', date: tmpDate, key:'BoyCook:Craig:1', winner:''};

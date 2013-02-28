@@ -1,4 +1,3 @@
-var app = require('../../server');
 var request = require('request');
 var url = 'http://localhost:3003';
 
@@ -8,9 +7,9 @@ describe('SessionService', function () {
     var newUserSpiderMan = undefined;
 
     beforeEach(function (done) {
-        require('./testdata').createTestData(require('fakeredis').createClient('testdb'), done);
         expectedBoyCook = { email : 'boycook@me.com', firstname : 'Craig', lastname : 'Cook', username : 'BoyCook' };
         newUserSpiderMan = {username:'SpiderMan', firstName:'Peter', lastName:'Parker', email:'spiderman@me.com'};
+        done();
     });
 
     it("should return all users", function (done) {

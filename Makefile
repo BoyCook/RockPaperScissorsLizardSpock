@@ -9,7 +9,7 @@ test: test-unit
 spec: test-spec
 
 test-spec:
-	@NODE_ENV=test node coverage.js test/spec --junitreport --forceexit
+	node test.js
 
 test-unit:
 	@NODE_ENV=test mocha \

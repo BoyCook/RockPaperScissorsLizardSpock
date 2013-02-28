@@ -37,31 +37,36 @@ TestData.prototype.install = function (fn) {
 };
 
 TestData.prototype.addUser = function (user, fn) {
+    var context = this;
     console.log('Adding test user [%s]', user.username);
-    this.db.sadd('usernames', user.username);
-    this.db.hmset(user.username,
-        'username', user.username,
-        'firstname', user.firstName,
-        'lastname', user.lastName,
-        'email', user.email,
-        'password', user.password, fn);
+    this.db.sadd('usernames', user.username, function(){
+        context.db.hmset(user.username,
+            'username', user.username,
+            'firstname', user.firstName,
+            'lastname', user.lastName,
+            'email', user.email,
+            'password', user.password, fn);
+    });
 };
 
 TestData.prototype.addChallenge = function (user, challengee, userVal, challengeeVal, key, fn) {
+    var context = this;
     console.log('Adding test challenge');
-    this.db.incr('challenges-seq');
-    this.db.sadd('challenges', key);
-    this.db.sadd(challengee + ':challenges', key);
-    this.db.sadd(user + ':challenges', key);
-    this.db.hmset(key,
-        'key', key,
-        'challenger', user,
-        'challengee', challengee,
-        user, userVal,
-        challengee, challengeeVal,
-        'winner', '',
-        'date', '2012-10-18 0:40',
-        fn);
+    this.db.incr('challenges-seq', function (err, val) {
+        console.log('Using sequence val [%s]', val);
+        context.db.sadd('challenges', key);
+        context.db.sadd(challengee + ':challenges', key);
+        context.db.sadd(user + ':challenges', key);
+        context.db.hmset(key,
+            'key', key,
+            'challenger', user,
+            'challengee', challengee,
+            user, userVal,
+            challengee, challengeeVal,
+            'winner', '',
+            'date', '2012-10-18 0:40',
+            fn);
+    });
 };
 
 exports.TestData = TestData;
