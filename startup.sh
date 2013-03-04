@@ -21,7 +21,7 @@ then
 	echo 'Starting service...'
 	ulimit -n 5000
 #	export NODE_ENV=production
-	nohup node server.js | tee  server.log &
+	nohup node serve.js 1> webserver.log &
 elif [ "$ACTION" == "STOP" ] || [ "$ACTION" == "stop" ]
 then
     echo 'Stopping service...'
@@ -30,10 +30,13 @@ elif [ "$ACTION" == "DB" ] || [ "$ACTION" == "db" ]
 then
     echo 'Starting DB...'
     nohup $REDIS_HOME/src/redis-server | tee redis.log &
+elif [ "$ACTION" == "STATUS" ] || [ "$ACTION" == "status" ]
+then
+    ps -ef | grep node
 elif [ "$ACTION" == "TAIL" ] || [ "$ACTION" == "tail" ]
 then
     echo 'Tailing service...'
-    tail -f server.log
+    tail -f webserver.log
 else
 	echo "Unknown action ($ACTION) - Doing nothing"
 fi
