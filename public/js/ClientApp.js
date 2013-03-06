@@ -56,8 +56,10 @@ ClientApp.prototype.playComputer = function (move) {
     var compMove = app.game.moves[index];
     var result = this.game.play(move, compMove);
 
-    resultDisplay.render('.result-computer', {move:result, message:result.message});
-    $('.result-computer').show();
+	this.playFlash(function(){
+	    resultDisplay.render('.result-computer', {move:result, message:result.message});
+	    $('.result-computer').show();
+	});
 };
 
 ClientApp.prototype.accept = function (key, opponent) {
@@ -245,7 +247,7 @@ ClientApp.prototype.setup = function (fn) {
     $('#play-computer').click(function () {
         if ($('#game-computer').validate()) {
             context.playComputer($('.local-move').val());
-//            $('#game-computer').hide();
+	    	$('.result-computer').hide();
         }
     });
     $('#challenge').click(function () {
