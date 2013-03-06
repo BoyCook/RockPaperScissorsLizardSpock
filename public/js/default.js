@@ -145,7 +145,6 @@ $(document).ready(function () {
         new MovesView({ el:$('.user-moves-dd')});
         new MovesView({ el:$('.left-dd')});
         new MovesView({ el:$('.right-dd')});
-        new MovesView({ el:$('.right-dd')});
         new MovesView({ el:$('.local-move')});
         resultDisplay = new ResultView();
         userHistory = new UserHistoryView();
