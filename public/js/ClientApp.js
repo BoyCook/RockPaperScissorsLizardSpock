@@ -10,10 +10,32 @@ function ClientApp() {
     this.cPid = undefined
 }
 
+ClientApp.prototype.playFlash = function (fn) {
+    $('.play-flash').show();
+	var set = function(items, cnt) {
+		$('.flash-image').attr('src', 'images/moves/' + items[cnt] + '.png');
+		$('.flash-text').text(items[cnt]);		
+		if (cnt < items.length) {
+			setTimeout(function() {
+				set(items, (cnt+1));
+			}, 300)			
+		} else if (cnt == items.length) {
+		    $('.play-flash').hide();
+			if(fn) {
+				fn();
+			}			
+		}
+	};
+
+	set(this.game.moves, 0)
+};
+
 ClientApp.prototype.play = function (left, right) {
     var result = this.game.play(left, right);
     resultDisplay.render('.result-local', {move:result, message:result.message});
-    $('.result-local').show();
+	this.playFlash(function(){
+		    $('.result-local').show();
+	});
 };
 
 ClientApp.prototype.playRemote = function (move) {
