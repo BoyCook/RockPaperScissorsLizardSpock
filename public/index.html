@@ -37,12 +37,14 @@
         </ul>
     </script>
     <script type="text/template" id="dd_template">
-        <% _.each(items, function(item) { %>  <option value="<%= item %>"><%= item %></option> <% }); %>
+        <% _.each(items, function(item) { %>  
+			<option value="<%= item %>"><%= item %></option> 
+		<% }); %>
     </script>
     <script type="text/template" id="challenges_template">
         <% if (challenges.length > 0) { %>
         <p>&nbsp;&nbsp;&nbsp;or</p>
-        <p>Play existing challenge:</p>
+        <p>Accept existing challenge:</p>
         <table>
             <% _.each(challenges, function(item) { %>
                 <tr><td><a href="#accept/<%= item.key %>"><%= item.challenger %> vs. <%= item.challengee %></a></td></tr>
@@ -88,8 +90,8 @@
                 %>
                 <tr>
                     <td><%= opponent %></td>
-                    <td><%= item[opponent] %></td>
-                    <td><%= item[app.username] %></td>
+	                <td><img src="images/moves/<%= item[opponent] %>.png"  title="<%= item[opponent] %>" alt="<%= item[opponent] %>" /></td>
+	                <td><img src="images/moves/<%= item[app.username] %>.png" title="<%= item[app.username] %>" alt="<%= item[app.username] %>" /></td>
                     <td><%= item.winner %></td>
                     <td><%= item.date %></td>
                 </tr>
@@ -132,7 +134,7 @@
         </div>
         <div class="game-remote module">
             <div id="select-opponent" class="select-opponent">
-                Create new challenge:
+                Challenge user:
                 <select id="users-dd" class="users-dd required validate-dd">
                     <option value="-1" selected>-- Select --</option>
                 </select>

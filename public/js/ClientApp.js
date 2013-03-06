@@ -13,9 +13,9 @@ function ClientApp() {
 ClientApp.prototype.playFlash = function (fn) {
     $('.play-flash').show();
 	var set = function(items, cnt) {
-		$('.flash-image').attr('src', 'images/moves/' + items[cnt] + '.png');
-		$('.flash-text').text(items[cnt]);		
 		if (cnt < items.length) {
+			$('.flash-image').attr('src', 'images/moves/' + items[cnt] + '.png');
+			$('.flash-text').text(items[cnt]);			
 			setTimeout(function() {
 				set(items, (cnt+1));
 			}, 300)			
@@ -34,7 +34,7 @@ ClientApp.prototype.play = function (left, right) {
     var result = this.game.play(left, right);
     resultDisplay.render('.result-local', {move:result, message:result.message});
 	this.playFlash(function(){
-		    $('.result-local').show();
+	    $('.result-local').show();
 	});
 };
 
@@ -115,23 +115,42 @@ ClientApp.prototype.loadOpponentHistory = function (opponent) {
 
 ClientApp.prototype.checkResult = function (key) {
     var context = this;
-    var pid = setInterval(function () {
-        context.getChallenge(key, function (challenge) {
-            var p1 = challenge.challenger;
-            var p2 = challenge.challengee;
-            var m1 = challenge[p1];
-            var m2 = challenge[p2];
-            if (isNotEmpty(m1) && isNotEmpty(m2)) {
-                var result = context.game.play(m1, m2);
-                var message = (challenge[context.username] == result.winner ? 'Winner' : 'Loser') + ' - ' + result.message;
-                $('.result-waiting').hide();
-                $('.result-remote').show();
-                resultDisplay.render('.result-remote', {move:result, message:message});
-                clearInterval(pid);
-                context.checkForChallenges();
-            }
-        })
-    }, 1000);
+	
+	var success = function(m1, m2) {
+        var result = context.game.play(m1, m2);
+        var message = (challenge[context.username] == result.winner ? 'Winner' : 'Loser') + ' - ' + result.message;
+        $('.result-waiting').hide();
+        $('.result-remote').show();
+        resultDisplay.render('.result-remote', { move: result, message: message });
+        context.checkForChallenges();		
+	};
+
+	var noResult = function() {
+		setTimeout(function(){
+			context.playFlash(function() {
+				context.getResult(key, noResult, success);
+			});			
+		}, 1000);
+	};
+
+	this.playFlash(function() {
+		context.getResult(key, noResult, success);
+	});
+};
+
+ClientApp.prototype.getResult = function (key, noResult, success) {
+    var context = this;
+    this.getChallenge(key, function (challenge) {
+        var p1 = challenge.challenger;
+        var p2 = challenge.challengee;
+        var m1 = challenge[p1];
+        var m2 = challenge[p2];
+        if (isNotEmpty(m1) && isNotEmpty(m2)) {
+			success(m1, m2);
+        } else {
+			noResult();
+		}
+    });
 };
 
 ClientApp.prototype.getChallenge = function (key, success) {
@@ -234,6 +253,7 @@ ClientApp.prototype.setup = function (fn) {
     $('#password').hintBox('Password');
     $('#play-local').click(function () {
         if ($('#game-local').validate()) {
+			$('.result-local').hide();
             context.play($('.left-dd').val(), $('.right-dd').val());
         }
     });
