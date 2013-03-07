@@ -195,41 +195,33 @@
     </div>
     <div id="login-box" class="login module bordered pop-up">
         <div>
-            <input id="username" class="username required" type="text" autocomplete="on">
+            <input id="username" class="username required" type="text" autocomplete="on" />
         </div>
         <div>
-            <input id="password" class="password required" type="password" value="">
+            <input id="password" class="password required" type="password" value="" />
         </div>
         <input type="button" id="login" value="Sign in"/>
         <p class="show-sign-up"><span><a href="#sign-up">Not a user? Sign up...</a></span></p>
     </div>
     <div id="sign-up-box" class="sign-up module bordered pop-up">
-        <table>
-            <tr>
-                <td><span>Username</span></td>
-                <td><input class="new-username required" type="text"></td>
-            </tr>
-            <tr>
-                <td><span>Password</span></td>
-                <td><input class="new-password required" type="password" value=""></td>
-            </tr>
-            <tr>
-                <td><span>Confirm Password</span></td>
-                <td><input class="new-password-confirm required" type="password" value=""></td>
-            </tr>
-            <tr>
-                <td><span>First name</span></td>
-                <td><input class="new-first-name required" type="text"></td>
-            </tr>
-            <tr>
-                <td><span>Last name</span></td>
-                <td><input class="new-last-name required" type="text"></td>
-            </tr>
-            <tr>
-                <td><span>Email</span></td>
-                <td><input class="new-email required" type="text"></td>
-            </tr>
-        </table>
+        <div>
+            <input id="new-username" class="required" type="text"/>
+        </div>
+        <div>
+            <input id="new-password" class="required" type="password" value=""/>
+        </div>
+        <div>
+            <input id="new-password-confirm" class="required" type="password" value=""/>
+        </div>
+        <div>
+            <input id="new-first-name" class="required" type="text"/>
+        </div>
+        <div>
+            <input id="new-last-name" class="required" type="text"/>
+        </div>
+        <div>
+            <input id="new-email" class="required" type="text"/>
+        </div>
         <input type="button" id="signUp" value="Sign up"/>
         <input type="button" id="cancelSignUp" value="Cancel"/>
     </div>

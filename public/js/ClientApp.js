@@ -248,12 +248,16 @@ ClientApp.prototype.renderUsers = function () {
 ClientApp.prototype.setup = function (fn) {
     var context = this;
 
-    $('#username').hintBox({text: 'Username...', overlay: true});
-    $('#password').hintBox({text: 'Password...', overlay: true});
+    $('#username').hintBox({text: 'Username', overlay: true});
+    $('#password').hintBox({text: 'Password', overlay: true});
+    $('#new-username').hintBox({text: 'Username', overlay: true});
+    $('#new-password').hintBox({text: 'Password', overlay: true});
+    $('#new-password-confirm').hintBox({text: 'Confirm password', overlay: true});
+    $('#new-first-name').hintBox({text: 'First name', overlay: true});
+    $('#new-last-name').hintBox({text: 'Last name', overlay: true});
+    $('#new-email').hintBox({text: 'Email', overlay: true});
 
-//    $('#username').hintBox('');
-//    //TODO: use label overlay for password txt
-//    $('#password').hintBox('Password');
+
     $('#play-local').click(function () {
         if ($('#game-local').validate()) {
 			$('.result-local').hide();
@@ -302,11 +306,11 @@ ClientApp.prototype.setup = function (fn) {
         //TODO: validate input + passwords match
         if ($('#sign-up-box').validate()) {
             var user = {
-                username:$('.new-username').val(),
-                firstName:$('.new-first-name').val(),
-                lastName:$('.new-last-name').val(),
-                password:$('.new-password').val(),
-                email:$('.new-email').val()
+                username:$('#new-username').val(),
+                firstName:$('#new-first-name').val(),
+                lastName:$('#new-last-name').val(),
+                password:$('#new-password').val(),
+                email:$('#new-email').val()
             };
             context.signup(user);
         }
