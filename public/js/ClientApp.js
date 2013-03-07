@@ -248,9 +248,12 @@ ClientApp.prototype.renderUsers = function () {
 ClientApp.prototype.setup = function (fn) {
     var context = this;
 
-    $('#username').hintBox('Username');
-    //TODO: use label overlay for password txt
-    $('#password').hintBox('Password');
+    $('#username').hintBox({text: 'Username...', overlay: true});
+    $('#password').hintBox({text: 'Password...', overlay: true});
+
+//    $('#username').hintBox('');
+//    //TODO: use label overlay for password txt
+//    $('#password').hintBox('Password');
     $('#play-local').click(function () {
         if ($('#game-local').validate()) {
 			$('.result-local').hide();
