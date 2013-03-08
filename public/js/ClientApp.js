@@ -14,7 +14,7 @@ ClientApp.prototype.playFlash = function (fn) {
     $('.play-flash').show();
 	var set = function(items, cnt) {
 		if (cnt < items.length) {
-			$('.flash-image').attr('src', 'images/moves/' + items[cnt] + '.png');
+            $('.flash-image').image({src: 'images/moves/' + items[cnt] + '.png', title: items[cnt]});
 			$('.flash-text').text(items[cnt]);			
 			setTimeout(function() {
 				set(items, (cnt+1));
@@ -247,6 +247,14 @@ ClientApp.prototype.renderUsers = function () {
 
 ClientApp.prototype.setup = function (fn) {
     var context = this;
+
+    $().image('setup', { srcs: [
+        'images/moves/Rock.png',
+        'images/moves/Paper.png',
+        'images/moves/Scissors.png',
+        'images/moves/Lizard.png',
+        'images/moves/Spock.png']
+    });
 
     $('#username').hintBox({text: 'Username', overlay: true});
     $('#password').hintBox({text: 'Password', overlay: true});

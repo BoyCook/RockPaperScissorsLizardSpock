@@ -53,11 +53,7 @@
             return !methods.isUndefined(val);
         },
         isUndefined: function(val) {
-            if (typeof val === "undefined") {
-                return true;
-            } else {
-                return false;
-            }
+            return typeof val === "undefined";
         },
         getText: function(config) {
             if (methods.isDefined(config) && methods.isDefined(config.text)) {
