@@ -139,7 +139,6 @@ ClientApp.prototype.checkResult = function (key) {
 };
 
 ClientApp.prototype.getResult = function (key, noResult, success) {
-    var context = this;
     this.getChallenge(key, function (challenge) {
         var p1 = challenge.challenger;
         var p2 = challenge.challengee;
@@ -348,6 +347,7 @@ function isEmpty(val) {
     return !isNotEmpty(val);
 }
 
+//Used in user_history_template
 function getOpponent(challenge) {
     var p1 = challenge.challenger;
     var p2 = challenge.challengee;
