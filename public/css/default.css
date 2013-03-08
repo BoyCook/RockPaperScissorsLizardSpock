@@ -154,33 +154,32 @@ h1, h2, h3, h4, h5 {
     padding: 2px;
 }
 
-/*input[type="text"], input[type="password"] {*/
-    /*-moz-border-radius: 2px;  Firefox*/
-    /*-webkit-border-radius: 2px;  Safari, Chrome*/
-    /*-khtml-border-radius: 2px;  KHTML*/
-    /*border-radius: 2px;*/
-    /*width: 120px;*/
-    /*padding: 5px 5px;*/
-    /*outline: none;*/
-    /*color: #333;*/
-    /*background-color: #fff;*/
-    /*background-repeat: no-repeat;*/
-    /*background-position: right center;*/
-    /*border: 1px solid #ccc;*/
-    /*border-radius: 3px;*/
-    /*box-shadow: inset 0 1px 2px rgba(0,0,0,0.075);*/
-    /*-moz-box-sizing: border-box;*/
-    /*box-sizing: border-box;*/
-    /*transition: all 0.15s ease-in;*/
-    /*-webkit-transition: all 0.15s ease-in 0;*/
-    /*vertical-align: middle;*/
-/*}*/
+input[type="text"], input[type="password"] {
+    -moz-border-radius: 2px;  Firefox
+    -webkit-border-radius: 2px;  Safari, Chrome
+    -khtml-border-radius: 2px;  KHTML
+    border-radius: 2px;
+    padding: 2px 2px;
+    outline: none;
+    color: #333;
+    background-color: #fff;
+    background-repeat: no-repeat;
+    background-position: right center;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0.075);
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    transition: all 0.15s ease-in;
+    -webkit-transition: all 0.15s ease-in 0;
+    vertical-align: middle;
+}
 
 .button, .minibutton {
     position: relative;
     display: inline-block;
-    padding: 7px 15px;
-    font-size: 13px;
+    padding: 5px 15px;
+    font-size: 12px;
     font-weight: bold;
     color: #333;
     text-shadow: 0 1px 0 rgba(255,255,255,0.9);

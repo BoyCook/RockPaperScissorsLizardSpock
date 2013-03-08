@@ -125,11 +125,6 @@ var UserHistoryView = Backbone.View.extend({
     }
 });
 
-function toggleUI(hide, show) {
-    $(hide).hide();
-    $(show).show();
-}
-
 var app = undefined;
 var usersListDD = undefined;
 var challengesList = undefined;
