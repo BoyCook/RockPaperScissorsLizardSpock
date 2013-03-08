@@ -147,8 +147,10 @@ h1, h2, h3, h4, h5 {
     display: none;
 }
 
-/*button:focus { color: red; }*/
-/*button:active { font-weight: bold; }*/
+.play-flash span {
+    /*position: fixed;*/
+    /*margin-left: 80px;*/
+}
 
 .login-box input {
     padding: 2px;
@@ -174,6 +176,9 @@ input[type="text"], input[type="password"] {
     -webkit-transition: all 0.15s ease-in 0;
     vertical-align: middle;
 }
+
+/*button:focus { color: red; }*/
+/*button:active { font-weight: bold; }*/
 
 .button, .minibutton {
     position: relative;
