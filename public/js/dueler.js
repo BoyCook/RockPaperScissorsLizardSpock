@@ -2,6 +2,7 @@
  Core Dueler capability
  */
 function Dueler(moves, wins) {
+    //TODO: imply moves from wins
     this.moves = moves;
     this.wins = new Array();
     this.variations = {};
@@ -24,28 +25,34 @@ Dueler.prototype.initVariations = function () {
         this.variations[xMove] = {};
         for (var y = 0; y < this.moves.length; y++) {
             var yMove = this.moves[y];
+            this.variations[xMove][yMove] = this.getWinner(xMove, yMove);
+        }
+    }
+};
 
-            if (xMove == yMove) {
-                this.variations[xMove][yMove] = { message:"It's a draw"};
-            } else {
-                this.variations[xMove][yMove] = this.getWinner(xMove, yMove);
+//Finds the winner between two moves
+Dueler.prototype.getWinner = function (left, right) {
+    var result = undefined;
+
+    if (left === right) {
+        result = { message:"It's a draw"};
+        result[left] = 0;
+    } else {
+        for (var i = 0; i < this.wins.length; i++) {
+            var win = this.wins[i];
+            if ((win.winner == left || win.winner == right) &&
+                (win.loser == left || win.loser == right)) {
+                result = win;
+                result[win.winner] = 1;
+                result[win.loser] = -1;
             }
         }
     }
-};
 
-Dueler.prototype.getWinner = function (left, right) {
-    var result = undefined;
-    for (var i = 0; i < this.wins.length; i++) {
-        var win = this.wins[i];
-        if ((win.winner == left || win.winner == right) &&
-            (win.loser == left || win.loser == right)) {
-            result = win;
-        }
-    }
     return result;
 };
 
+//Check that the moves exist
 Dueler.prototype.addWin = function (win) {
     if (this.moves.contains(win.winner) && this.moves.contains(win.loser)) {
         this.wins.push(win);

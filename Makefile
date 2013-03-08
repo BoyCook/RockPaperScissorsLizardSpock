@@ -11,11 +11,6 @@ spec: test-spec
 test-spec:
 	node test.js
 
-test-unit:
-	@NODE_ENV=test mocha \
-		--reporter $(REPORTER) \
-		$(MOCHA_OPTS)
-
 test-cov: lib-cov
 	@RPSLP_COV=1 $(MAKE) test REPORTER=html-cov > coverage.html
 
