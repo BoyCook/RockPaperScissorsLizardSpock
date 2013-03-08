@@ -9,7 +9,6 @@ function RPSLS() {
         Array = require('./Array').Array;
     }
 
-    this.moves = ['Rock', 'Paper', 'Scissors', 'Lizard', 'Spock'];
     this.wins = new Array();
     this.wins.push(new Win('Scissors', 'Paper', 'Scissors cuts paper'));
     this.wins.push(new Win('Paper', 'Rock', 'Paper covers rock'));
@@ -21,7 +20,8 @@ function RPSLS() {
     this.wins.push(new Win('Paper', 'Spock', 'Paper disproves Spock'));
     this.wins.push(new Win('Spock', 'Rock', 'Spock vaporizes rock'));
     this.wins.push(new Win('Rock', 'Scissors', 'As it always has, rock crushes scissors'));
-    this.dueler = new Dueler(this.moves, this.wins);
+    this.dueler = new Dueler(this.wins);
+    this.moves = this.dueler.moves;
 }
 
 RPSLS.prototype.play = function (left, right) {

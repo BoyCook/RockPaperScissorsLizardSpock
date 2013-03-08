@@ -14,3 +14,8 @@ http://rockpaperscissorslizardspock.co.uk
 * Paper disproves Spock
 * Spock vaporizes rock
 * And as it always has, rock crushes scissors
+
+## Unit tests
+
+    jasmine-node test/spec/DuelerSpec.js
+    make spec

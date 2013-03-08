@@ -1,20 +1,18 @@
 /*
  Core Dueler capability
  */
-function Dueler(moves, wins) {
-    //TODO: imply moves from wins
-    this.moves = moves;
-    this.wins = new Array();
+function Dueler(wins) {
+    this.moves = [];
+    this.wins = [];
     this.variations = {};
-
-    if ((moves.length * 2) != wins.length) {
-        throw "Two wins and losses must be defined for every move";
-    }
-
     for (var i = 0; i < wins.length; i++) {
         var win = wins[i];
         this.addWin(win);
     }
+    if ((this.moves.length * 2) != wins.length) {
+        throw "Two wins and losses must be defined for every move - Moves[" + this.moves.length + "] - Wins[" + wins.length + "]";
+    }
+
     this.initVariations();
 }
 
@@ -35,7 +33,7 @@ Dueler.prototype.getWinner = function (left, right) {
     var result = undefined;
 
     if (left === right) {
-        result = { message:"It's a draw"};
+        result = { message: "It's a draw"};
         result[left] = 0;
     } else {
         for (var i = 0; i < this.wins.length; i++) {
@@ -54,11 +52,13 @@ Dueler.prototype.getWinner = function (left, right) {
 
 //Check that the moves exist
 Dueler.prototype.addWin = function (win) {
-    if (this.moves.contains(win.winner) && this.moves.contains(win.loser)) {
-        this.wins.push(win);
-    } else {
-        throw "Error, Win must contain valid moves";
+    if (this.moves.indexOf(win.winner) == -1) {
+        this.moves.push(win.winner);
     }
+    if (this.moves.indexOf(win.loser) == -1) {
+        this.moves.push(win.loser);
+    }
+    this.wins.push(win);
 };
 
 Dueler.prototype.attack = function (left, right) {

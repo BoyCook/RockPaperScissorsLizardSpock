@@ -5,10 +5,10 @@ Array = require('../../public/js/Array.js').Array;
 describe('Dueler', function () {
     var dueler;
     var wins;
-    var moves = ['Rock', 'Paper', 'Scissors', 'Lizard', 'Spock'];
+    var moves;
 
     beforeEach(function () {
-        moves = ['Rock', 'Paper', 'Scissors', 'Lizard', 'Spock'];
+        moves = ['Scissors', 'Paper', 'Rock', 'Lizard', 'Spock'];
         wins = new Array();
         wins.push(new Win('Scissors', 'Paper', 'Scissors cuts paper'));
         wins.push(new Win('Paper', 'Rock', 'Paper covers rock'));
@@ -20,20 +20,22 @@ describe('Dueler', function () {
         wins.push(new Win('Paper', 'Spock', 'Paper disproves Spock'));
         wins.push(new Win('Spock', 'Rock', 'Spock vaporizes rock'));
         wins.push(new Win('Rock', 'Scissors', 'As it always has, rock crushes scissors'));
-        dueler = new Dueler(moves, wins);
+        dueler = new Dueler(wins);
 
         expect(moves).toBeDefined();
-        expect(moves.length).toEqual(5);
         expect(wins).toBeDefined();
+        expect(moves.length).toEqual(5);
         expect(wins.length).toEqual(10);
         expect(dueler).toBeDefined();
     });
 
     it('should have the correct amount of moves', function () {
+        expect(dueler.moves.length).toEqual(5);
         expect(dueler.moves).toEqual(moves);
     });
 
     it('should have the correct amount of wins', function () {
+        expect(dueler.wins.length).toEqual(10);
         expect(dueler.wins).toEqual(wins);
     });
 
