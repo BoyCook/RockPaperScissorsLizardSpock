@@ -155,9 +155,9 @@ h1, h2, h3, h4, h5 {
 }
 
 input[type="text"], input[type="password"] {
-    -moz-border-radius: 2px;  Firefox
-    -webkit-border-radius: 2px;  Safari, Chrome
-    -khtml-border-radius: 2px;  KHTML
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    -khtml-border-radius: 2px;
     border-radius: 2px;
     padding: 2px 2px;
     outline: none;
