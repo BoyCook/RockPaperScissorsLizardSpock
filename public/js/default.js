@@ -13,6 +13,7 @@ var Router = Backbone.Router.extend({
         "about":"about",
         "logout":"logout",
         "accept/:key":"accept",
+        '*path':  'rules',
         "search/:type/:mode/:id":"search"   // #search/service/108
     },
     playRemote:function () {
@@ -138,21 +139,20 @@ var userHistory = undefined;
 
 $(document).ready(function () {
     app = new ClientApp();
+    new RulesView({ el:$('.rules-list') });
+    new MovesView({ el:$('.user-moves-dd')});
+    new MovesView({ el:$('.left-dd')});
+    new MovesView({ el:$('.right-dd')});
+    new MovesView({ el:$('.local-move')});
+    resultDisplay = new ResultView();
+    userHistory = new UserHistoryView();
+    usersListDD = new UsersListView({ el:$('.users-dd')});
+    challengesList = new ChallengesView({ el:$('.challenges')});
+    userMenu = new UserMenuView({ el:$('.show-login')});
+
     app.setup(function () {
-        new Router();
-        new RulesView({ el:$('.rules-list') });
-        //TODO: generify MovesView
-        new MovesView({ el:$('.user-moves-dd')});
-        new MovesView({ el:$('.left-dd')});
-        new MovesView({ el:$('.right-dd')});
-        new MovesView({ el:$('.local-move')});
-        resultDisplay = new ResultView();
-        userHistory = new UserHistoryView();
-        usersListDD = new UsersListView({ el:$('.users-dd')});
-        challengesList = new ChallengesView({ el:$('.challenges')});
-        userMenu = new UserMenuView({ el:$('.show-login')});
-        Backbone.history.start();
         $('.module, .user-move').hide();
-        $('.rules').show();
+        new Router();
+        Backbone.history.start();
     });
 });
