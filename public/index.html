@@ -54,7 +54,7 @@
         <% } %>
     </script>
     <script type="text/template" id="result_template">
-        <p><%= result.message %></p>
+        <p class="<%= result.css %>"><%= result.message %></p>
         <% if (result.move.winner && result.move.loser) { %>
         <img src="images/moves/<%= result.move.winner %>.png" alt="<%= result.move.winner %>" />
         <img src="images/moves/<%= result.move.loser %>.png" alt="<%= result.move.loser %>" />

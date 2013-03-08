@@ -156,6 +156,18 @@ h1, h2, h3, h4, h5 {
     padding: 2px;
 }
 
+.win-text {
+    color: green;
+}
+
+.lose-text {
+    color: red;
+}
+
+.draw-text {
+
+}
+
 input[type="text"], input[type="password"] {
     -moz-border-radius: 2px;
     -webkit-border-radius: 2px;

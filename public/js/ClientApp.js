@@ -12,39 +12,39 @@ function ClientApp() {
 
 ClientApp.prototype.playFlash = function (fn) {
     $('.play-flash').show();
-	var set = function(items, cnt) {
-		if (cnt < items.length) {
+    var set = function (items, cnt) {
+        if (cnt < items.length) {
             $('.flash-image').image({src: 'images/moves/' + items[cnt] + '.png', title: items[cnt]});
-			$('.flash-text').text(items[cnt]);			
-			setTimeout(function() {
-				set(items, (cnt+1));
-			}, 300)			
-		} else if (cnt == items.length) {
-		    $('.play-flash').hide();
-			if(fn) {
-				fn();
-			}			
-		}
-	};
+            $('.flash-text').text(items[cnt]);
+            setTimeout(function () {
+                set(items, (cnt + 1));
+            }, 300)
+        } else if (cnt == items.length) {
+            $('.play-flash').hide();
+            if (fn) {
+                fn();
+            }
+        }
+    };
 
-	set(this.game.moves, 0)
+    set(this.game.moves, 0)
 };
 
 ClientApp.prototype.play = function (left, right) {
     var result = this.game.play(left, right);
-    resultDisplay.render('.result-local', {move:result, message:result.message});
-	this.playFlash(function(){
-	    $('.result-local').show();
-	});
+    resultDisplay.render('.result-local', {move: result, message: result.message, css: 'draw-text'});
+    this.playFlash(function () {
+        $('.result-local').show();
+    });
 };
 
 ClientApp.prototype.playRemote = function (move) {
     var context = this;
     $.ajax({
-        url:'/challenge/' + this.challengeKey + '/' + this.session.user.username + '/' + move,
-        type:'PUT',
-        contentType:'application/x-www-form-urlencoded',
-        success:function () {
+        url: '/challenge/' + this.challengeKey + '/' + this.session.user.username + '/' + move,
+        type: 'PUT',
+        contentType: 'application/x-www-form-urlencoded',
+        success: function () {
             context.checkResult(context.challengeKey);
         }
     });
@@ -56,10 +56,10 @@ ClientApp.prototype.playComputer = function (move) {
     var compMove = app.game.moves[index];
     var result = this.game.play(move, compMove);
 
-	this.playFlash(function(){
-	    resultDisplay.render('.result-computer', {move:result, message:result.message});
-	    $('.result-computer').show();
-	});
+    this.playFlash(function () {
+        resultDisplay.render('.result-computer', {move: result, message: result.message, css: 'draw-text'});
+        $('.result-computer').show();
+    });
 };
 
 ClientApp.prototype.accept = function (key, opponent) {
@@ -70,10 +70,10 @@ ClientApp.prototype.accept = function (key, opponent) {
 
 ClientApp.prototype.challenge = function (challengee) {
     $.ajax({
-        url:'/user/' + this.session.user.username + '/challenges/' + challengee,
-        type:'PUT',
-        contentType:'application/x-www-form-urlencoded',
-        error:function () {
+        url: '/user/' + this.session.user.username + '/challenges/' + challengee,
+        type: 'PUT',
+        contentType: 'application/x-www-form-urlencoded',
+        error: function () {
             alert('Challenge against [' + challengee + '] is already open - select it from the list below');
         }
     });
@@ -115,27 +115,27 @@ ClientApp.prototype.loadOpponentHistory = function (opponent) {
 
 ClientApp.prototype.checkResult = function (key) {
     var context = this;
-	
-	var success = function(m1, m2) {
+
+    var success = function (m1, m2) {
         var result = context.game.play(m1, m2);
         var message = (challenge[context.username] == result.winner ? 'Winner' : 'Loser') + ' - ' + result.message;
         $('.result-waiting').hide();
         $('.result-remote').show();
-        resultDisplay.render('.result-remote', { move: result, message: message });
-        context.checkForChallenges();		
-	};
+        resultDisplay.render('.result-remote', { move: result, message: message, css: 'draw-text' });
+        context.checkForChallenges();
+    };
 
-	var noResult = function() {
-		setTimeout(function(){
-			context.playFlash(function() {
-				context.getResult(key, noResult, success);
-			});			
-		}, 1000);
-	};
+    var noResult = function () {
+        setTimeout(function () {
+            context.playFlash(function () {
+                context.getResult(key, noResult, success);
+            });
+        }, 1000);
+    };
 
-	this.playFlash(function() {
-		context.getResult(key, noResult, success);
-	});
+    this.playFlash(function () {
+        context.getResult(key, noResult, success);
+    });
 };
 
 ClientApp.prototype.getResult = function (key, noResult, success) {
@@ -145,10 +145,10 @@ ClientApp.prototype.getResult = function (key, noResult, success) {
         var m1 = challenge[p1];
         var m2 = challenge[p2];
         if (isNotEmpty(m1) && isNotEmpty(m2)) {
-			success(m1, m2);
+            success(m1, m2);
         } else {
-			noResult();
-		}
+            noResult();
+        }
     });
 };
 
@@ -165,10 +165,10 @@ ClientApp.prototype.loginForm = function () {
 ClientApp.prototype.logout = function () {
     var context = this;
     $.ajax({
-        url:'/logout',
-        type:'GET',
-        contentType:'application/x-www-form-urlencoded',
-        success:function () {
+        url: '/logout',
+        type: 'GET',
+        contentType: 'application/x-www-form-urlencoded',
+        success: function () {
             document.location = '#rules';
             clearInterval(this.cPid);
             context.session = undefined;
@@ -181,13 +181,13 @@ ClientApp.prototype.logout = function () {
 ClientApp.prototype.login = function (username, password) {
     var context = this;
     $.ajax({
-        url:'/login/?username=' + username + '&password=' + password,
-        type:'POST',
-        contentType:'application/x-www-form-urlencoded',
-        error:function () {
+        url: '/login/?username=' + username + '&password=' + password,
+        type: 'POST',
+        contentType: 'application/x-www-form-urlencoded',
+        error: function () {
             alert('Failed to authenticate user [' + username + ']');
         },
-        success:function (data) {
+        success: function (data) {
             context.getSession(function () {
                 $('.login').hide();
             });
@@ -213,14 +213,14 @@ ClientApp.prototype.getSession = function (fn) {
 ClientApp.prototype.signup = function (user) {
     var context = this;
     $.ajax({
-        url:'/signup/',
-        type:'PUT',
-        contentType:'application/json',
-        dataType:'json',
-        data:JSON.stringify(user),
-        complete:function () {
+        url: '/signup/',
+        type: 'PUT',
+        contentType: 'application/json',
+        dataType: 'json',
+        data: JSON.stringify(user),
+        complete: function () {
             context.session = {
-                user:user
+                user: user
             };
             context.username = user.username;
             $('.sign-up').hide();
@@ -264,10 +264,9 @@ ClientApp.prototype.setup = function (fn) {
     $('#new-last-name').hintBox({text: 'Last name', overlay: true});
     $('#new-email').hintBox({text: 'Email', overlay: true});
 
-
     $('#play-local').click(function () {
         if ($('#game-local').validate()) {
-			$('.result-local').hide();
+            $('.result-local').hide();
             context.play($('.left-dd').val(), $('.right-dd').val());
         }
     });
@@ -281,7 +280,7 @@ ClientApp.prototype.setup = function (fn) {
     $('#play-computer').click(function () {
         if ($('#game-computer').validate()) {
             context.playComputer($('.local-move').val());
-	    	$('.result-computer').hide();
+            $('.result-computer').hide();
         }
     });
     $('#challenge').click(function () {
@@ -293,14 +292,14 @@ ClientApp.prototype.setup = function (fn) {
         //This is hacky - need to sort with CSS later
         $('.login').toggle();
         var newLeft = $('.show-login').position().left + 10;
-        $('.login').offset({top:50, left:newLeft});
+        $('.login').offset({top: 50, left: newLeft});
     });
     $('.show-sign-up').click(function () {
         //This is hacky - need to sort with CSS later
         $('.login, .modules').hide();
         $('.sign-up').show();
         var newLeft = $('.menu-bar li:eq(0)').position().left;
-        $('.sign-up').offset({top:50, left:newLeft});
+        $('.sign-up').offset({top: 50, left: newLeft});
     });
     $('#users-dd').live('change', function () {
         var val = $('.users-dd').val();
@@ -313,11 +312,11 @@ ClientApp.prototype.setup = function (fn) {
         //TODO: validate input + passwords match
         if ($('#sign-up-box').validate()) {
             var user = {
-                username:$('#new-username').val(),
-                firstName:$('#new-first-name').val(),
-                lastName:$('#new-last-name').val(),
-                password:$('#new-password').val(),
-                email:$('#new-email').val()
+                username: $('#new-username').val(),
+                firstName: $('#new-first-name').val(),
+                lastName: $('#new-last-name').val(),
+                password: $('#new-password').val(),
+                email: $('#new-email').val()
             };
             context.signup(user);
         }
