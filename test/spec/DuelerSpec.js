@@ -1,6 +1,5 @@
 Win = require('../../public/js/dueler.js').Win;
 Dueler = require('../../public/js/dueler.js').Dueler;
-Array = require('../../public/js/Array.js').Array;
 
 describe('Dueler', function () {
     var dueler;
@@ -9,7 +8,7 @@ describe('Dueler', function () {
 
     beforeEach(function () {
         moves = ['Scissors', 'Paper', 'Rock', 'Lizard', 'Spock'];
-        wins = new Array();
+        wins = [];
         wins.push(new Win('Scissors', 'Paper', 'Scissors cuts paper'));
         wins.push(new Win('Paper', 'Rock', 'Paper covers rock'));
         wins.push(new Win('Rock', 'Lizard', 'Rock crushes lizard'));

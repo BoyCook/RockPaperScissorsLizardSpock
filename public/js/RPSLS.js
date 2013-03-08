@@ -6,10 +6,9 @@ function RPSLS() {
     if (!(typeof exports === "undefined")) {
         Win = require('./dueler').Win;
         Dueler = require('./dueler').Dueler;
-        Array = require('./Array').Array;
     }
 
-    this.wins = new Array();
+    this.wins = [];
     this.wins.push(new Win('Scissors', 'Paper', 'Scissors cuts paper'));
     this.wins.push(new Win('Paper', 'Rock', 'Paper covers rock'));
     this.wins.push(new Win('Rock', 'Lizard', 'Rock crushes lizard'));
