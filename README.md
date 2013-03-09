@@ -15,7 +15,18 @@ http://rockpaperscissorslizardspock.co.uk
 * Spock vaporizes rock
 * And as it always has, rock crushes scissors
 
+## Usage
+
+To get it running locally with fakeredis use:
+
+    node serve.js
+
 ## Unit tests
 
-    jasmine-node test/spec/DuelerSpec.js
+To run the complete set use:
+
     make spec
+
+To run just the unit spec use:
+
+    jasmine-node test/spec/DuelerSpec.js
