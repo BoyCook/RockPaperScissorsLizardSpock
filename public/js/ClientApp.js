@@ -26,8 +26,7 @@ ClientApp.prototype.playFlash = function (fn) {
             }
         }
     };
-
-    set(this.game.moves, 0)
+    set(["Rock", "Paper", "Lizard", "Scissors", "Spock"], 0);
 };
 
 ClientApp.prototype.play = function (left, right) {
@@ -51,13 +50,14 @@ ClientApp.prototype.playRemote = function (move) {
 };
 
 ClientApp.prototype.playComputer = function (move) {
+    var context = this;
     var cnt = app.game.moves.length;
     var index = Math.floor(Math.random() * cnt);
     var compMove = app.game.moves[index];
     var result = this.game.play(move, compMove);
-
+    var msg = context.getStatus(move, result) + ' - ' + result.message;
     this.playFlash(function () {
-        resultDisplay.render('.result-computer', {move: result, message: result.message, css: 'draw-text'});
+        resultDisplay.render('.result-computer', {move: result, message: msg, css: context.getCSS(move, result)});
         $('.result-computer').show();
     });
 };
@@ -115,13 +115,15 @@ ClientApp.prototype.loadOpponentHistory = function (opponent) {
 
 ClientApp.prototype.checkResult = function (key) {
     var context = this;
-
-    var success = function (m1, m2) {
+    var success = function (challenge) {
+        var m1 = this.getChallengerMove(challenge);
+        var m2 = this.getChallengeeMove(challenge);
+        var userMove = challenge[context.username];
         var result = context.game.play(m1, m2);
-        var message = (challenge[context.username] == result.winner ? 'Winner' : 'Loser') + ' - ' + result.message;
+        var msg = context.getStatus(userMove, result) + ' - ' + result.message;
         $('.result-waiting').hide();
         $('.result-remote').show();
-        resultDisplay.render('.result-remote', { move: result, message: message, css: 'draw-text' });
+        resultDisplay.render('.result-remote', { move: result, message: msg, css: context.getCSS(userMove, result) });
         context.checkForChallenges();
     };
 
@@ -139,17 +141,28 @@ ClientApp.prototype.checkResult = function (key) {
 };
 
 ClientApp.prototype.getResult = function (key, noResult, success) {
+    var context = this;
     this.getChallenge(key, function (challenge) {
-        var p1 = challenge.challenger;
-        var p2 = challenge.challengee;
-        var m1 = challenge[p1];
-        var m2 = challenge[p2];
-        if (isNotEmpty(m1) && isNotEmpty(m2)) {
-            success(m1, m2);
+        if (context.isChallengeComplete(challenge)) {
+            success(challenge);
         } else {
             noResult();
         }
     });
+};
+
+ClientApp.prototype.isChallengeComplete = function (challenge) {
+    var m1 = this.getChallengerMove(challenge);
+    var m2 = this.getChallengeeMove(challenge);
+    return isNotEmpty(m1) && isNotEmpty(m2);
+};
+
+ClientApp.prototype.getChallengerMove = function (challenge) {
+    return challenge[challenge.challenger];
+};
+
+ClientApp.prototype.getChallengeeMove = function (challenge) {
+    return challenge[challenge.challengee];
 };
 
 ClientApp.prototype.getChallenge = function (key, success) {
@@ -242,6 +255,26 @@ ClientApp.prototype.loadUsers = function (render) {
 
 ClientApp.prototype.renderUsers = function () {
     usersListDD.render(this.users);
+};
+
+ClientApp.prototype.getCSS = function (move, result) {
+    if (result[move] == 1) {
+        return 'win-text';
+    } else if (result[move] == 0) {
+        return 'draw-text';
+    } else if (result[move] == -1) {
+        return 'lose-text';
+    }
+};
+
+ClientApp.prototype.getStatus = function (move, result) {
+    if (result[move] == 1) {
+        return 'Winner';
+    } else if (result[move] == 0) {
+        return 'Draw';
+    } else if (result[move] == -1) {
+        return 'Loser';
+    }
 };
 
 ClientApp.prototype.setup = function (fn) {
