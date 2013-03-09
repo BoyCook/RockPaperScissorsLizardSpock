@@ -1,6 +1,6 @@
 var casper = require('casper').create();
 
-casper.start('http://localhost:3000/', function () {
+casper.start('http://localhost:3003/', function () {
     this.test.assertTitle('Rock Paper Scissors Lizard Spock [beta]', 'RPSLP homepage title is the one expected');
     this.test.assertExists('.rules', 'rules module is found');
     this.test.assertExists('.game-remote', 'game-remote module is found');
