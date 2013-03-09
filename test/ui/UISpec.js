@@ -30,9 +30,11 @@ casper.thenEvaluate(function(username, password) {
     document.querySelector('input[name="password"]').setAttribute('password', password);
     document.querySelector('#username').value = username;
     document.querySelector('#password').value = password;
+    console.log('########## thenEvaluate')
 }, 'BoyCook', 'password');
 
 casper.then(function () {
+    console.log('########## then')
 //    this.test.assertField('username', 'BoyCook');
 //    this.test.assertField('password', 'password');
 //    this.test.assertSelectorHasText('username', 'BoyCook');
