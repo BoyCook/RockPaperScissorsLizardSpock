@@ -10,19 +10,33 @@ casper.start('http://localhost:3000/', function () {
     this.test.assertExists('.user-history', 'user-history module is found');
     this.test.assertExists('.user-details', 'user-details module is found');
     this.test.assertExists('.play-flash', 'play-flash module is found');
+
+    this.test.assertVisible('.main-content');
+    this.test.assertVisible('.modules');
+    this.test.assertVisible('.rules');
+    this.test.assertNotVisible('.game-remote');
+    this.test.assertNotVisible('.game-local');
+    this.test.assertNotVisible('.game-computer');
+    this.test.assertNotVisible('.about');
+    this.test.assertNotVisible('.user-history');
+    this.test.assertNotVisible('.user-details');
+    this.test.assertNotVisible('.play-flash');
+    this.test.assertNotVisible('.login-box');
+    this.test.assertNotVisible('.sign-up-box');
 });
 
-//Do login
-//casper.then(function () {
-//    this.click('.show-login');
-////    'form[name="login-form"]'
-//    this.fill('form#login-form', {
-//            username: 'BoyCook',
-//            password: 'password'
-//        }, false);
+casper.thenEvaluate(function(username, password) {
+    document.querySelector('input[name="username"]').setAttribute('value', username);
+    document.querySelector('input[name="password"]').setAttribute('password', password);
+    document.querySelector('#username').value = username;
+    document.querySelector('#password').value = password;
+}, 'BoyCook', 'password');
+
+casper.then(function () {
 //    this.test.assertField('username', 'BoyCook');
 //    this.test.assertField('password', 'password');
-//});
+//    this.test.assertSelectorHasText('username', 'BoyCook');
+});
 
 casper.run(function () {
     this.test.renderResults(true, 0, 'reports/TEST-UISpec.xml');
