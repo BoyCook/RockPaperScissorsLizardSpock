@@ -8,7 +8,7 @@ test: test-unit
 
 spec: test-spec
 
-test-spec:
+test:
 	node test.js
 
 ui-test:

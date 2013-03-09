@@ -25,7 +25,7 @@ To get it running locally with fakeredis use:
 
 To run the complete set use:
 
-    make spec
+    make test
 
 To run just the unit spec use:
 
