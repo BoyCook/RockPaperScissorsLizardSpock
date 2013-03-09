@@ -30,3 +30,7 @@ To run the complete set use:
 To run just the unit spec use:
 
     jasmine-node test/spec/DuelerSpec.js
+
+To run the CasperJS UI tests (requires PhantomJS and CasperJS to be installed):
+
+    casperjs test test/ui

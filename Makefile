@@ -11,6 +11,9 @@ spec: test-spec
 test-spec:
 	node test.js
 
+ui-test:
+	casperjs test test/ui
+
 test-cov: lib-cov
 	@RPSLP_COV=1 $(MAKE) test REPORTER=html-cov > coverage.html
 
