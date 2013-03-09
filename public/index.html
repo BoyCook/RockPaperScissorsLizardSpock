@@ -37,8 +37,8 @@
         </ul>
     </script>
     <script type="text/template" id="dd_template">
-        <% _.each(items, function(item) { %>  
-			<option value="<%= item %>"><%= item %></option> 
+        <% _.each(items, function(item) { %>
+			<option value="<%= item %>"><%= item %></option>
 		<% }); %>
     </script>
     <script type="text/template" id="challenges_template">
@@ -189,8 +189,13 @@
             <h5>User details...</h5>
         </div>
 		<div class="play-flash module">
-            <span class="flash-text"></span>
-            <div class="flash-image"></div>
+            <table>
+                <tr>
+                    <td><div class="flash-image"/></td>
+                    <td><p class="flash-text"></p></td>
+                    <td><div class="flash-image reversed"/></td>
+                </tr>
+            </table>
 		</div>
     </div>
     <div id="login-box" class="login module bordered pop-up">

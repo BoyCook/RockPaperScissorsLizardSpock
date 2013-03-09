@@ -147,9 +147,13 @@ h1, h2, h3, h4, h5 {
     display: none;
 }
 
-.play-flash span {
-    /*position: fixed;*/
-    /*margin-left: 80px;*/
+.play-flash .reversed img {
+    -moz-transform: scaleX(-1);
+    -o-transform: scaleX(-1);
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+    filter: FlipH;
+    -ms-filter: "FlipH";
 }
 
 .login-box input {
