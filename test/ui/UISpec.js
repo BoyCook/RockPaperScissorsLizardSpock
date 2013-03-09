@@ -21,23 +21,28 @@ casper.start('http://localhost:3000/', function () {
     this.test.assertNotVisible('.user-history');
     this.test.assertNotVisible('.user-details');
     this.test.assertNotVisible('.play-flash');
-    this.test.assertNotVisible('.login-box');
-    this.test.assertNotVisible('.sign-up-box');
+    this.test.assertNotVisible('.login');
+    this.test.assertNotVisible('#sign-up-box');
 });
 
-casper.thenEvaluate(function(username, password) {
-    document.querySelector('input[name="username"]').setAttribute('value', username);
-    document.querySelector('input[name="password"]').setAttribute('password', password);
-    document.querySelector('#username').value = username;
-    document.querySelector('#password').value = password;
-    console.log('########## thenEvaluate')
-}, 'BoyCook', 'password');
+casper.then(function () {
+    this.click('.show-login');
+    this.test.assertVisible('.login');
+});
+
+//casper.then(function () {
+//    this.clickLabel('vs. Local', 'a');
+//    this.test.assertVisible('.game-local');
+//});
 
 casper.then(function () {
-    console.log('########## then')
-//    this.test.assertField('username', 'BoyCook');
-//    this.test.assertField('password', 'password');
-//    this.test.assertSelectorHasText('username', 'BoyCook');
+    casper.evaluate(function(username, password) {
+        document.querySelector('#username').value = username;
+        document.querySelector('#password').value = password;
+    }, 'BoyCook', 'password');
+
+    this.test.assertField('username', 'BoyCook');
+    this.test.assertField('password', 'password');
 });
 
 casper.run(function () {
