@@ -199,36 +199,40 @@
 		</div>
     </div>
     <div id="login-box" class="login module bordered pop-up">
-        <div>
-            <input id="username" class="username required" type="text" autocomplete="on" />
-        </div>
-        <div>
-            <input id="password" class="password required" type="password" value="" />
-        </div>
-        <input type="button" id="login" value="Sign in" class="button"/>
-        <p class="show-sign-up"><span><a href="#sign-up">Not a user? Sign up...</a></span></p>
+        <form id="login-form" name="login-form">
+            <div>
+                <input id="username" class="username required" type="text" autocomplete="on" />
+            </div>
+            <div>
+                <input id="password" class="password required" type="password" value="" />
+            </div>
+            <input type="button" id="login" value="Sign in" class="button"/>
+            <p class="show-sign-up"><span><a href="#sign-up">Not a user? Sign up...</a></span></p>
+        </form>
     </div>
     <div id="sign-up-box" class="sign-up module bordered pop-up">
-        <div>
-            <input id="new-username" class="required" type="text"/>
-        </div>
-        <div>
-            <input id="new-password" class="required" type="password" value=""/>
-        </div>
-        <div>
-            <input id="new-password-confirm" class="required" type="password" value=""/>
-        </div>
-        <div>
-            <input id="new-first-name" class="required" type="text"/>
-        </div>
-        <div>
-            <input id="new-last-name" class="required" type="text"/>
-        </div>
-        <div>
-            <input id="new-email" class="required" type="text"/>
-        </div>
-        <input type="button" id="signUp" value="Sign up" class="button"/>
-        <input type="button" id="cancelSignUp" value="Cancel" class="button"/>
+        <form id="sign-up-form" name="sign-up-form">
+            <div>
+                <input id="new-username" class="required" type="text"/>
+            </div>
+            <div>
+                <input id="new-password" class="required" type="password" value=""/>
+            </div>
+            <div>
+                <input id="new-password-confirm" class="required" type="password" value=""/>
+            </div>
+            <div>
+                <input id="new-first-name" class="required" type="text"/>
+            </div>
+            <div>
+                <input id="new-last-name" class="required" type="text"/>
+            </div>
+            <div>
+                <input id="new-email" class="required" type="text"/>
+            </div>
+            <input type="button" id="signUp" value="Sign up" class="button"/>
+            <input type="button" id="cancelSignUp" value="Cancel" class="button"/>
+        </form>
     </div>
     <div class="no-js module">
         <ul class="rules-list">
