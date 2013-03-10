@@ -1,41 +1,42 @@
 var spawn = require('child_process').spawn;
 var server = require('./lib/server.js');
 var db = require('fakeredis').createClient('testdb');
+var spawns = {};
 
 require('./test/spec/testdata.js').createTestData(db, function () {
-    // starts the server
     server.startUp({port: 3003}, function () {
-        // on server ready launch the jasmine-node process with your test file
-        var jasmineRunning = true;
-        var casperRunning = true;
-        var jasmineNode = spawn('jasmine-node', [ 'test/spec', '--junitreport', '--forceexit' ]);
-        var casper = spawn('casperjs', [ 'test', 'test/ui' ]);
-
-        // logs process stdout/stderr to the console
-        function logToConsole(data) {
-            console.log(String(data));
-        }
-
-        // Hack - Shutdown when all processes are done
-        function safeStop(code) {
-            if (!jasmineRunning && !casperRunning) {
-                server.shutDown();
-                process.exit(code);
-            }
-        }
-
-        jasmineNode.stdout.on('data', logToConsole);
-        jasmineNode.stderr.on('data', logToConsole);
-        casper.stdout.on('data', logToConsole);
-        casper.stderr.on('data', logToConsole);
-        jasmineNode.on('exit', function (code) {
-            jasmineRunning = false
-            safeStop(code);
-        });
-
-        casper.on('exit', function (code) {
-            casperRunning = false
-            safeStop(code);
-        });
+//        var mocha = spawn('mocha', ['--reporter', 'xUnit', 'coverage.html']);
+        createSpawn('jasmine-node', [ 'test/spec', '--junitreport', '--forceexit' ]);
+        createSpawn('casperjs', [ 'test', 'test/ui' ]);
     });
 });
+
+function createSpawn(name, args) {
+    spawns[name] = true;
+    var spawned = spawn(name, args);
+    spawned.stdout.on('data', logToConsole);
+    spawned.stderr.on('data', logToConsole);
+    spawned.on('exit', function (code) {
+        spawns[name] = false;
+        safeStop(code);
+    });
+}
+
+// logs process stdout/stderr to the console
+function logToConsole(data) {
+    console.log(String(data));
+}
+
+// Hack - Shutdown when all processes are done
+function safeStop(code) {
+    var running = false;
+    for (var key in spawns) {
+        if (spawns[key] == true) {
+            running = true;
+        }
+    }
+    if (!running) {
+        server.shutDown();
+        process.exit(code);
+    }
+}

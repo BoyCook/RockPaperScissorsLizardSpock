@@ -14,6 +14,11 @@ test:
 ui-test:
 	casperjs test test/ui
 
+test-mocha:
+	@NODE_ENV=test mocha \
+		--reporter $(REPORTER) \
+		$(MOCHA_OPTS)
+
 test-cov: lib-cov
 	@RPSLP_COV=1 $(MAKE) test REPORTER=html-cov > coverage.html
 
