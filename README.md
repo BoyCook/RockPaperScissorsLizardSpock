@@ -1,6 +1,7 @@
 [![Build Status](http://craigcook.co.uk/build/job/Rock%20Paper%20Scissors%20Lizard%20Spock/badge/icon)](http://craigcook.co.uk/build/job/Rock%20Paper%20Scissors%20Lizard%20Spock/)
 
-http://rockpaperscissorslizardspock.co.uk
+## Description
+Rock Paper Scissors Lizard Spock webapp implemented in Node.JS [http://rockpaperscissorslizardspock.co.uk]
 
 ## Rules
 
@@ -21,7 +22,7 @@ To get it running locally with fakeredis use:
 
     node serve.js
 
-## Unit tests
+## Tests
 
 To run the complete set use:
 
