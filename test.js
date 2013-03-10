@@ -1,27 +1,28 @@
 var spawn = require('child_process').spawn;
-var server = require('./lib/server.js');
+var server = require('./lib-cov/server.js');
 var db = require('fakeredis').createClient('testdb');
 var fs = require('fs');
 var spawns = {};
-var coverageFile = 'reports/coverage.html';
+var output = 'reports/coverage.html';
 
 require('./test/spec/testdata.js').createTestData(db, function () {
-    if (fs.existsSync(coverageFile)) {
-        fs.unlinkSync(coverageFile);
+    if (fs.existsSync(output)) {
+        fs.unlinkSync(output);
     }
     server.startUp({port: 3003}, function () {
+//        createSpawn('mocha', ['--reporter', 'html-cov'], logToFile, logToConsole);
 //        createSpawn('mocha', ['--reporter', 'xUnit']);
-//        createSpawn('mocha', ['--reporter', 'html-cov']);
-        createSpawn('jasmine-node', [ 'test/spec', '--junitreport', '--forceexit' ]);
-        createSpawn('casperjs', [ 'test', 'test/ui' ]);
+//        createSpawn('./node_modules/.bin/mocha', ['--reporter', 'html-cov']);
+        createSpawn('jasmine-node', [ 'test/spec', '--junitreport', '--forceexit' ], logToConsole, logToConsole);
+        createSpawn('casperjs', [ 'test', 'test/ui' ], logToConsole, logToConsole);
     });
 });
 
-function createSpawn(name, args) {
+function createSpawn(name, args, stdout, stderr) {
     spawns[name] = true;
     var spawned = spawn(name, args);
-    spawned.stdout.on('data', logToConsole);
-    spawned.stderr.on('data', logToConsole);
+    spawned.stdout.on('data', stdout);
+    spawned.stderr.on('data', stderr);
     spawned.on('exit', function (code) {
         spawns[name] = false;
         safeStop(code);
@@ -30,7 +31,7 @@ function createSpawn(name, args) {
 
 // logs process stdout/stderr to the console
 function logToFile(data) {
-    fs.appendFileSync(coverageFile, data, function (err) {
+    fs.appendFileSync(output, data, function (err) {
         console.log('Error writing to file');
         if (err) throw err;
     });

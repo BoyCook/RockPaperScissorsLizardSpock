@@ -1,5 +1,5 @@
 
-MOCHA_OPTS=
+TESTS = test/*.js
 REPORTER = dot
 
 check: test
@@ -16,20 +16,25 @@ ui-test:
 
 test-mocha:
 	@NODE_ENV=test mocha \
+	    --require should \
+	    --timeout 200 \
 		--reporter $(REPORTER) \
-		$(MOCHA_OPTS)
+		$(TESTS)
 
 test-cov: lib-cov
-	@RPSLP_COV=1 $(MAKE) test REPORTER=html-cov > coverage.html
+	@RPSLP_COV=1 $(MAKE) test
 
 lib-cov:
-	@jscoverage lib lib-cov
+	jscoverage lib lib-cov
+
+test-covold: lib-cov
+	@RPSLP_COV=1 $(MAKE) test-mocha REPORTER=html-cov > coverage.html
 
 benchmark:
 	@./support/bench
 
 clean:
-	rm -f coverage.html
+	rm -f reports/*
 	rm -fr lib-cov
 
 .PHONY: test test-unit test-acceptance benchmark clean
