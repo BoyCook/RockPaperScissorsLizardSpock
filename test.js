@@ -1,11 +1,17 @@
 var spawn = require('child_process').spawn;
 var server = require('./lib/server.js');
 var db = require('fakeredis').createClient('testdb');
+var fs = require('fs');
 var spawns = {};
+var coverageFile = 'reports/coverage.html';
 
 require('./test/spec/testdata.js').createTestData(db, function () {
+    if (fs.existsSync(coverageFile)) {
+        fs.unlinkSync(coverageFile);
+    }
     server.startUp({port: 3003}, function () {
-//        var mocha = spawn('mocha', ['--reporter', 'xUnit', 'coverage.html']);
+//        createSpawn('mocha', ['--reporter', 'xUnit']);
+//        createSpawn('mocha', ['--reporter', 'html-cov']);
         createSpawn('jasmine-node', [ 'test/spec', '--junitreport', '--forceexit' ]);
         createSpawn('casperjs', [ 'test', 'test/ui' ]);
     });
@@ -23,6 +29,13 @@ function createSpawn(name, args) {
 }
 
 // logs process stdout/stderr to the console
+function logToFile(data) {
+    fs.appendFileSync(coverageFile, data, function (err) {
+        console.log('Error writing to file');
+        if (err) throw err;
+    });
+}
+
 function logToConsole(data) {
     console.log(String(data));
 }
