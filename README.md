@@ -1,7 +1,7 @@
 [![Build Status](http://craigcook.co.uk/build/job/Rock%20Paper%20Scissors%20Lizard%20Spock/badge/icon)](http://craigcook.co.uk/build/job/Rock%20Paper%20Scissors%20Lizard%20Spock/)
 
 ## Description
-Rock Paper Scissors Lizard Spock webapp implemented in Node.JS [http://rockpaperscissorslizardspock.co.uk]
+Rock Paper Scissors Lizard Spock webapp implemented in Node.JS http://rockpaperscissorslizardspock.co.uk
 
 ## Rules
 
