@@ -5,10 +5,12 @@ describe('SessionService', function () {
 
     var expectedBoyCook = undefined;
     var newUserSpiderMan = undefined;
+    var expectedSession = undefined;
 
     beforeEach(function (done) {
-        expectedBoyCook = { email : 'boycook@me.com', firstname : 'Craig', lastname : 'Cook', username : 'BoyCook' };
-        newUserSpiderMan = {username:'SpiderMan', firstName:'Peter', lastName:'Parker', email:'spiderman@me.com'};
+        expectedBoyCook = { email: 'boycook@me.com', firstname: 'Craig', lastname: 'Cook', username: 'BoyCook' };
+        newUserSpiderMan = {username: 'SpiderMan', firstName: 'Peter', lastName: 'Parker', email: 'spiderman@me.com'};
+        expectedSession = { passport : { user : 'BoyCook' }};
         done();
     });
 
@@ -35,9 +37,9 @@ describe('SessionService', function () {
     it("should allow signup", function (done) {
         newUserSpiderMan.password = 'password';
         request.put({
-                url:url + '/signup',
-                headers:{'content-type':'application/json', dataType:'json'},
-                body:JSON.stringify(newUserSpiderMan)
+                url: url + '/signup',
+                headers: {'content-type': 'application/json', dataType: 'json'},
+                body: JSON.stringify(newUserSpiderMan)
             },
             function (error, response, body) {
                 body = JSON.parse(body);
@@ -50,14 +52,14 @@ describe('SessionService', function () {
 
     it("should not allow duplicate users to signup", function (done) {
         request.put({
-                url:url + '/signup',
-                headers:{'content-type':'application/json', dataType:'json'},
-                body:JSON.stringify(newUserSpiderMan)
+                url: url + '/signup',
+                headers: {'content-type': 'application/json', dataType: 'json'},
+                body: JSON.stringify(newUserSpiderMan)
             },
             function (error, response, body) {
                 body = JSON.parse(body);
                 expect(response.statusCode).toEqual(409);
-                expect(body).toEqual({message:'User with name [SpiderMan] already exists'});
+                expect(body).toEqual({message: 'User with name [SpiderMan] already exists'});
                 done();
             });
     });
@@ -67,7 +69,7 @@ describe('SessionService', function () {
             function (error, response, body) {
                 body = JSON.parse(body);
                 expect(response.statusCode).toEqual(200);
-                expect(body).toEqual({user:expectedBoyCook});
+                expect(body).toEqual({user: expectedBoyCook});
                 done();
             });
     });
@@ -76,7 +78,7 @@ describe('SessionService', function () {
         request(url + "/session", function (error, response, body) {
             body = JSON.parse(body);
             expect(response.statusCode).toEqual(200);
-            expect(body).toEqual({user:expectedBoyCook});
+            expect(body.user).toEqual(expectedBoyCook);
             done();
         });
     });
