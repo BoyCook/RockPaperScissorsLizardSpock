@@ -1,5 +1,5 @@
 var spawn = require('child_process').spawn;
-var server = require('./lib-cov/server.js');
+var server = require('./lib/server.js');
 var db = require('fakeredis').createClient('testdb');
 var fs = require('fs');
 var spawns = {};
