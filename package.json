@@ -5,6 +5,7 @@
     "private":true,
 	"directories" : { "lib": "./lib" }, 
     "dependencies":{
+        "connect": "*",
         "connect-redis": "*",
         "express":"3.x",
         "fakeredis": "*",
@@ -15,7 +16,7 @@
         "passport-local": "*",
         "redis": "*",
         "request": "*",
-        "sessions": "*",
-        "should": "*"
+        "should": "*",
+        "socket.io": "*"
     }
 }
