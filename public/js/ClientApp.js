@@ -201,11 +201,35 @@ ClientApp.prototype.login = function (username, password) {
             alert('Failed to authenticate user [' + username + ']');
         },
         success: function (data) {
+            //TODO: return session upon login
             context.getSession(function () {
                 $('.login').hide();
             });
         }
     });
+};
+
+ClientApp.prototype.setupSocket = function () {
+    //checkResult - checkForChallenges
+    //Setup socket listening for user
+    var socket = io.connect('http://localhost');
+
+//    socket.emit(this.username, {});
+
+    socket.on(this.username, function (data) {
+        console.log(data);
+//                    socket.emit('my other event', { my: 'data' });
+    });
+//    var chat = io.connect('http://localhost/chat')
+//        , news = io.connect('http://localhost/news');
+//
+//    chat.on('connect', function () {
+//        chat.emit('hi!');
+//    });
+//
+//    news.on('news', function () {
+//        news.emit('woot');
+//    });
 };
 
 ClientApp.prototype.getSession = function (fn) {
