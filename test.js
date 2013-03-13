@@ -4,6 +4,7 @@ var db = require('fakeredis').createClient('testdb');
 var fs = require('fs');
 var spawns = {};
 var output = 'reports/coverage.html';
+var exit = 0;
 
 require('./test/spec/testdata.js').createTestData(db, function () {
     if (fs.existsSync(output)) {
@@ -43,14 +44,22 @@ function logToConsole(data) {
 
 // Hack - Shutdown when all processes are done
 function safeStop(code) {
+    if (code == 1) {
+        exit = code;
+    }
+    if (!isRunning()) {
+        server.shutDown();
+        console.log('Exit code [%d]', exit);
+        process.exit(exit);
+    }
+}
+
+function isRunning() {
     var running = false;
     for (var key in spawns) {
         if (spawns[key] == true) {
             running = true;
         }
     }
-    if (!running) {
-        server.shutDown();
-        process.exit(code);
-    }
+    return running;
 }
