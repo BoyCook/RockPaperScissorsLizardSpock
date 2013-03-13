@@ -7,7 +7,7 @@ function ClientApp() {
     this.username = undefined;
     this.users = undefined;
     this.challengeKey = undefined;
-    this.cPid = undefined
+    this.remoteOpponent = undefined;
 }
 
 ClientApp.prototype.playFlash = function (fn) {
@@ -38,14 +38,10 @@ ClientApp.prototype.play = function (left, right) {
 };
 
 ClientApp.prototype.playRemote = function (move) {
-    var context = this;
     $.ajax({
         url: '/challenge/' + this.challengeKey + '/' + this.session.user.username + '/' + move,
         type: 'PUT',
-        contentType: 'application/x-www-form-urlencoded',
-        success: function () {
-            context.checkResult(context.challengeKey);
-        }
+        contentType: 'application/x-www-form-urlencoded'
     });
 };
 
@@ -63,8 +59,8 @@ ClientApp.prototype.playComputer = function (move) {
 };
 
 ClientApp.prototype.accept = function (key, opponent) {
+    this.remoteOpponent = opponent;
     this.challengeKey = key;
-    clearInterval(this.cPid);
     this.loadOpponentHistory(opponent);
 };
 
@@ -77,14 +73,6 @@ ClientApp.prototype.challenge = function (challengee) {
             alert('Challenge against [' + challengee + '] is already open - select it from the list below');
         }
     });
-};
-
-ClientApp.prototype.checkForChallenges = function () {
-    var context = this;
-    context.getChallenges();
-    this.cPid = setInterval(function () {
-        context.getChallenges();
-    }, 5000);
 };
 
 ClientApp.prototype.getChallenges = function () {
@@ -113,9 +101,9 @@ ClientApp.prototype.loadOpponentHistory = function (opponent) {
     }
 };
 
-ClientApp.prototype.checkResult = function (key) {
+ClientApp.prototype.showResult = function (user, opponent, challenge) {
     var context = this;
-    var success = function (challenge) {
+    if (this.matchesUsers(user, opponent, challenge) && this.isChallengeComplete(challenge)) {
         var m1 = this.getChallengerMove(challenge);
         var m2 = this.getChallengeeMove(challenge);
         var userMove = challenge[context.username];
@@ -123,32 +111,29 @@ ClientApp.prototype.checkResult = function (key) {
         var msg = context.getStatus(userMove, result) + ' - ' + result.message;
         $('.result-waiting').hide();
         $('.result-remote').show();
-        resultDisplay.render('.result-remote', { move: result, message: msg, css: context.getCSS(userMove, result) });
-        context.checkForChallenges();
-    };
-
-    var noResult = function () {
-        setTimeout(function () {
-            context.playFlash(function () {
-                context.getResult(key, noResult, success);
-            });
-        }, 1000);
-    };
-
-    this.playFlash(function () {
-        context.getResult(key, noResult, success);
-    });
+        this.playFlash(function () {
+            resultDisplay.render('.result-remote', { move: result, message: msg, css: context.getCSS(userMove, result) });
+        });
+    }
 };
 
-ClientApp.prototype.getResult = function (key, noResult, success) {
-    var context = this;
-    this.getChallenge(key, function (challenge) {
-        if (context.isChallengeComplete(challenge)) {
-            success(challenge);
-        } else {
-            noResult();
+ClientApp.prototype.getResult = function (user, opponent, data) {
+    var result = undefined;
+    for (var i = 0, len = data.length; i < len; i++) {
+        var item = data[i];
+        if (matchesUsers(user, opponent, item)) {
+            result = item;
+            break;
         }
-    });
+    }
+    return result;
+};
+
+ClientApp.prototype.matchesUsers = function(user1, user2, object) {
+    var p1 = object.challengee;
+    var p2 = object.challenger;
+    return (user1 == p1 || user1 == p2) &&
+        (user2 == p1 || user2 == p2);
 };
 
 ClientApp.prototype.isChallengeComplete = function (challenge) {
@@ -169,6 +154,22 @@ ClientApp.prototype.getChallenge = function (key, success) {
     $.getJSON('/challenge/' + key, success);
 };
 
+ClientApp.prototype.setupSockets = function () {
+    var context = this;
+    var challenges = io.connect('http://localhost/challenges')
+        , results = io.connect('http://localhost/results');
+
+    challenges.on(this.username, function (data) {
+        challengesList.render(data != undefined ? data : []);
+    });
+
+    results.on(this.username, function (data) {
+        if (isDefined(context.username) && isDefined(context.remoteOpponent)) {
+            context.showResult(context.username, context.remoteOpponent, data);
+        }
+    });
+};
+
 ClientApp.prototype.loginForm = function () {
     if ($('#login-box').validate()) {
         this.login($('.username').val(), $('.password').val());
@@ -183,7 +184,6 @@ ClientApp.prototype.logout = function () {
         contentType: 'application/x-www-form-urlencoded',
         success: function () {
             document.location = '#rules';
-            clearInterval(this.cPid);
             context.session = undefined;
             context.username = undefined;
             $('.show-user').replaceWith($('#login_menu_template').html());
@@ -201,7 +201,7 @@ ClientApp.prototype.login = function (username, password) {
             alert('Failed to authenticate user [' + username + ']');
         },
         success: function (data) {
-            //TODO: return session upon login
+            //TODO: return session upon login rather than getSession call
             context.getSession(function () {
                 $('.login').hide();
             });
@@ -209,38 +209,16 @@ ClientApp.prototype.login = function (username, password) {
     });
 };
 
-ClientApp.prototype.setupSocket = function () {
-    //checkResult - checkForChallenges
-    //Setup socket listening for user
-    var challenges = io.connect('http://localhost/challenges')
-        , results = io.connect('http://localhost/results');
-
-    challenges.on(this.username, function () {
-
-//        chat.emit('hi!');
-    });
-
-    results.on(this.username, function () {
-//        news.emit('woot');
-    });
-
-//    var socket = io.connect('http://localhost');
-//    socket.emit(this.username, {});
-
-//    socket.on(this.username, function (data) {
-//        console.log(data);
-//        socket.emit('my other event', { my: 'data' });
-//    });
-};
-
 ClientApp.prototype.getSession = function (fn) {
     var context = this;
     $.getJSON('/session', function (data) {
+        //TODO: move this to hasSession callback
         context.session = data;
         context.username = data.user.username;
         context.loadUsers(true);
-        context.checkForChallenges();
+        context.getChallenges();
         context.loadUserHistory();
+        context.setupSockets();
         userMenu.render(data.user);
         if (fn) {
             fn()
@@ -270,7 +248,7 @@ ClientApp.prototype.signup = function (user) {
 ClientApp.prototype.loadUsers = function (render) {
     var context = this;
     $.getJSON('/user', function (data) {
-        data.remove(context.username);
+        data.splice(data.indexOf(context.username), 1);
         context.users = data;
         if (render) {
             context.renderUsers();
@@ -361,7 +339,6 @@ ClientApp.prototype.setup = function (fn) {
     });
     $('#users-dd').live('change', function () {
         var val = $('.users-dd').val();
-        console.log('Playing: ' + val);
     });
     $('#login').click(function () {
         context.loginForm();
@@ -395,6 +372,14 @@ ClientApp.prototype.setup = function (fn) {
         fn()
     }
 };
+
+function isDefined(val) {
+    return !isUndefined(val);
+}
+
+function isUndefined(val) {
+    return typeof val === "undefined";
+}
 
 function isNotEmpty(val) {
     return (val != null && val.length > 0);
