@@ -21,7 +21,7 @@ then
 	echo 'Starting service...'
 	ulimit -n 5000
 	export NODE_ENV=production
-	nohup node serve.js 1> webserver.log &
+	nohup node app.js 1> webserver.log &
 elif [ "$ACTION" == "STOP" ] || [ "$ACTION" == "stop" ]
 then
     echo 'Stopping service...'
