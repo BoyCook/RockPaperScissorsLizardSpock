@@ -212,23 +212,24 @@ ClientApp.prototype.login = function (username, password) {
 ClientApp.prototype.setupSocket = function () {
     //checkResult - checkForChallenges
     //Setup socket listening for user
-    var socket = io.connect('http://localhost');
+    var challenges = io.connect('http://localhost/challenges')
+        , results = io.connect('http://localhost/results');
 
+    challenges.on(this.username, function () {
+
+//        chat.emit('hi!');
+    });
+
+    results.on(this.username, function () {
+//        news.emit('woot');
+    });
+
+//    var socket = io.connect('http://localhost');
 //    socket.emit(this.username, {});
 
-    socket.on(this.username, function (data) {
-        console.log(data);
-//                    socket.emit('my other event', { my: 'data' });
-    });
-//    var chat = io.connect('http://localhost/chat')
-//        , news = io.connect('http://localhost/news');
-//
-//    chat.on('connect', function () {
-//        chat.emit('hi!');
-//    });
-//
-//    news.on('news', function () {
-//        news.emit('woot');
+//    socket.on(this.username, function (data) {
+//        console.log(data);
+//        socket.emit('my other event', { my: 'data' });
 //    });
 };
 
