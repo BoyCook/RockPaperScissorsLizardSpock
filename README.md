@@ -28,7 +28,7 @@ By default it will start in development mode. For production mode you need to se
 
     export NODE_ENV=production
 
-Production mode expects there to be a [redis|http://redis.io] server running
+Production mode expects there to be a [redis]http://redis.io server running
 
 ## Usage
 You can use the app.sh script to stop start etc.
