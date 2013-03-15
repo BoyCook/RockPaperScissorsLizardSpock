@@ -26,12 +26,17 @@ elif [ "$ACTION" == "STOP" ] || [ "$ACTION" == "stop" ]
 then
     echo 'Stopping service...'
     pkill node
-elif [ "$ACTION" == "DB" ] || [ "$ACTION" == "db" ]
+elif [ "$ACTION" == "DBSTART" ] || [ "$ACTION" == "dbstart" ]
 then
     echo 'Starting DB...'
     nohup $REDIS_HOME/src/redis-server | tee redis.log &
+elif [ "$ACTION" == "DBSTOP" ] || [ "$ACTION" == "dbstop" ]
+then
+    echo 'Stopping DB...'
+	killall redis-server
 elif [ "$ACTION" == "STATUS" ] || [ "$ACTION" == "status" ]
 then
+	echo 'Listing node processes...'
     ps -ef | grep node
 elif [ "$ACTION" == "TAIL" ] || [ "$ACTION" == "tail" ]
 then
