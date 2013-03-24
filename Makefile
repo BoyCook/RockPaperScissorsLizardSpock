@@ -14,6 +14,9 @@ test:
 ui-test:
 	casperjs test test/ui
 
+test-spec:
+	jasmine-node test/spec --junitreport --forceexit
+
 test-mocha:
 	@NODE_ENV=test mocha \
 	    --require should \
