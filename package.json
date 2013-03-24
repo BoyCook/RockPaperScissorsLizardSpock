@@ -36,14 +36,14 @@
         "passport-local": "*",
         "redis": "*",
         "request": "*",
-        "socket.io": "*"
+        "socket.io": "*",
+        "object-utils": "https://github.com/BoyCook/ObjectUtilsJS/tarball/master"
     },
     "devDependencies": {
         "should": "latest",
         "fakeredis": "*",
         "hiredis": "*",
-        "jasmine-node": "*",
-        "jscoverage-reported": "*"
+        "jasmine-node": "*"
     },
     "engines": {
         "node": ">=0.6"
