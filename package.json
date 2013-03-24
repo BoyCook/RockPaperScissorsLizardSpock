@@ -1,22 +1,51 @@
 {
     "name":"RockPaperScissorsLizardSpock",
     "description":"Rock Paper Scissors Lizard Spock",
-    "version":"0.0.1",
-    "private":true,
-	"directories" : { "lib": "./lib" }, 
+    "author": "BoyCook",
+    "version": "0.0.1-SNAPSHOT",
+    "contributors": [
+        {
+            "name": "Craig Cook",
+            "id": "BoyCook"
+        }
+    ],
+    "scripts": {
+        "test": "make test",
+        "predeploy": "echo This will be run before deploying the app",
+        "postdeploy": "echo This will be run after deploying the app"
+    },
+    "main": "./lib/objectutils",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/BoyCook/RockPaperScissorsLizardSpock.git"
+    },
+    "keywords": [
+        "Rock",
+        "Paper",
+        "Scissors",
+        "Lizard",
+        "Spock",
+        "RockPaperScissorsLizardSpock",
+        "JavaScript"
+    ],
     "dependencies":{
         "connect": "*",
         "connect-redis": "*",
         "express":"3.x",
-        "fakeredis": "*",
-        "hiredis": "*",
-        "jasmine-node": "*",
-        "jscoverage-reported": "*",
         "passport": "*",
         "passport-local": "*",
         "redis": "*",
         "request": "*",
-        "should": "*",
         "socket.io": "*"
+    },
+    "devDependencies": {
+        "should": "latest",
+        "fakeredis": "*",
+        "hiredis": "*",
+        "jasmine-node": "*",
+        "jscoverage-reported": "*"
+    },
+    "engines": {
+        "node": ">=0.6"
     }
 }
