@@ -61,3 +61,8 @@ To run just the unit spec use:
 To run the CasperJS UI tests (requires PhantomJS and CasperJS to be installed):
 
     casperjs test test/ui
+
+## Links
+
+* http://craigcook.co.uk/build/job/Rock%20Paper%20Scissors%20Lizard%20Spock
+* http://craigcook.co.uk/quality/dashboard/index/248
