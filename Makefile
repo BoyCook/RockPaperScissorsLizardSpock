@@ -40,4 +40,15 @@ clean:
 	rm -f reports/*
 	rm -fr lib-cov
 
+deploy: heroku-stop heroku-push
+
+heroku-stop:
+	heroku ps:stop web=1
+
+heroku-push:
+	git push heroku master
+
+heroku-open:
+	heroku open
+
 .PHONY: test test-unit test-acceptance benchmark clean

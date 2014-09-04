@@ -29,21 +29,21 @@
         "JavaScript"
     ],
     "dependencies":{
-        "connect": "*",
-        "connect-redis": "*",
+        "connect": "2.7.3",
+        "connect-redis": "1.4.4",
         "express":"3.x",
-        "passport": "*",
-        "passport-local": "*",
-        "redis": "*",
-        "request": "*",
-        "socket.io": "*",
+        "passport": "0.1.12",
+        "passport-local": "0.1.6",
+        "redis": "0.8.1",
+        "request": "2.11.4",
+        "socket.io": "0.9.13",
         "object-utils": "https://github.com/BoyCook/ObjectUtilsJS/tarball/master"
     },
     "devDependencies": {
-        "should": "latest",
-        "fakeredis": "*",
-        "hiredis": "*",
-        "jasmine-node": "*"
+        "should": "4.0.4",
+        "fakeredis": "0.0.14",
+        "hiredis": "0.1.14",
+        "jasmine-node": "1.0.26"
     },
     "engines": {
         "node": ">=0.6"
