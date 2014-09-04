@@ -37,12 +37,12 @@
         "redis": "0.8.1",
         "request": "2.11.4",
         "socket.io": "0.9.13",
+        "fakeredis": "0.0.14",
+        "hiredis": "0.1.14",        
         "object-utils": "https://github.com/BoyCook/ObjectUtilsJS/tarball/master"
     },
     "devDependencies": {
         "should": "4.0.4",
-        "fakeredis": "0.0.14",
-        "hiredis": "0.1.14",
         "jasmine-node": "1.0.26"
     },
     "engines": {
