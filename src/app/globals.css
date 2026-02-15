@@ -10,8 +10,16 @@
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: var(--font-exo2), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu,
-    Cantarell, sans-serif;
+  font-family:
+    var(--font-exo2),
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    Roboto,
+    Oxygen,
+    Ubuntu,
+    Cantarell,
+    sans-serif;
 }
 
 @layer utilities {

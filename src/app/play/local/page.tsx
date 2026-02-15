@@ -76,8 +76,16 @@ export default function LocalGamePage() {
 
         {/* Score Board */}
         <div className="mb-8 flex justify-around items-center max-w-5xl mx-auto">
-          <div className="text-center bg-white/10 backdrop-blur-sm rounded-2xl px-10 py-8 border-2 min-w-[180px]" style={{ borderColor: '#60a5fa' }}>
-            <div className="text-3xl font-black mb-4" style={{ color: '#60a5fa' }}>PLAYER 1</div>
+          <div
+            className="text-center bg-white/10 backdrop-blur-sm rounded-2xl px-10 py-8 border-2 min-w-[180px]"
+            style={{ borderColor: '#60a5fa' }}
+          >
+            <div
+              className="text-3xl font-black mb-4"
+              style={{ color: '#60a5fa' }}
+            >
+              PLAYER 1
+            </div>
             <div className="text-8xl font-black" style={{ color: '#60a5fa' }}>
               {player1Score}
             </div>
@@ -85,8 +93,16 @@ export default function LocalGamePage() {
           <div className="flex items-center">
             <div className="text-3xl font-bold text-white/60">VS</div>
           </div>
-          <div className="text-center bg-white/10 backdrop-blur-sm rounded-2xl px-10 py-8 border-2 min-w-[180px]" style={{ borderColor: '#f87171' }}>
-            <div className="text-3xl font-black mb-4" style={{ color: '#f87171' }}>PLAYER 2</div>
+          <div
+            className="text-center bg-white/10 backdrop-blur-sm rounded-2xl px-10 py-8 border-2 min-w-[180px]"
+            style={{ borderColor: '#f87171' }}
+          >
+            <div
+              className="text-3xl font-black mb-4"
+              style={{ color: '#f87171' }}
+            >
+              PLAYER 2
+            </div>
             <div className="text-8xl font-black" style={{ color: '#f87171' }}>
               {player2Score}
             </div>

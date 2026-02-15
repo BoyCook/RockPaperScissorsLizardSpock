@@ -15,7 +15,9 @@ export default function ResultDisplay({
 }: ResultDisplayProps) {
   const winnerName = result.isDraw
     ? null
-    : result.winner === result.winner ? player1Name : player2Name;
+    : result.winner === result.winner
+      ? player1Name
+      : player2Name;
 
   return (
     <div className="absolute top-0 left-0 right-0 bottom-0 z-50 flex flex-col items-center justify-center bg-black/70 backdrop-blur-sm animate-in fade-in duration-300">

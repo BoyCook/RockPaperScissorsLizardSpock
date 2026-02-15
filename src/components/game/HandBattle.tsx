@@ -36,14 +36,19 @@ export default function HandBattle({
     return MOVE_EMOJIS[move];
   };
 
-  const winnerName = result && !result.isDraw
-    ? result.winner === player1Move ? player1Label : player2Label
-    : null;
+  const winnerName =
+    result && !result.isDraw
+      ? result.winner === player1Move
+        ? player1Label
+        : player2Label
+      : null;
 
   return (
     <div className="relative flex items-center justify-center min-h-[300px] sm:min-h-[400px]">
       {/* Player 1 Hand - Left */}
-      <div className={`flex-1 flex flex-col items-center justify-center transition-opacity duration-300 ${result ? 'opacity-20' : 'opacity-100'}`}>
+      <div
+        className={`flex-1 flex flex-col items-center justify-center transition-opacity duration-300 ${result ? 'opacity-20' : 'opacity-100'}`}
+      >
         <div className="text-sm font-semibold text-white/60 mb-4">
           {player1Label}
         </div>
@@ -64,7 +69,9 @@ export default function HandBattle({
       </div>
 
       {/* VS Divider */}
-      <div className={`flex flex-col items-center justify-center px-4 sm:px-8 transition-opacity duration-300 ${result ? 'opacity-0' : 'opacity-100'}`}>
+      <div
+        className={`flex flex-col items-center justify-center px-4 sm:px-8 transition-opacity duration-300 ${result ? 'opacity-0' : 'opacity-100'}`}
+      >
         <div
           className={`
             text-4xl sm:text-5xl font-bold transition-all duration-300
@@ -85,7 +92,9 @@ export default function HandBattle({
       </div>
 
       {/* Player 2 Hand - Right */}
-      <div className={`flex-1 flex flex-col items-center justify-center transition-opacity duration-300 ${result ? 'opacity-20' : 'opacity-100'}`}>
+      <div
+        className={`flex-1 flex flex-col items-center justify-center transition-opacity duration-300 ${result ? 'opacity-20' : 'opacity-100'}`}
+      >
         <div className="text-sm font-semibold text-white/60 mb-4">
           {player2Label}
         </div>
