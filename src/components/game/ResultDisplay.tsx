@@ -27,7 +27,9 @@ export default function ResultDisplay({
         <div className="flex items-center justify-center gap-8">
           <div className="text-center">
             <div className="text-6xl mb-2">{MOVE_EMOJIS[result.winner]}</div>
-            <div className="text-sm font-medium capitalize">{result.winner}</div>
+            <div className="text-sm font-medium capitalize">
+              {result.winner}
+            </div>
           </div>
           <div className="text-2xl font-bold">VS</div>
           <div className="text-center">
@@ -43,7 +45,8 @@ export default function ResultDisplay({
         ) : (
           <div className="space-y-2">
             <div className="text-2xl font-bold text-green-600 dark:text-green-400">
-              {result.winner === result.winner ? player1Name : player2Name} Wins!
+              {result.winner === result.winner ? player1Name : player2Name}{' '}
+              Wins!
             </div>
             <div className="text-lg text-gray-600 dark:text-gray-400">
               {result.message}

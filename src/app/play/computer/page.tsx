@@ -47,9 +47,7 @@ export default function ComputerGamePage() {
   return (
     <div className="container mx-auto px-4 py-8 max-w-6xl">
       <div className="mb-8">
-        <h1 className="text-4xl font-bold text-center mb-4">
-          vs Computer
-        </h1>
+        <h1 className="text-4xl font-bold text-center mb-4">vs Computer</h1>
         <p className="text-center text-gray-600 dark:text-gray-400">
           Test your luck against the AI
         </p>
@@ -61,9 +59,7 @@ export default function ComputerGamePage() {
           <div className="text-sm text-gray-600 dark:text-gray-400">You</div>
         </div>
         <div className="text-center">
-          <div className="text-3xl font-bold text-red-600">
-            {computerScore}
-          </div>
+          <div className="text-3xl font-bold text-red-600">{computerScore}</div>
           <div className="text-sm text-gray-600 dark:text-gray-400">
             Computer
           </div>
