@@ -81,7 +81,7 @@ jobs:
     name: Deploy to Production
     runs-on: ubuntu-latest
     needs: [lint, type-check, test, build, e2e]
-    if: success()
+    if: false  # Disabled until Vercel is configured
     environment:
       name: production
       url: https://rockpaperscissorslizardspock.co.uk
