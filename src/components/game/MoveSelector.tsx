@@ -26,7 +26,7 @@ export default function MoveSelector({
   return (
     <div className="space-y-6">
       <h3 className="text-2xl font-bold text-center text-white">{label}</h3>
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3 sm:gap-4">
+      <div className="flex flex-wrap justify-center gap-3 sm:gap-4">
         {MOVES.map((move) => {
           const isSelected = selectedMove === move.value;
           return (
@@ -36,24 +36,21 @@ export default function MoveSelector({
               disabled={disabled}
               className={`
                 group relative flex flex-col items-center justify-center
-                p-6 sm:p-8 rounded-2xl border-2 transition-all duration-300
-                hover:scale-105 active:scale-95
+                w-20 h-20 sm:w-24 sm:h-24 rounded-full border-2 transition-all duration-300
+                hover:scale-110 active:scale-95
                 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:scale-100
                 ${
                   isSelected
-                    ? 'border-blue-400 bg-blue-500/20 shadow-lg shadow-blue-500/50 scale-105'
+                    ? 'border-blue-400 bg-blue-500/20 shadow-lg shadow-blue-500/50 scale-110'
                     : 'border-white/20 bg-white/5 hover:border-white/40 hover:bg-white/10 hover:shadow-xl'
                 }
               `}
             >
               {isSelected && (
-                <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-blue-400/20 to-purple-400/20 animate-pulse" />
+                <div className="absolute inset-0 rounded-full bg-gradient-to-br from-blue-400/20 to-purple-400/20 animate-pulse" />
               )}
-              <span className="relative text-5xl sm:text-6xl mb-3 group-hover:scale-110 transition-transform">
+              <span className="relative text-[64px] sm:text-[80px] group-hover:scale-110 transition-transform">
                 {move.emoji}
-              </span>
-              <span className="relative text-sm sm:text-base font-semibold text-white">
-                {move.label}
               </span>
             </button>
           );

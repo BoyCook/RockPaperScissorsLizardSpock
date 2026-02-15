@@ -27,11 +27,11 @@ describe('MoveSelector', () => {
         />
       );
 
-      expect(screen.getByText('Rock')).toBeInTheDocument();
-      expect(screen.getByText('Paper')).toBeInTheDocument();
-      expect(screen.getByText('Scissors')).toBeInTheDocument();
-      expect(screen.getByText('Lizard')).toBeInTheDocument();
-      expect(screen.getByText('Spock')).toBeInTheDocument();
+      expect(screen.getByText('✊')).toBeInTheDocument();
+      expect(screen.getByText('✋')).toBeInTheDocument();
+      expect(screen.getByText('✌️')).toBeInTheDocument();
+      expect(screen.getByText('🦎')).toBeInTheDocument();
+      expect(screen.getByText('🖖')).toBeInTheDocument();
     });
   });
 
@@ -45,7 +45,7 @@ describe('MoveSelector', () => {
         />
       );
 
-      fireEvent.click(screen.getByText('Rock'));
+      fireEvent.click(screen.getByText('✊'));
 
       expect(mockOnSelect).toHaveBeenCalledWith('rock');
     });
@@ -67,7 +67,7 @@ describe('MoveSelector', () => {
         />
       );
 
-      const rockButton = screen.getByText('Rock').closest('button');
+      const rockButton = screen.getByText('✊').closest('button');
       expect(rockButton).toHaveClass('border-blue-400');
     });
   });
@@ -83,7 +83,7 @@ describe('MoveSelector', () => {
         />
       );
 
-      const rockButton = screen.getByText('Rock').closest('button');
+      const rockButton = screen.getByText('✊').closest('button');
       expect(rockButton).toBeDisabled();
     });
   });
