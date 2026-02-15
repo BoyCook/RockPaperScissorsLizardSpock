@@ -41,18 +41,19 @@ export default function HandBattle({
         <div className="text-sm font-semibold text-white/60 mb-4">
           {player1Label}
         </div>
-        <div
-          className={`
-            text-[120px] sm:text-[160px] transition-all duration-500
-            ${isCountdown ? 'animate-countdown-shake' : showResult ? 'animate-shake-reveal' : 'animate-bounce-ready'}
-            ${player1Move || isCountdown ? 'scale-100' : 'scale-75 opacity-50'}
-          `}
-          style={{
-            transform: showResult || isCountdown ? 'none' : 'scaleX(-1)',
-            filter: 'drop-shadow(0 10px 30px rgba(0,0,0,0.5))',
-          }}
-        >
-          {getDisplayEmoji(player1Move)}
+        <div style={{ transform: 'rotate(90deg)' }}>
+          <div
+            className={`
+              text-[120px] sm:text-[160px] transition-all duration-500
+              ${isCountdown ? 'animate-countdown-shake' : showResult ? 'animate-shake-reveal' : 'animate-bounce-ready'}
+              ${player1Move || isCountdown ? 'scale-100' : 'scale-75 opacity-50'}
+            `}
+            style={{
+              filter: 'drop-shadow(0 10px 30px rgba(0,0,0,0.5))',
+            }}
+          >
+            {getDisplayEmoji(player1Move)}
+          </div>
         </div>
       </div>
 
@@ -82,17 +83,19 @@ export default function HandBattle({
         <div className="text-sm font-semibold text-white/60 mb-4">
           {player2Label}
         </div>
-        <div
-          className={`
-            text-[120px] sm:text-[160px] transition-all duration-500
-            ${isCountdown ? 'animate-countdown-shake animation-delay-150' : showResult ? 'animate-shake-reveal animation-delay-150' : 'animate-bounce-ready animation-delay-300'}
-            ${player2Move || isCountdown ? 'scale-100' : 'scale-75 opacity-50'}
-          `}
-          style={{
-            filter: 'drop-shadow(0 10px 30px rgba(0,0,0,0.5))',
-          }}
-        >
-          {getDisplayEmoji(player2Move)}
+        <div style={{ transform: 'rotate(-90deg)' }}>
+          <div
+            className={`
+              text-[120px] sm:text-[160px] transition-all duration-500
+              ${isCountdown ? 'animate-countdown-shake animation-delay-150' : showResult ? 'animate-shake-reveal animation-delay-150' : 'animate-bounce-ready animation-delay-300'}
+              ${player2Move || isCountdown ? 'scale-100' : 'scale-75 opacity-50'}
+            `}
+            style={{
+              filter: 'drop-shadow(0 10px 30px rgba(0,0,0,0.5))',
+            }}
+          >
+            {getDisplayEmoji(player2Move)}
+          </div>
         </div>
       </div>
 
