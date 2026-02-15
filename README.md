@@ -1,68 +1,103 @@
-[![Build Status](http://craigcook.co.uk/build/job/Rock%20Paper%20Scissors%20Lizard%20Spock/badge/icon)](http://craigcook.co.uk/build/job/Rock%20Paper%20Scissors%20Lizard%20Spock/)
+# Rock Paper Scissors Lizard Spock - Next.js Edition
 
-## Description
-Rock Paper Scissors Lizard Spock webapp implemented in Node.JS http://rockpaperscissorslizardspock.co.uk
+A modern implementation of Rock Paper Scissors Lizard Spock built with Next.js, TypeScript, and real-time multiplayer support.
 
-## Rules
-* Scissors cuts paper
-* Paper covers rock
-* Rock crushes lizard
-* Lizard poisons Spock
-* Spock smashes scissors
-* Scissors decapitates lizard
-* Lizard eats paper
-* Paper disproves Spock
-* Spock vaporizes rock
-* And as it always has, rock crushes scissors
+## Features
 
-## Getting started
-To start the service use:
+- 🎮 Three game modes: Local, vs Computer, Online Multiplayer
+- 🔐 User authentication with NextAuth.js
+- ⚡ Real-time multiplayer with Socket.IO
+- 🎨 Modern UI with Tailwind CSS
+- 📱 Fully responsive design
+- 🧪 Comprehensive test coverage
+- 🚀 Server-Side Rendering (SSR)
 
-    node app.js
+## The Rules
 
-To get it running locally with fakeredis and some test data use:
+- Scissors cuts paper
+- Paper covers rock
+- Rock crushes lizard
+- Lizard poisons Spock
+- Spock smashes scissors
+- Scissors decapitates lizard
+- Lizard eats paper
+- Paper disproves Spock
+- Spock vaporizes rock
+- Rock crushes scissors
 
-    node serve.js
+## Getting Started
 
-By default it will start in development mode. For production mode you need to set the node environment variable:
+### Prerequisites
 
-    export NODE_ENV=production
+- Node.js 20+
+- Redis (local or Upstash)
 
-Production mode expects there to be a [redis](http://redis.io) server running
+### Installation
 
-## Usage
-You can use the app.sh script to stop start etc.
-To start the service:
+```bash
+# Install dependencies
+npm install
 
-    ./app.sh start
+# Copy environment variables
+cp .env.example .env.local
 
-To stop the service:
+# Run development server
+npm run dev
+```
 
-    ./app.sh stop
+Open [http://localhost:3000](http://localhost:3000) to see the app.
 
-To start the redis DB:
+## Available Scripts
 
-    ./app.sh db
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm start` - Start production server
+- `npm run lint` - Run ESLint
+- `npm run type-check` - Run TypeScript compiler check
+- `npm test` - Run tests in watch mode
+- `npm run test:unit` - Run unit tests
+- `npm run test:e2e` - Run E2E tests with Playwright
+- `npm run format` - Format code with Prettier
 
-To tail the log:
+## Project Structure
 
-    ./app.sh tail
+```
+src/
+├── app/                  # Next.js App Router pages
+├── components/           # React components
+├── lib/                  # Core business logic
+│   ├── game/            # Game rules and engine
+│   ├── redis/           # Redis client and operations
+│   └── auth/            # Authentication configuration
+├── hooks/               # Custom React hooks
+├── store/               # Zustand state management
+├── types/               # TypeScript type definitions
+└── utils/               # Utility functions
+```
 
-## Tests
+## Deployment
 
-To run the complete set use:
+### Vercel (Recommended)
 
-    make test
+1. Push to GitHub
+2. Import project in Vercel
+3. Configure environment variables
+4. Deploy
 
-To run just the unit spec use:
+### Docker
 
-    jasmine-node test/spec/DuelerSpec.js
+```bash
+docker-compose up
+```
 
-To run the CasperJS UI tests (requires PhantomJS and CasperJS to be installed):
+## Legacy Codebase
 
-    casperjs test test/ui
+The original Express.js + Backbone.js implementation is preserved in the `legacy` branch.
 
-## Links
+## License
 
-* http://craigcook.co.uk/build/job/Rock%20Paper%20Scissors%20Lizard%20Spock
-* http://craigcook.co.uk/quality/dashboard/index/248
+See LICENSE file for details.
+
+## Author
+
+Craig Cook - [http://craigcook.co.uk](http://craigcook.co.uk)
