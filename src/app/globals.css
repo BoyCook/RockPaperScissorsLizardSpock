@@ -41,7 +41,7 @@ body {
   }
 
   .animate-countdown-shake {
-    animation: countdownShake 0.6s ease-in-out infinite;
+    animation: countdownShake 2s ease-in-out;
   }
 
   .animate-in {
@@ -122,17 +122,45 @@ body {
 }
 
 @keyframes countdownShake {
-  0%,
-  100% {
+  0% {
     transform: translateY(0);
   }
+  /* Rock */
+  5% {
+    transform: translateY(-40px);
+  }
+  10% {
+    transform: translateY(0);
+  }
+  /* Paper */
   25% {
-    transform: translateY(-30px);
+    transform: translateY(-40px);
+  }
+  30% {
+    transform: translateY(0);
+  }
+  /* Scissors */
+  45% {
+    transform: translateY(-40px);
   }
   50% {
     transform: translateY(0);
   }
-  75% {
-    transform: translateY(-30px);
+  /* Lizard */
+  65% {
+    transform: translateY(-40px);
+  }
+  70% {
+    transform: translateY(0);
+  }
+  /* Spock */
+  85% {
+    transform: translateY(-40px);
+  }
+  90% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(0);
   }
 }
