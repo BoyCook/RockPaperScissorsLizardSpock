@@ -52,9 +52,11 @@ These secrets are required for automated deployments to Vercel.
 
 ## Workflows
 
+This project uses **Trunk-Based Development (TBD)** - all work happens directly on `master` with continuous deployment.
+
 ### 1. CI Workflow (`.github/workflows/ci.yml`)
 
-**Triggers**: Push or PR to main/master/develop
+**Triggers**: Every push to master
 
 **Jobs**:
 - **Lint**: Runs ESLint and Prettier
@@ -62,31 +64,22 @@ These secrets are required for automated deployments to Vercel.
 - **Test**: Runs unit tests with Vitest
 - **Build**: Builds the Next.js application
 
-**Status**: Runs on every push and pull request
+**Status**: Runs on every commit to master
 
-### 2. Deploy Preview (`.github/workflows/deploy-preview.yml`)
+### 2. Deploy Production (`.github/workflows/deploy-production.yml`)
 
-**Triggers**: Pull requests to main/master
-
-**What it does**:
-- Deploys a preview version to Vercel
-- Comments on the PR with the preview URL
-
-**Requirements**: Vercel secrets configured
-
-### 3. Deploy Production (`.github/workflows/deploy-production.yml`)
-
-**Triggers**: Push to main/master
+**Triggers**: Automatically after CI passes on master
 
 **What it does**:
 - Deploys to Vercel production
 - Updates commit status
+- Continuous deployment on every commit
 
 **Requirements**: Vercel secrets configured
 
-### 4. E2E Tests (`.github/workflows/e2e-tests.yml`)
+### 3. E2E Tests (`.github/workflows/e2e-tests.yml`)
 
-**Triggers**: Push/PR to main/master, or manual trigger
+**Triggers**: Every push to master, or manual trigger
 
 **What it does**:
 - Runs Playwright E2E tests
@@ -98,30 +91,27 @@ These secrets are required for automated deployments to Vercel.
 ### Setting Up Environments
 
 1. Go to **Settings** → **Environments**
-2. Create two environments:
-   - `preview` - For PR preview deployments
+2. Create one environment:
    - `production` - For production deployments
 
-### Production Environment Protection
+### Production Environment Protection (Optional)
 
-For the `production` environment, configure:
-- **Required reviewers**: Add yourself or team members
-- **Wait timer**: Optional delay before deployment
-- **Deployment branches**: Only `main` or `master`
+For the `production` environment, you can optionally configure:
+- **Wait timer**: Brief delay before deployment (e.g., 30 seconds)
+- **Deployment branches**: Only `master`
 
-## Branch Protection Rules
+**Note**: With TBD, we don't use required reviewers since code is committed directly to master. Reviews happen before commit, not via PRs.
 
-Recommended settings for `main`/`master` branch:
+## Branch Protection Rules (Optional)
+
+Since we use Trunk-Based Development, branch protection is optional. If you want to enable CI checks:
 
 1. Go to **Settings** → **Branches**
-2. Add rule for `main` or `master`
+2. Add rule for `master`
 3. Enable:
-   - ✅ Require a pull request before merging
-   - ✅ Require status checks to pass before merging
+   - ✅ Require status checks to pass before pushing
      - Select: `lint`, `type-check`, `test`, `build`
-   - ✅ Require branches to be up to date before merging
-   - ✅ Require conversation resolution before merging
-   - ✅ Do not allow bypassing the above settings
+   - ⚠️ **Do NOT** enable "Require pull request" - we push directly to master
 
 ## Vercel Project Setup
 

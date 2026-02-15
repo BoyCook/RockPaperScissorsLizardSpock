@@ -2,12 +2,17 @@ name: Deploy Production
 
 on:
   push:
-    branches: [main, master]
+    branches: [master]
+  workflow_run:
+    workflows: ["CI"]
+    types: [completed]
+    branches: [master]
 
 jobs:
   deploy-production:
     name: Deploy to Vercel Production
     runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'push' }}
     environment:
       name: production
       url: https://rockpaperscissorslizardspock.co.uk
