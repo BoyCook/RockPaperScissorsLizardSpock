@@ -44,7 +44,7 @@ export default function HomePage() {
         {/* Rules Section */}
         <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 sm:p-8 border border-white/10 max-w-3xl mx-auto">
           <h2 className="text-2xl font-bold text-white mb-6">Game Rules</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-left text-sm sm:text-base">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-center text-sm sm:text-base">
             {[
               '✂️ Scissors cuts Paper',
               '📄 Paper covers Rock',
