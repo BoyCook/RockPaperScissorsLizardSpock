@@ -1,82 +1,169 @@
+import Link from 'next/link';
+
 export default function HomePage() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center p-4 sm:p-8 md:p-24 bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
-      <div className="max-w-4xl w-full text-center space-y-12">
-        {/* Header */}
-        <div className="space-y-4">
-          <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold text-white mb-4 drop-shadow-lg">
-            Rock Paper Scissors
-            <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">
-              Lizard Spock
+    <main className="min-h-screen bg-white">
+      {/* Hero Section */}
+      <div className="container mx-auto px-4 py-12 sm:py-20 max-w-6xl">
+        <div className="text-center space-y-8 sm:space-y-12">
+          {/* Title */}
+          <div className="space-y-4">
+            <h1 className="text-6xl sm:text-7xl md:text-9xl font-black text-black leading-tight">
+              ROCK PAPER
+              <br />
+              SCISSORS
+            </h1>
+            <div
+              className="text-5xl sm:text-6xl md:text-8xl font-black"
+              style={{
+                background:
+                  'linear-gradient(to right, #60a5fa, #a78bfa, #f87171)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text',
+              }}
+            >
+              LIZARD SPOCK
+            </div>
+          </div>
+
+          {/* Emoji Row */}
+          <div className="flex justify-center items-center gap-4 sm:gap-8 text-6xl sm:text-8xl md:text-9xl py-8">
+            <span className="animate-bounce-ready">✊</span>
+            <span className="animate-bounce-ready animation-delay-150">✋</span>
+            <span className="animate-bounce-ready animation-delay-300">✌️</span>
+            <span className="hidden sm:inline animate-bounce-ready">🦎</span>
+            <span className="hidden sm:inline animate-bounce-ready animation-delay-150">
+              🖖
             </span>
-          </h1>
-          <p className="text-lg sm:text-xl text-gray-300 max-w-2xl mx-auto">
-            The legendary game invented by Sam Kass and Karen Bryla,
-            <br className="hidden sm:block" />
-            popularized by The Big Bang Theory
+          </div>
+
+          {/* Subtitle */}
+          <p className="text-xl sm:text-2xl text-gray-600 font-medium max-w-3xl mx-auto">
+            The legendary 5-move variant popularized by{' '}
+            <span className="font-black text-black">The Big Bang Theory</span>
           </p>
         </div>
+      </div>
 
-        {/* Game Mode Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-4">
-          <a
+      {/* Game Mode Cards */}
+      <div className="container mx-auto px-4 pb-16 sm:pb-24 max-w-5xl">
+        <h2 className="text-4xl sm:text-5xl font-black text-center text-black mb-12">
+          CHOOSE YOUR MODE
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
+          {/* Local Game */}
+          <Link
             href="/play/local"
-            className="group relative p-8 bg-white/10 backdrop-blur-sm rounded-2xl border border-white/20 hover:bg-white/20 hover:border-blue-400/50 transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/20"
+            className="group relative bg-black rounded-3xl p-8 sm:p-12 hover:scale-105 transition-transform duration-300"
           >
-            <div className="text-5xl mb-4">👥</div>
-            <h3 className="text-2xl font-bold text-white mb-2">Local Game</h3>
-            <p className="text-gray-300">Two players, same device</p>
-          </a>
+            <div className="space-y-6">
+              <div className="text-8xl sm:text-9xl">👥</div>
+              <div>
+                <h3 className="text-3xl sm:text-4xl font-black text-white mb-3">
+                  LOCAL GAME
+                </h3>
+                <p className="text-lg sm:text-xl text-gray-400 font-medium">
+                  Two players on the same device
+                </p>
+              </div>
+              <div
+                className="inline-block px-6 py-3 rounded-full font-black text-lg border-2"
+                style={{ borderColor: '#60a5fa', color: '#60a5fa' }}
+              >
+                PLAY NOW →
+              </div>
+            </div>
+          </Link>
 
-          <a
+          {/* vs Computer */}
+          <Link
             href="/play/computer"
-            className="group relative p-8 bg-white/10 backdrop-blur-sm rounded-2xl border border-white/20 hover:bg-white/20 hover:border-green-400/50 transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-green-500/20"
+            className="group relative bg-black rounded-3xl p-8 sm:p-12 hover:scale-105 transition-transform duration-300"
           >
-            <div className="text-5xl mb-4">🤖</div>
-            <h3 className="text-2xl font-bold text-white mb-2">vs Computer</h3>
-            <p className="text-gray-300">Test your luck against AI</p>
-          </a>
-
-          <a
-            href="/play/remote"
-            className="group relative p-8 bg-white/10 backdrop-blur-sm rounded-2xl border border-white/20 hover:bg-white/20 hover:border-purple-400/50 transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-purple-500/20 sm:col-span-2 lg:col-span-1"
-          >
-            <div className="text-5xl mb-4">🌐</div>
-            <h3 className="text-2xl font-bold text-white mb-2">
-              Online
-              <span className="ml-2 text-xs px-2 py-1 bg-purple-500/30 rounded-full">
-                Soon
-              </span>
-            </h3>
-            <p className="text-gray-300">Challenge players worldwide</p>
-          </a>
+            <div className="space-y-6">
+              <div className="text-8xl sm:text-9xl">🤖</div>
+              <div>
+                <h3 className="text-3xl sm:text-4xl font-black text-white mb-3">
+                  VS COMPUTER
+                </h3>
+                <p className="text-lg sm:text-xl text-gray-400 font-medium">
+                  Test your luck against AI
+                </p>
+              </div>
+              <div
+                className="inline-block px-6 py-3 rounded-full font-black text-lg border-2"
+                style={{ borderColor: '#f87171', color: '#f87171' }}
+              >
+                PLAY NOW →
+              </div>
+            </div>
+          </Link>
         </div>
+      </div>
 
-        {/* Rules Section */}
-        <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 sm:p-8 border border-white/10 max-w-3xl mx-auto">
-          <h2 className="text-2xl font-bold text-white mb-6">Game Rules</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-left text-sm sm:text-base">
+      {/* Rules Section */}
+      <div className="bg-black py-16 sm:py-24">
+        <div className="container mx-auto px-4 max-w-5xl">
+          <h2 className="text-4xl sm:text-5xl font-black text-center text-white mb-12">
+            HOW IT WORKS
+          </h2>
+
+          {/* The 5 Moves */}
+          <div className="grid grid-cols-2 sm:grid-cols-5 gap-4 sm:gap-6 mb-16">
             {[
-              '✂️ Scissors cuts Paper',
-              '📄 Paper covers Rock',
-              '🪨 Rock crushes Lizard',
-              '🦎 Lizard poisons Spock',
-              '🖖 Spock smashes Scissors',
-              '✂️ Scissors decapitates Lizard',
-              '🦎 Lizard eats Paper',
-              '📄 Paper disproves Spock',
-              '🖖 Spock vaporizes Rock',
-              '🪨 Rock crushes Scissors',
+              { emoji: '✊', name: 'ROCK' },
+              { emoji: '✋', name: 'PAPER' },
+              { emoji: '✌️', name: 'SCISSORS' },
+              { emoji: '🦎', name: 'LIZARD' },
+              { emoji: '🖖', name: 'SPOCK' },
+            ].map((move) => (
+              <div
+                key={move.name}
+                className="bg-white/10 rounded-2xl p-6 text-center"
+              >
+                <div className="text-6xl sm:text-7xl mb-3">{move.emoji}</div>
+                <div className="text-sm sm:text-base font-black text-white">
+                  {move.name}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Rules Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-3xl mx-auto">
+            {[
+              'Scissors cuts Paper',
+              'Paper covers Rock',
+              'Rock crushes Lizard',
+              'Lizard poisons Spock',
+              'Spock smashes Scissors',
+              'Scissors decapitates Lizard',
+              'Lizard eats Paper',
+              'Paper disproves Spock',
+              'Spock vaporizes Rock',
+              'Rock crushes Scissors',
             ].map((rule, i) => (
               <div
                 key={i}
-                className="text-gray-300 bg-white/5 rounded-lg px-4 py-2 hover:bg-white/10 transition-colors"
+                className="bg-white/10 rounded-xl px-6 py-4 text-white font-medium text-base sm:text-lg"
               >
                 {rule}
               </div>
             ))}
           </div>
+        </div>
+      </div>
+
+      {/* Footer */}
+      <div className="bg-white py-12 border-t-2 border-black">
+        <div className="container mx-auto px-4 text-center">
+          <p className="text-gray-600 font-medium">
+            Game invented by{' '}
+            <span className="font-black text-black">
+              Sam Kass & Karen Bryla
+            </span>
+          </p>
         </div>
       </div>
     </main>
