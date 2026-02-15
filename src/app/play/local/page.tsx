@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Move, playGame, GameResult } from '@/lib/game/rules';
 import MoveSelector from '@/components/game/MoveSelector';
-import ResultDisplay from '@/components/game/ResultDisplay';
 import HandBattle from '@/components/game/HandBattle';
 
 export default function LocalGamePage() {
@@ -37,6 +36,17 @@ export default function LocalGamePage() {
       }, 2000);
     }
   }, [player1Move, player2Move, result, isCountdown]);
+
+  // Auto-reset after showing result for 2 seconds
+  useEffect(() => {
+    if (result) {
+      const timer = setTimeout(() => {
+        handleReset();
+      }, 2000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [result]);
 
   const handleReset = () => {
     setPlayer1Move(null);
@@ -98,6 +108,7 @@ export default function LocalGamePage() {
             isCountdown={isCountdown}
             player1Label="Player 1"
             player2Label="Player 2"
+            result={result}
           />
         </div>
 
@@ -132,13 +143,6 @@ export default function LocalGamePage() {
           {result && (
             <div className="flex flex-wrap justify-center gap-4 pt-4">
               <button
-                onClick={handleReset}
-                className="px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-600 text-white text-lg rounded-2xl font-bold
-                         hover:from-blue-600 hover:to-purple-700 transition-all hover:scale-105 active:scale-95 shadow-lg hover:shadow-blue-500/50"
-              >
-                Play Again
-              </button>
-              <button
                 onClick={handleNewGame}
                 className="px-8 py-4 bg-white/10 text-white text-lg rounded-2xl font-bold border border-white/20
                          hover:bg-white/20 transition-all hover:scale-105 active:scale-95"
@@ -146,14 +150,6 @@ export default function LocalGamePage() {
                 New Game
               </button>
             </div>
-          )}
-
-          {result && (
-            <ResultDisplay
-              result={result}
-              player1Name="Player 1"
-              player2Name="Player 2"
-            />
           )}
         </div>
       </div>

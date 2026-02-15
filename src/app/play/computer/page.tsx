@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Move, playGame, GameResult, getRandomMove } from '@/lib/game/rules';
 import MoveSelector from '@/components/game/MoveSelector';
-import ResultDisplay from '@/components/game/ResultDisplay';
 import HandBattle from '@/components/game/HandBattle';
 
 export default function ComputerGamePage() {
@@ -40,6 +39,17 @@ export default function ComputerGamePage() {
       }, 2000);
     }
   }, [playerMove, result, isCountdown]);
+
+  // Auto-reset after showing result for 2 seconds
+  useEffect(() => {
+    if (result) {
+      const timer = setTimeout(() => {
+        handleReset();
+      }, 2000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [result]);
 
   const handleReset = () => {
     setPlayerMove(null);
@@ -99,6 +109,7 @@ export default function ComputerGamePage() {
             isCountdown={isCountdown}
             player1Label="You"
             player2Label="Computer 🤖"
+            result={result}
           />
         </div>
 
@@ -115,13 +126,6 @@ export default function ComputerGamePage() {
           {result && (
             <div className="flex justify-center gap-4 pt-4">
               <button
-                onClick={handleReset}
-                className="px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-600 text-white text-lg rounded-2xl font-bold
-                         hover:from-blue-600 hover:to-purple-700 transition-all hover:scale-105 active:scale-95 shadow-lg hover:shadow-blue-500/50"
-              >
-                Play Again
-              </button>
-              <button
                 onClick={handleNewGame}
                 className="px-8 py-4 bg-white/10 text-white text-lg rounded-2xl font-bold border border-white/20
                          hover:bg-white/20 transition-all hover:scale-105 active:scale-95"
@@ -129,14 +133,6 @@ export default function ComputerGamePage() {
                 New Game
               </button>
             </div>
-          )}
-
-          {result && (
-            <ResultDisplay
-              result={result}
-              player1Name="You"
-              player2Name="Computer"
-            />
           )}
         </div>
       </div>

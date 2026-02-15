@@ -15,7 +15,8 @@ describe('ResultDisplay', () => {
 
       render(<ResultDisplay result={DRAW_RESULT} />);
 
-      expect(screen.getByText("It's a Draw!")).toBeInTheDocument();
+      expect(screen.getByText('DRAW!')).toBeInTheDocument();
+      expect(screen.getByText("It's a draw!")).toBeInTheDocument();
     });
   });
 
@@ -36,11 +37,11 @@ describe('ResultDisplay', () => {
         />
       );
 
-      expect(screen.getByText('Alice Wins!')).toBeInTheDocument();
+      expect(screen.getByText(/Alice WINS!/i)).toBeInTheDocument();
       expect(screen.getByText('Rock crushes scissors')).toBeInTheDocument();
     });
 
-    it('displays both moves', () => {
+    it('displays the game result message', () => {
       const WIN_RESULT: GameResult = {
         winner: 'paper',
         loser: 'rock',
@@ -50,8 +51,7 @@ describe('ResultDisplay', () => {
 
       render(<ResultDisplay result={WIN_RESULT} />);
 
-      expect(screen.getByText('paper')).toBeInTheDocument();
-      expect(screen.getByText('rock')).toBeInTheDocument();
+      expect(screen.getByText('Paper covers rock')).toBeInTheDocument();
     });
   });
 
@@ -66,7 +66,7 @@ describe('ResultDisplay', () => {
 
       render(<ResultDisplay result={WIN_RESULT} />);
 
-      expect(screen.getByText('Player 1 Wins!')).toBeInTheDocument();
+      expect(screen.getByText(/Player 1 WINS!/i)).toBeInTheDocument();
     });
   });
 });

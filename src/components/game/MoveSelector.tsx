@@ -26,7 +26,7 @@ export default function MoveSelector({
   return (
     <div className="space-y-6">
       <h3 className="text-2xl font-bold text-center text-white">{label}</h3>
-      <div className="flex flex-wrap justify-center gap-5 sm:gap-6">
+      <div className="flex flex-wrap justify-center gap-15 sm:gap-18">
         {MOVES.map((move) => {
           const isSelected = selectedMove === move.value;
           return (
