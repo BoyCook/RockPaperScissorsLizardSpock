@@ -12,7 +12,11 @@ export const GAME_RULES: GameRule[] = [
   { winner: 'rock', loser: 'lizard', message: 'Rock crushes lizard' },
   { winner: 'lizard', loser: 'spock', message: 'Lizard poisons Spock' },
   { winner: 'spock', loser: 'scissors', message: 'Spock smashes scissors' },
-  { winner: 'scissors', loser: 'lizard', message: 'Scissors decapitates lizard' },
+  {
+    winner: 'scissors',
+    loser: 'lizard',
+    message: 'Scissors decapitates lizard',
+  },
   { winner: 'lizard', loser: 'paper', message: 'Lizard eats paper' },
   { winner: 'paper', loser: 'spock', message: 'Paper disproves Spock' },
   { winner: 'spock', loser: 'rock', message: 'Spock vaporizes rock' },
@@ -36,9 +40,7 @@ export function playGame(move1: Move, move2: Move): GameResult {
     };
   }
 
-  const rule = GAME_RULES.find(
-    (r) => r.winner === move1 && r.loser === move2
-  );
+  const rule = GAME_RULES.find((r) => r.winner === move1 && r.loser === move2);
 
   if (rule) {
     return { ...rule, isDraw: false };
