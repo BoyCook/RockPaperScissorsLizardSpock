@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Move, playGame, GameResult } from '@/lib/game/rules';
 import MoveSelector from '@/components/game/MoveSelector';
 import ResultDisplay from '@/components/game/ResultDisplay';
@@ -13,20 +13,21 @@ export default function LocalGamePage() {
   const [player1Score, setPlayer1Score] = useState(0);
   const [player2Score, setPlayer2Score] = useState(0);
 
-  const handlePlay = () => {
-    if (!player1Move || !player2Move) return;
+  // Auto-play when both moves are selected
+  useEffect(() => {
+    if (player1Move && player2Move && !result) {
+      const gameResult = playGame(player1Move, player2Move);
+      setResult(gameResult);
 
-    const gameResult = playGame(player1Move, player2Move);
-    setResult(gameResult);
-
-    if (!gameResult.isDraw) {
-      if (gameResult.winner === player1Move) {
-        setPlayer1Score((prev) => prev + 1);
-      } else {
-        setPlayer2Score((prev) => prev + 1);
+      if (!gameResult.isDraw) {
+        if (gameResult.winner === player1Move) {
+          setPlayer1Score((prev) => prev + 1);
+        } else {
+          setPlayer2Score((prev) => prev + 1);
+        }
       }
     }
-  };
+  }, [player1Move, player2Move, result]);
 
   const handleReset = () => {
     setPlayer1Move(null);
@@ -39,8 +40,6 @@ export default function LocalGamePage() {
     setPlayer1Score(0);
     setPlayer2Score(0);
   };
-
-  const isPlayDisabled = !player1Move || !player2Move;
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 py-8 px-4">
@@ -119,36 +118,24 @@ export default function LocalGamePage() {
           />
 
           {/* Action Buttons */}
-          <div className="flex flex-wrap justify-center gap-4 pt-4">
-            {!result ? (
+          {result && (
+            <div className="flex flex-wrap justify-center gap-4 pt-4">
               <button
-                onClick={handlePlay}
-                disabled={isPlayDisabled}
-                className="px-12 py-4 bg-gradient-to-r from-green-500 to-emerald-600 text-white text-lg rounded-2xl font-bold
-                         hover:from-green-600 hover:to-emerald-700 disabled:opacity-40 disabled:cursor-not-allowed
-                         transition-all hover:scale-105 active:scale-95 shadow-lg hover:shadow-green-500/50 disabled:hover:scale-100"
+                onClick={handleReset}
+                className="px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-600 text-white text-lg rounded-2xl font-bold
+                         hover:from-blue-600 hover:to-purple-700 transition-all hover:scale-105 active:scale-95 shadow-lg hover:shadow-blue-500/50"
               >
-                Play!
+                Play Again
               </button>
-            ) : (
-              <>
-                <button
-                  onClick={handleReset}
-                  className="px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-600 text-white text-lg rounded-2xl font-bold
-                           hover:from-blue-600 hover:to-purple-700 transition-all hover:scale-105 active:scale-95 shadow-lg hover:shadow-blue-500/50"
-                >
-                  Play Again
-                </button>
-                <button
-                  onClick={handleNewGame}
-                  className="px-8 py-4 bg-white/10 text-white text-lg rounded-2xl font-bold border border-white/20
-                           hover:bg-white/20 transition-all hover:scale-105 active:scale-95"
-                >
-                  New Game
-                </button>
-              </>
-            )}
-          </div>
+              <button
+                onClick={handleNewGame}
+                className="px-8 py-4 bg-white/10 text-white text-lg rounded-2xl font-bold border border-white/20
+                         hover:bg-white/20 transition-all hover:scale-105 active:scale-95"
+              >
+                New Game
+              </button>
+            </div>
+          )}
 
           {result && (
             <ResultDisplay

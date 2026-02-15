@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Move, playGame, GameResult, getRandomMove } from '@/lib/game/rules';
 import MoveSelector from '@/components/game/MoveSelector';
 import ResultDisplay from '@/components/game/ResultDisplay';
@@ -13,23 +13,24 @@ export default function ComputerGamePage() {
   const [playerScore, setPlayerScore] = useState(0);
   const [computerScore, setComputerScore] = useState(0);
 
-  const handlePlay = () => {
-    if (!playerMove) return;
+  // Auto-play when player selects a move
+  useEffect(() => {
+    if (playerMove && !result) {
+      const cpuMove = getRandomMove();
+      setComputerMove(cpuMove);
 
-    const cpuMove = getRandomMove();
-    setComputerMove(cpuMove);
+      const gameResult = playGame(playerMove, cpuMove);
+      setResult(gameResult);
 
-    const gameResult = playGame(playerMove, cpuMove);
-    setResult(gameResult);
-
-    if (!gameResult.isDraw) {
-      if (gameResult.winner === playerMove) {
-        setPlayerScore((prev) => prev + 1);
-      } else {
-        setComputerScore((prev) => prev + 1);
+      if (!gameResult.isDraw) {
+        if (gameResult.winner === playerMove) {
+          setPlayerScore((prev) => prev + 1);
+        } else {
+          setComputerScore((prev) => prev + 1);
+        }
       }
     }
-  };
+  }, [playerMove, result]);
 
   const handleReset = () => {
     setPlayerMove(null);
@@ -42,8 +43,6 @@ export default function ComputerGamePage() {
     setPlayerScore(0);
     setComputerScore(0);
   };
-
-  const isPlayDisabled = !playerMove;
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 py-8 px-4">
@@ -102,36 +101,24 @@ export default function ComputerGamePage() {
           />
 
           {/* Action Buttons */}
-          <div className="flex justify-center gap-4 pt-4">
-            {!result ? (
+          {result && (
+            <div className="flex justify-center gap-4 pt-4">
               <button
-                onClick={handlePlay}
-                disabled={isPlayDisabled}
-                className="px-12 py-4 bg-gradient-to-r from-green-500 to-emerald-600 text-white text-lg rounded-2xl font-bold
-                         hover:from-green-600 hover:to-emerald-700 disabled:opacity-40 disabled:cursor-not-allowed
-                         transition-all hover:scale-105 active:scale-95 shadow-lg hover:shadow-green-500/50 disabled:hover:scale-100"
+                onClick={handleReset}
+                className="px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-600 text-white text-lg rounded-2xl font-bold
+                         hover:from-blue-600 hover:to-purple-700 transition-all hover:scale-105 active:scale-95 shadow-lg hover:shadow-blue-500/50"
               >
-                Play!
+                Play Again
               </button>
-            ) : (
-              <>
-                <button
-                  onClick={handleReset}
-                  className="px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-600 text-white text-lg rounded-2xl font-bold
-                           hover:from-blue-600 hover:to-purple-700 transition-all hover:scale-105 active:scale-95 shadow-lg hover:shadow-blue-500/50"
-                >
-                  Play Again
-                </button>
-                <button
-                  onClick={handleNewGame}
-                  className="px-8 py-4 bg-white/10 text-white text-lg rounded-2xl font-bold border border-white/20
-                           hover:bg-white/20 transition-all hover:scale-105 active:scale-95"
-                >
-                  New Game
-                </button>
-              </>
-            )}
-          </div>
+              <button
+                onClick={handleNewGame}
+                className="px-8 py-4 bg-white/10 text-white text-lg rounded-2xl font-bold border border-white/20
+                         hover:bg-white/20 transition-all hover:scale-105 active:scale-95"
+              >
+                New Game
+              </button>
+            </div>
+          )}
 
           {result && (
             <ResultDisplay
