@@ -23,7 +23,7 @@ export default function ComputerGamePage() {
       // Start countdown animation
       setIsCountdown(true);
 
-      // Reveal after countdown (3 seconds)
+      // Reveal after countdown (2 seconds)
       setTimeout(() => {
         const gameResult = playGame(playerMove, cpuMove);
         setResult(gameResult);
@@ -36,7 +36,7 @@ export default function ComputerGamePage() {
             setComputerScore((prev) => prev + 1);
           }
         }
-      }, 3000);
+      }, 2000);
     }
   }, [playerMove, result, isCountdown]);
 
