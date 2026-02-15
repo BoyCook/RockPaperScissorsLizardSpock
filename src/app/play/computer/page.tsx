@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Link from 'next/link';
 import { Move, playGame, GameResult, getRandomMove } from '@/lib/game/rules';
 import MoveSelector from '@/components/game/MoveSelector';
 import ResultDisplay from '@/components/game/ResultDisplay';
@@ -58,12 +59,12 @@ export default function ComputerGamePage() {
       <div className="container mx-auto max-w-6xl">
         {/* Header */}
         <div className="mb-8 text-center">
-          <a
+          <Link
             href="/"
             className="inline-block text-white/60 hover:text-white mb-4 transition-colors"
           >
             ← Back to Home
-          </a>
+          </Link>
           <h1 className="text-4xl sm:text-5xl font-bold text-white mb-2">
             vs Computer
           </h1>
