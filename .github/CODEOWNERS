@@ -1,0 +1,9 @@
+# Code owners for Rock Paper Scissors Lizard Spock
+
+# Default owners for everything in the repo
+* @BoyCook
+
+# Specific paths
+/.github/ @BoyCook
+/src/lib/ @BoyCook
+/src/app/ @BoyCook
