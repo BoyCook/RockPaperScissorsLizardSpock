@@ -6,6 +6,7 @@ const config: Config = {
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
+  safelist: ['mb-32', 'ml-8', 'sm:ml-12'],
   theme: {
     extend: {
       colors: {

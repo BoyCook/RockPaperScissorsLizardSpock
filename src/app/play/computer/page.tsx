@@ -65,55 +65,54 @@ export default function ComputerGamePage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 py-8 px-4">
+    <div className="min-h-screen bg-white py-8 px-4">
       <div className="container mx-auto max-w-6xl">
         {/* Back Link */}
-        <div className="mb-8">
+        <div className="back-link-spacing">
           <Link
             href="/"
-            className="inline-block text-white/60 hover:text-white transition-colors"
+            className="inline-block text-gray-600 hover:text-black transition-colors"
           >
             ← Back to Home
           </Link>
         </div>
 
-        {/* Score Board */}
-        <div className="mb-8 flex justify-around items-center max-w-5xl mx-auto">
-          <div
-            className="text-center bg-white/10 backdrop-blur-sm rounded-2xl px-10 py-8 border-2 min-w-[180px]"
-            style={{ borderColor: '#60a5fa' }}
-          >
-            <div
-              className="text-3xl font-black mb-4"
-              style={{ color: '#60a5fa' }}
-            >
-              YOU
-            </div>
-            <div className="text-8xl font-black" style={{ color: '#60a5fa' }}>
-              {playerScore}
-            </div>
-          </div>
-          <div className="flex items-center">
-            <div className="text-3xl font-bold text-white/60">VS</div>
-          </div>
-          <div
-            className="text-center bg-white/10 backdrop-blur-sm rounded-2xl px-10 py-8 border-2 min-w-[180px]"
-            style={{ borderColor: '#f87171' }}
-          >
-            <div
-              className="text-3xl font-black mb-4"
-              style={{ color: '#f87171' }}
-            >
-              COMPUTER 🤖
-            </div>
-            <div className="text-8xl font-black" style={{ color: '#f87171' }}>
-              {computerScore}
-            </div>
-          </div>
-        </div>
-
         {/* Hand Battle Display */}
-        <div className="mb-8 bg-white/5 backdrop-blur-sm rounded-3xl p-6 sm:p-8 border border-white/10">
+        <div className="mb-8 mx-4 sm:mx-8 bg-black rounded-3xl p-6 sm:p-8">
+          {/* Score Board */}
+          <div className="mb-8 flex justify-around items-center max-w-5xl mx-auto">
+            <div
+              className="text-center bg-white/10 backdrop-blur-sm rounded-2xl px-10 py-8 border-2 min-w-[180px]"
+              style={{ borderColor: '#60a5fa' }}
+            >
+              <div
+                className="text-3xl font-black mb-4"
+                style={{ color: '#60a5fa' }}
+              >
+                YOU
+              </div>
+              <div className="text-8xl font-black" style={{ color: '#60a5fa' }}>
+                {playerScore}
+              </div>
+            </div>
+            <div className="flex items-center">
+              <div className="text-3xl font-bold text-white/60">VS</div>
+            </div>
+            <div
+              className="text-center bg-white/10 backdrop-blur-sm rounded-2xl px-10 py-8 border-2 min-w-[180px]"
+              style={{ borderColor: '#f87171' }}
+            >
+              <div
+                className="text-3xl font-black mb-4"
+                style={{ color: '#f87171' }}
+              >
+                COMPUTER 🤖
+              </div>
+              <div className="text-8xl font-black" style={{ color: '#f87171' }}>
+                {computerScore}
+              </div>
+            </div>
+          </div>
           <HandBattle
             player1Move={playerMove}
             player2Move={computerMove}
@@ -126,7 +125,7 @@ export default function ComputerGamePage() {
         </div>
 
         {/* Game Area */}
-        <div className="space-y-8 bg-white/5 backdrop-blur-sm rounded-3xl p-6 sm:p-8 border border-white/10">
+        <div className="space-y-8 mx-4 sm:mx-8 bg-black rounded-3xl p-6 sm:p-8">
           <MoveSelector
             label="Choose Your Move"
             selectedMove={playerMove}

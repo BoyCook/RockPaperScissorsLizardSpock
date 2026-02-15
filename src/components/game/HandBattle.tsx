@@ -49,9 +49,6 @@ export default function HandBattle({
       <div
         className={`flex-1 flex flex-col items-center justify-center transition-opacity duration-300 ${result ? 'opacity-20' : 'opacity-100'}`}
       >
-        <div className="text-sm font-semibold text-white/60 mb-4">
-          {player1Label}
-        </div>
         <div style={{ transform: 'rotate(90deg) scaleX(-1)' }}>
           <div
             className={`
@@ -95,9 +92,6 @@ export default function HandBattle({
       <div
         className={`flex-1 flex flex-col items-center justify-center transition-opacity duration-300 ${result ? 'opacity-20' : 'opacity-100'}`}
       >
-        <div className="text-sm font-semibold text-white/60 mb-4">
-          {player2Label}
-        </div>
         <div style={{ transform: 'rotate(-90deg)' }}>
           <div
             className={`
