@@ -28,6 +28,18 @@ body {
     animation-delay: 150ms;
   }
 
+  .animation-delay-300 {
+    animation-delay: 300ms;
+  }
+
+  .animate-bounce-ready {
+    animation: bounceReady 1.5s ease-in-out infinite;
+  }
+
+  .animate-shake-reveal {
+    animation: shakeReveal 0.8s cubic-bezier(0.36, 0.07, 0.19, 0.97);
+  }
+
   .animate-in {
     animation: fadeIn 0.5s ease-out;
   }
@@ -72,5 +84,35 @@ body {
   to {
     transform: translateY(0);
     opacity: 1;
+  }
+}
+
+@keyframes bounceReady {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes shakeReveal {
+  0%,
+  100% {
+    transform: translateX(0) rotate(0deg);
+  }
+  10%,
+  30%,
+  50%,
+  70%,
+  90% {
+    transform: translateX(-10px) rotate(-5deg);
+  }
+  20%,
+  40%,
+  60%,
+  80% {
+    transform: translateX(10px) rotate(5deg);
   }
 }

@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { Move, playGame, GameResult, getRandomMove } from '@/lib/game/rules';
 import MoveSelector from '@/components/game/MoveSelector';
 import ResultDisplay from '@/components/game/ResultDisplay';
+import HandBattle from '@/components/game/HandBattle';
 
 export default function ComputerGamePage() {
   const [playerMove, setPlayerMove] = useState<Move | null>(null);
@@ -78,6 +79,17 @@ export default function ComputerGamePage() {
             </div>
             <div className="text-sm font-semibold text-white">Computer 🤖</div>
           </div>
+        </div>
+
+        {/* Hand Battle Display */}
+        <div className="mb-8 bg-white/5 backdrop-blur-sm rounded-3xl p-6 sm:p-8 border border-white/10">
+          <HandBattle
+            player1Move={playerMove}
+            player2Move={computerMove}
+            showResult={!!result}
+            player1Label="You"
+            player2Label="Computer 🤖"
+          />
         </div>
 
         {/* Game Area */}

@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { Move, playGame, GameResult } from '@/lib/game/rules';
 import MoveSelector from '@/components/game/MoveSelector';
 import ResultDisplay from '@/components/game/ResultDisplay';
+import HandBattle from '@/components/game/HandBattle';
 
 export default function LocalGamePage() {
   const [player1Move, setPlayer1Move] = useState<Move | null>(null);
@@ -77,6 +78,17 @@ export default function LocalGamePage() {
             </div>
             <div className="text-sm font-semibold text-white">Player 2</div>
           </div>
+        </div>
+
+        {/* Hand Battle Display */}
+        <div className="mb-8 bg-white/5 backdrop-blur-sm rounded-3xl p-6 sm:p-8 border border-white/10">
+          <HandBattle
+            player1Move={player1Move}
+            player2Move={player2Move}
+            showResult={!!result}
+            player1Label="Player 1"
+            player2Label="Player 2"
+          />
         </div>
 
         {/* Game Area */}
