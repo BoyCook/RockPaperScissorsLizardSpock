@@ -25,8 +25,8 @@ export default function HandBattle({
   player1Label = 'Player 1',
   player2Label = 'Player 2',
 }: HandBattleProps) {
-  const getDisplayEmoji = (move: Move | null, show: boolean) => {
-    if (!show || !move) return '✊';
+  const getDisplayEmoji = (move: Move | null) => {
+    if (!move) return '✊';
     return MOVE_EMOJIS[move];
   };
 
@@ -48,7 +48,7 @@ export default function HandBattle({
             filter: 'drop-shadow(0 10px 30px rgba(0,0,0,0.5))',
           }}
         >
-          {getDisplayEmoji(player1Move, showResult)}
+          {getDisplayEmoji(player1Move)}
         </div>
       </div>
 
@@ -64,7 +64,7 @@ export default function HandBattle({
         </div>
         {!showResult && (
           <div className="text-sm text-white/60 mt-2 animate-pulse">
-            Ready...
+            {player1Move && player2Move ? 'Ready!' : 'Choose moves...'}
           </div>
         )}
       </div>
@@ -84,7 +84,7 @@ export default function HandBattle({
             filter: 'drop-shadow(0 10px 30px rgba(0,0,0,0.5))',
           }}
         >
-          {getDisplayEmoji(player2Move, showResult)}
+          {getDisplayEmoji(player2Move)}
         </div>
       </div>
 
