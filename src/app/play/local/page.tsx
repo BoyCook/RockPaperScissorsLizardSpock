@@ -64,38 +64,32 @@ export default function LocalGamePage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 py-8 px-4">
       <div className="container mx-auto max-w-6xl">
-        {/* Header */}
-        <div className="mb-8 text-center">
+        {/* Back Link */}
+        <div className="mb-8">
           <Link
             href="/"
-            className="inline-block text-white/60 hover:text-white mb-4 transition-colors"
+            className="inline-block text-white/60 hover:text-white transition-colors"
           >
             ← Back to Home
           </Link>
-          <h1 className="text-4xl sm:text-5xl font-bold text-white mb-2">
-            Local Game
-          </h1>
-          <p className="text-lg text-gray-300">
-            Two players on the same device
-          </p>
         </div>
 
         {/* Score Board */}
-        <div className="mb-8 flex justify-center gap-4 sm:gap-12">
-          <div className="text-center bg-white/10 backdrop-blur-sm rounded-2xl px-8 py-6 border border-blue-400/50 min-w-[140px]">
-            <div className="text-5xl font-bold text-blue-400 mb-2">
+        <div className="mb-8 flex justify-around items-center max-w-5xl mx-auto">
+          <div className="text-center bg-white/10 backdrop-blur-sm rounded-2xl px-10 py-8 border-2 min-w-[180px]" style={{ borderColor: '#60a5fa' }}>
+            <div className="text-3xl font-black mb-4" style={{ color: '#60a5fa' }}>PLAYER 1</div>
+            <div className="text-8xl font-black" style={{ color: '#60a5fa' }}>
               {player1Score}
             </div>
-            <div className="text-sm font-semibold text-white">Player 1</div>
           </div>
           <div className="flex items-center">
-            <div className="text-2xl font-bold text-white/40">VS</div>
+            <div className="text-3xl font-bold text-white/60">VS</div>
           </div>
-          <div className="text-center bg-white/10 backdrop-blur-sm rounded-2xl px-8 py-6 border border-red-400/50 min-w-[140px]">
-            <div className="text-5xl font-bold text-red-400 mb-2">
+          <div className="text-center bg-white/10 backdrop-blur-sm rounded-2xl px-10 py-8 border-2 min-w-[180px]" style={{ borderColor: '#f87171' }}>
+            <div className="text-3xl font-black mb-4" style={{ color: '#f87171' }}>PLAYER 2</div>
+            <div className="text-8xl font-black" style={{ color: '#f87171' }}>
               {player2Score}
             </div>
-            <div className="text-sm font-semibold text-white">Player 2</div>
           </div>
         </div>
 
