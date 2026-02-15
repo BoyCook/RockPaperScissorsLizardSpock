@@ -1,5 +1,7 @@
 # Rock Paper Scissors Lizard Spock - Next.js Edition
 
+[![CI](https://github.com/BoyCook/RockPaperScissorsLizardSpock/actions/workflows/ci.yml/badge.svg)](https://github.com/BoyCook/RockPaperScissorsLizardSpock/actions/workflows/ci.yml)
+
 A modern implementation of Rock Paper Scissors Lizard Spock built with Next.js, TypeScript, and real-time multiplayer support.
 
 ## Features
