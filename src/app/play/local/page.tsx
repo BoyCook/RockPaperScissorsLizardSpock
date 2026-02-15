@@ -20,7 +20,7 @@ export default function LocalGamePage() {
       // Start countdown animation
       setIsCountdown(true);
 
-      // Reveal after countdown (1 second)
+      // Reveal after countdown (3 seconds)
       setTimeout(() => {
         const gameResult = playGame(player1Move, player2Move);
         setResult(gameResult);
@@ -33,7 +33,7 @@ export default function LocalGamePage() {
             setPlayer2Score((prev) => prev + 1);
           }
         }
-      }, 1000);
+      }, 3000);
     }
   }, [player1Move, player2Move, result, isCountdown]);
 
