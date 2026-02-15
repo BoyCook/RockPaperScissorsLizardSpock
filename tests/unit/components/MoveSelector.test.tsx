@@ -68,7 +68,7 @@ describe('MoveSelector', () => {
       );
 
       const rockButton = screen.getByText('Rock').closest('button');
-      expect(rockButton).toHaveClass('border-blue-500');
+      expect(rockButton).toHaveClass('border-blue-400');
     });
   });
 

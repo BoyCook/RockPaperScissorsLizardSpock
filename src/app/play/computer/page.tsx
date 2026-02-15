@@ -45,82 +45,90 @@ export default function ComputerGamePage() {
   const isPlayDisabled = !playerMove;
 
   return (
-    <div className="container mx-auto px-4 py-8 max-w-6xl">
-      <div className="mb-8">
-        <h1 className="text-4xl font-bold text-center mb-4">vs Computer</h1>
-        <p className="text-center text-gray-600 dark:text-gray-400">
-          Test your luck against the AI
-        </p>
-      </div>
-
-      <div className="mb-8 flex justify-center gap-8">
-        <div className="text-center">
-          <div className="text-3xl font-bold text-blue-600">{playerScore}</div>
-          <div className="text-sm text-gray-600 dark:text-gray-400">You</div>
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 py-8 px-4">
+      <div className="container mx-auto max-w-6xl">
+        {/* Header */}
+        <div className="mb-8 text-center">
+          <a
+            href="/"
+            className="inline-block text-white/60 hover:text-white mb-4 transition-colors"
+          >
+            ← Back to Home
+          </a>
+          <h1 className="text-4xl sm:text-5xl font-bold text-white mb-2">
+            vs Computer
+          </h1>
+          <p className="text-lg text-gray-300">Test your luck against the AI</p>
         </div>
-        <div className="text-center">
-          <div className="text-3xl font-bold text-red-600">{computerScore}</div>
-          <div className="text-sm text-gray-600 dark:text-gray-400">
-            Computer
+
+        {/* Score Board */}
+        <div className="mb-8 flex justify-center gap-4 sm:gap-12">
+          <div className="text-center bg-white/10 backdrop-blur-sm rounded-2xl px-8 py-6 border border-blue-400/50 min-w-[140px]">
+            <div className="text-5xl font-bold text-blue-400 mb-2">
+              {playerScore}
+            </div>
+            <div className="text-sm font-semibold text-white">You</div>
+          </div>
+          <div className="flex items-center">
+            <div className="text-2xl font-bold text-white/40">VS</div>
+          </div>
+          <div className="text-center bg-white/10 backdrop-blur-sm rounded-2xl px-8 py-6 border border-red-400/50 min-w-[140px]">
+            <div className="text-5xl font-bold text-red-400 mb-2">
+              {computerScore}
+            </div>
+            <div className="text-sm font-semibold text-white">Computer 🤖</div>
           </div>
         </div>
-      </div>
 
-      <div className="space-y-8">
-        <MoveSelector
-          label="Choose Your Move"
-          selectedMove={playerMove}
-          onSelect={setPlayerMove}
-          disabled={!!result}
-        />
+        {/* Game Area */}
+        <div className="space-y-8 bg-white/5 backdrop-blur-sm rounded-3xl p-6 sm:p-8 border border-white/10">
+          <MoveSelector
+            label="Choose Your Move"
+            selectedMove={playerMove}
+            onSelect={setPlayerMove}
+            disabled={!!result}
+          />
 
-        {computerMove && (
-          <div className="text-center p-4 bg-gray-100 dark:bg-gray-800 rounded-lg">
-            <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
-              Computer chose:
-            </p>
-            <p className="text-2xl font-bold capitalize">{computerMove}</p>
+          {/* Action Buttons */}
+          <div className="flex justify-center gap-4 pt-4">
+            {!result ? (
+              <button
+                onClick={handlePlay}
+                disabled={isPlayDisabled}
+                className="px-12 py-4 bg-gradient-to-r from-green-500 to-emerald-600 text-white text-lg rounded-2xl font-bold
+                         hover:from-green-600 hover:to-emerald-700 disabled:opacity-40 disabled:cursor-not-allowed
+                         transition-all hover:scale-105 active:scale-95 shadow-lg hover:shadow-green-500/50 disabled:hover:scale-100"
+              >
+                Play!
+              </button>
+            ) : (
+              <>
+                <button
+                  onClick={handleReset}
+                  className="px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-600 text-white text-lg rounded-2xl font-bold
+                           hover:from-blue-600 hover:to-purple-700 transition-all hover:scale-105 active:scale-95 shadow-lg hover:shadow-blue-500/50"
+                >
+                  Play Again
+                </button>
+                <button
+                  onClick={handleNewGame}
+                  className="px-8 py-4 bg-white/10 text-white text-lg rounded-2xl font-bold border border-white/20
+                           hover:bg-white/20 transition-all hover:scale-105 active:scale-95"
+                >
+                  New Game
+                </button>
+              </>
+            )}
           </div>
-        )}
 
-        <div className="flex justify-center gap-4">
-          {!result ? (
-            <button
-              onClick={handlePlay}
-              disabled={isPlayDisabled}
-              className="px-8 py-3 bg-green-600 text-white rounded-lg font-semibold
-                       hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed
-                       transition-all hover:scale-105 active:scale-95"
-            >
-              Play!
-            </button>
-          ) : (
-            <>
-              <button
-                onClick={handleReset}
-                className="px-8 py-3 bg-blue-600 text-white rounded-lg font-semibold
-                         hover:bg-blue-700 transition-all hover:scale-105 active:scale-95"
-              >
-                Play Again
-              </button>
-              <button
-                onClick={handleNewGame}
-                className="px-8 py-3 bg-gray-600 text-white rounded-lg font-semibold
-                         hover:bg-gray-700 transition-all hover:scale-105 active:scale-95"
-              >
-                New Game
-              </button>
-            </>
+          {result && (
+            <ResultDisplay
+              result={result}
+              player1Name="You"
+              player2Name="Computer"
+            />
           )}
         </div>
-
-        {result && (
-          <ResultDisplay
-            result={result}
-            player1Name="You"
-            player2Name="Computer"
-          />
-        )}
       </div>
     </div>
   );

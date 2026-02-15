@@ -24,30 +24,40 @@ export default function MoveSelector({
   disabled = false,
 }: MoveSelectorProps) {
   return (
-    <div className="space-y-4">
-      <h3 className="text-xl font-semibold text-center">{label}</h3>
-      <div className="grid grid-cols-5 gap-4">
-        {MOVES.map((move) => (
-          <button
-            key={move.value}
-            onClick={() => onSelect(move.value)}
-            disabled={disabled}
-            className={`
-              flex flex-col items-center justify-center
-              p-4 rounded-lg border-2 transition-all
-              hover:scale-105 active:scale-95
-              disabled:opacity-50 disabled:cursor-not-allowed
-              ${
-                selectedMove === move.value
-                  ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20'
-                  : 'border-gray-300 dark:border-gray-600 hover:border-blue-300'
-              }
-            `}
-          >
-            <span className="text-4xl mb-2">{move.emoji}</span>
-            <span className="text-sm font-medium">{move.label}</span>
-          </button>
-        ))}
+    <div className="space-y-6">
+      <h3 className="text-2xl font-bold text-center text-white">{label}</h3>
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3 sm:gap-4">
+        {MOVES.map((move) => {
+          const isSelected = selectedMove === move.value;
+          return (
+            <button
+              key={move.value}
+              onClick={() => onSelect(move.value)}
+              disabled={disabled}
+              className={`
+                group relative flex flex-col items-center justify-center
+                p-6 sm:p-8 rounded-2xl border-2 transition-all duration-300
+                hover:scale-105 active:scale-95
+                disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:scale-100
+                ${
+                  isSelected
+                    ? 'border-blue-400 bg-blue-500/20 shadow-lg shadow-blue-500/50 scale-105'
+                    : 'border-white/20 bg-white/5 hover:border-white/40 hover:bg-white/10 hover:shadow-xl'
+                }
+              `}
+            >
+              {isSelected && (
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-blue-400/20 to-purple-400/20 animate-pulse" />
+              )}
+              <span className="relative text-5xl sm:text-6xl mb-3 group-hover:scale-110 transition-transform">
+                {move.emoji}
+              </span>
+              <span className="relative text-sm sm:text-base font-semibold text-white">
+                {move.label}
+              </span>
+            </button>
+          );
+        })}
       </div>
     </div>
   );
