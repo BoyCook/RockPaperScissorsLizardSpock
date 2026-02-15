@@ -126,40 +126,34 @@ body {
     transform: translateY(0);
   }
   /* Rock */
-  5% {
+  6% {
     transform: translateY(-40px);
   }
-  10% {
+  12% {
     transform: translateY(0);
   }
   /* Paper */
-  25% {
+  31% {
     transform: translateY(-40px);
   }
-  30% {
+  37% {
     transform: translateY(0);
   }
   /* Scissors */
-  45% {
+  56% {
     transform: translateY(-40px);
   }
-  50% {
+  62% {
     transform: translateY(0);
   }
   /* Lizard */
-  65% {
+  81% {
     transform: translateY(-40px);
   }
-  70% {
+  87% {
     transform: translateY(0);
   }
-  /* Spock */
-  85% {
-    transform: translateY(-40px);
-  }
-  90% {
-    transform: translateY(0);
-  }
+  /* Ready for Spock reveal */
   100% {
     transform: translateY(0);
   }
