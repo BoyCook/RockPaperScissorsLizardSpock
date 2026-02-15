@@ -12,30 +12,39 @@ export default function ComputerGamePage() {
   const [result, setResult] = useState<GameResult | null>(null);
   const [playerScore, setPlayerScore] = useState(0);
   const [computerScore, setComputerScore] = useState(0);
+  const [isCountdown, setIsCountdown] = useState(false);
 
-  // Auto-play when player selects a move
+  // Auto-play with countdown when player selects a move
   useEffect(() => {
-    if (playerMove && !result) {
+    if (playerMove && !result && !isCountdown) {
       const cpuMove = getRandomMove();
       setComputerMove(cpuMove);
 
-      const gameResult = playGame(playerMove, cpuMove);
-      setResult(gameResult);
+      // Start countdown animation
+      setIsCountdown(true);
 
-      if (!gameResult.isDraw) {
-        if (gameResult.winner === playerMove) {
-          setPlayerScore((prev) => prev + 1);
-        } else {
-          setComputerScore((prev) => prev + 1);
+      // Reveal after countdown (1 second)
+      setTimeout(() => {
+        const gameResult = playGame(playerMove, cpuMove);
+        setResult(gameResult);
+        setIsCountdown(false);
+
+        if (!gameResult.isDraw) {
+          if (gameResult.winner === playerMove) {
+            setPlayerScore((prev) => prev + 1);
+          } else {
+            setComputerScore((prev) => prev + 1);
+          }
         }
-      }
+      }, 1000);
     }
-  }, [playerMove, result]);
+  }, [playerMove, result, isCountdown]);
 
   const handleReset = () => {
     setPlayerMove(null);
     setComputerMove(null);
     setResult(null);
+    setIsCountdown(false);
   };
 
   const handleNewGame = () => {
@@ -86,6 +95,7 @@ export default function ComputerGamePage() {
             player1Move={playerMove}
             player2Move={computerMove}
             showResult={!!result}
+            isCountdown={isCountdown}
             player1Label="You"
             player2Label="Computer 🤖"
           />

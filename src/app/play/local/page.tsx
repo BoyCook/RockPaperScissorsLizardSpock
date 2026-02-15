@@ -12,27 +12,36 @@ export default function LocalGamePage() {
   const [result, setResult] = useState<GameResult | null>(null);
   const [player1Score, setPlayer1Score] = useState(0);
   const [player2Score, setPlayer2Score] = useState(0);
+  const [isCountdown, setIsCountdown] = useState(false);
 
-  // Auto-play when both moves are selected
+  // Auto-play with countdown when both moves are selected
   useEffect(() => {
-    if (player1Move && player2Move && !result) {
-      const gameResult = playGame(player1Move, player2Move);
-      setResult(gameResult);
+    if (player1Move && player2Move && !result && !isCountdown) {
+      // Start countdown animation
+      setIsCountdown(true);
 
-      if (!gameResult.isDraw) {
-        if (gameResult.winner === player1Move) {
-          setPlayer1Score((prev) => prev + 1);
-        } else {
-          setPlayer2Score((prev) => prev + 1);
+      // Reveal after countdown (1 second)
+      setTimeout(() => {
+        const gameResult = playGame(player1Move, player2Move);
+        setResult(gameResult);
+        setIsCountdown(false);
+
+        if (!gameResult.isDraw) {
+          if (gameResult.winner === player1Move) {
+            setPlayer1Score((prev) => prev + 1);
+          } else {
+            setPlayer2Score((prev) => prev + 1);
+          }
         }
-      }
+      }, 1000);
     }
-  }, [player1Move, player2Move, result]);
+  }, [player1Move, player2Move, result, isCountdown]);
 
   const handleReset = () => {
     setPlayer1Move(null);
     setPlayer2Move(null);
     setResult(null);
+    setIsCountdown(false);
   };
 
   const handleNewGame = () => {
@@ -85,6 +94,7 @@ export default function LocalGamePage() {
             player1Move={player1Move}
             player2Move={player2Move}
             showResult={!!result}
+            isCountdown={isCountdown}
             player1Label="Player 1"
             player2Label="Player 2"
           />

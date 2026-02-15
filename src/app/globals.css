@@ -40,6 +40,10 @@ body {
     animation: shakeReveal 0.8s cubic-bezier(0.36, 0.07, 0.19, 0.97);
   }
 
+  .animate-countdown-shake {
+    animation: countdownShake 0.6s ease-in-out;
+  }
+
   .animate-in {
     animation: fadeIn 0.5s ease-out;
   }
@@ -114,5 +118,21 @@ body {
   60%,
   80% {
     transform: translateX(10px) rotate(5deg);
+  }
+}
+
+@keyframes countdownShake {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  25% {
+    transform: translateY(-30px);
+  }
+  50% {
+    transform: translateY(0);
+  }
+  75% {
+    transform: translateY(-30px);
   }
 }
