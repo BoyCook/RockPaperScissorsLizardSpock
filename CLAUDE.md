@@ -33,6 +33,12 @@ Test configuration:
 - Vitest is configured to only run tests in `tests/unit/**/*.test.{ts,tsx}`
 - Playwright runs tests in `tests/e2e/**/*.spec.ts`
 
+**E2E Testing Options:**
+
+- `npm run test:e2e` - Expects dev server already running on port 3000
+- `npm run test:e2e:with-server` - Automatically starts and stops the dev server
+- In CI, the server is automatically started by the webServer config
+
 ## Node Version
 
 - Use Node.js 24.13.1 LTS (Krypton) as specified in .nvmrc
