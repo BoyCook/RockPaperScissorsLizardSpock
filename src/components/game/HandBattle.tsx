@@ -41,7 +41,7 @@ export default function HandBattle({
         <div className="text-sm font-semibold text-white/60 mb-4">
           {player1Label}
         </div>
-        <div style={{ transform: 'rotate(90deg)' }}>
+        <div style={{ transform: 'rotate(90deg) scaleX(-1)' }}>
           <div
             className={`
               text-[120px] sm:text-[160px] transition-all duration-500
