@@ -51,7 +51,7 @@ export default function HomePage() {
         <h2 className="text-4xl sm:text-5xl font-black text-center text-black mb-12">
           CHOOSE YOUR MODE
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 max-w-4xl mx-auto">
           {/* Local Game */}
           <Link
             href="/play/local"
@@ -110,7 +110,7 @@ export default function HomePage() {
           </h2>
 
           {/* The 5 Moves */}
-          <div className="grid grid-cols-2 sm:grid-cols-5 gap-4 sm:gap-6 mb-16">
+          <div className="grid grid-cols-2 sm:grid-cols-5 gap-4 sm:gap-6 mb-16 max-w-4xl mx-auto">
             {[
               { emoji: '✊', name: 'ROCK' },
               { emoji: '✋', name: 'PAPER' },
