@@ -16,7 +16,9 @@ export default function AboutPage() {
 
         {/* Origin Story */}
         <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 sm:p-8 border border-white/10 max-w-3xl mx-auto text-left space-y-4">
-          <h2 className="text-2xl font-bold text-white text-center">The Origin</h2>
+          <h2 className="text-2xl font-bold text-white text-center">
+            The Origin
+          </h2>
           <p className="text-gray-300 leading-relaxed">
             Rock Paper Scissors Lizard Spock was invented by{' '}
             <span className="text-white font-semibold">Sam Kass</span> and{' '}
@@ -26,9 +28,9 @@ export default function AboutPage() {
             it tends to end in a tie 75&ndash;80% of the time.
           </p>
           <p className="text-gray-300 leading-relaxed">
-            By adding two extra moves &mdash; Lizard and Spock &mdash; each choice now
-            beats two others and loses to two others, reducing the chance of a
-            draw and making the game far more unpredictable and fun.
+            By adding two extra moves &mdash; Lizard and Spock &mdash; each
+            choice now beats two others and loses to two others, reducing the
+            chance of a draw and making the game far more unpredictable and fun.
           </p>
         </div>
 
@@ -41,13 +43,14 @@ export default function AboutPage() {
             The game was popularized by{' '}
             <span className="text-white font-semibold">Sheldon Cooper</span> in
             the hit TV show <em>The Big Bang Theory</em>. It first appeared in
-            Season 2, Episode 8 &mdash; &ldquo;The Lizard-Spock Expansion&rdquo; &mdash; where
-            Sheldon introduces it to settle a dispute about what to watch on TV.
+            Season 2, Episode 8 &mdash; &ldquo;The Lizard-Spock Expansion&rdquo;
+            &mdash; where Sheldon introduces it to settle a dispute about what
+            to watch on TV.
           </p>
           <p className="text-gray-300 leading-relaxed">
-            The show later gave proper credit to Sam Kass in Season 5, Episode 17
-            &mdash; &ldquo;The Rothman Disintegration&rdquo; &mdash; when Sheldon acknowledges
-            Kass as the game&apos;s creator.
+            The show later gave proper credit to Sam Kass in Season 5, Episode
+            17 &mdash; &ldquo;The Rothman Disintegration&rdquo; &mdash; when
+            Sheldon acknowledges Kass as the game&apos;s creator.
           </p>
         </div>
 
@@ -68,13 +71,15 @@ export default function AboutPage() {
 
         {/* How It Works */}
         <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 sm:p-8 border border-white/10 max-w-3xl mx-auto text-left space-y-4">
-          <h2 className="text-2xl font-bold text-white text-center">How It Works</h2>
+          <h2 className="text-2xl font-bold text-white text-center">
+            How It Works
+          </h2>
           <p className="text-gray-300 leading-relaxed">
-            As Sheldon puts it: &ldquo;It&apos;s very simple. Scissors cuts paper, paper
-            covers rock, rock crushes lizard, lizard poisons Spock, Spock smashes
-            scissors, scissors decapitates lizard, lizard eats paper, paper
-            disproves Spock, Spock vaporizes rock, and as it always has, rock
-            crushes scissors.&rdquo;
+            As Sheldon puts it: &ldquo;It&apos;s very simple. Scissors cuts
+            paper, paper covers rock, rock crushes lizard, lizard poisons Spock,
+            Spock smashes scissors, scissors decapitates lizard, lizard eats
+            paper, paper disproves Spock, Spock vaporizes rock, and as it always
+            has, rock crushes scissors.&rdquo;
           </p>
         </div>
 
