@@ -58,7 +58,6 @@ export default function AboutPage() {
           </h2>
           <div className="video-container">
             <iframe
-              className="w-full aspect-video rounded-xl"
               src="https://www.youtube.com/embed/iapcKVn7DdY"
               title="Rock Paper Scissors Lizard Spock - The Big Bang Theory"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"

@@ -75,8 +75,14 @@ body {
   }
 
   .video-container {
-    max-width: 32rem;
+    max-width: 42rem;
     margin: 0 auto;
+  }
+
+  .video-container iframe {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: 0.75rem;
   }
 }
 
