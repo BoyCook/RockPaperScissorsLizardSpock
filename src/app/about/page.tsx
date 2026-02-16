@@ -56,13 +56,15 @@ export default function AboutPage() {
           <h2 className="text-2xl font-bold text-white text-center">
             Sheldon Explains It Best
           </h2>
-          <iframe
-            className="w-full max-w-lg mx-auto aspect-video rounded-xl"
-            src="https://www.youtube.com/embed/iapcKVn7DdY"
-            title="Rock Paper Scissors Lizard Spock - The Big Bang Theory"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-          ></iframe>
+          <div className="max-w-lg mx-auto">
+            <iframe
+              className="w-full aspect-video rounded-xl"
+              src="https://www.youtube.com/embed/iapcKVn7DdY"
+              title="Rock Paper Scissors Lizard Spock - The Big Bang Theory"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            ></iframe>
+          </div>
         </div>
 
         {/* How It Works */}
