@@ -41,14 +41,24 @@ export default function HomePage() {
           </Link>
         </div>
 
-        {/* Rules Link */}
-        <Link
-          href="/rules"
-          className="group relative inline-block p-6 bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10 hover:bg-white/10 hover:border-purple-400/50 transition-all duration-300 hover:scale-105"
-        >
-          <h2 className="text-2xl font-bold text-white mb-2">Game Rules</h2>
-          <p className="text-gray-300">Learn how each move wins and loses</p>
-        </Link>
+        {/* Info Links */}
+        <div className="flex flex-col sm:flex-row gap-4 justify-center px-4">
+          <Link
+            href="/rules"
+            className="group relative p-6 bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10 hover:bg-white/10 hover:border-purple-400/50 transition-all duration-300 hover:scale-105"
+          >
+            <h2 className="text-2xl font-bold text-white mb-2">Game Rules</h2>
+            <p className="text-gray-300">Learn how each move wins and loses</p>
+          </Link>
+
+          <Link
+            href="/about"
+            className="group relative p-6 bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10 hover:bg-white/10 hover:border-yellow-400/50 transition-all duration-300 hover:scale-105"
+          >
+            <h2 className="text-2xl font-bold text-white mb-2">About</h2>
+            <p className="text-gray-300">The story behind the game</p>
+          </Link>
+        </div>
       </div>
     </main>
   );
