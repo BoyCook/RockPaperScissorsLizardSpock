@@ -41,31 +41,14 @@ export default function HomePage() {
           </Link>
         </div>
 
-        {/* Rules Section */}
-        <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 sm:p-8 border border-white/10 max-w-3xl mx-auto">
-          <h2 className="text-2xl font-bold text-white mb-6">Game Rules</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-center text-sm sm:text-base">
-            {[
-              '✂️ Scissors cuts Paper',
-              '📄 Paper covers Rock',
-              '🪨 Rock crushes Lizard',
-              '🦎 Lizard poisons Spock',
-              '🖖 Spock smashes Scissors',
-              '✂️ Scissors decapitates Lizard',
-              '🦎 Lizard eats Paper',
-              '📄 Paper disproves Spock',
-              '🖖 Spock vaporizes Rock',
-              '🪨 Rock crushes Scissors',
-            ].map((rule, i) => (
-              <div
-                key={i}
-                className="text-gray-300 bg-white/5 rounded-lg px-4 py-2 hover:bg-white/10 transition-colors"
-              >
-                {rule}
-              </div>
-            ))}
-          </div>
-        </div>
+        {/* Rules Link */}
+        <Link
+          href="/rules"
+          className="group relative inline-block p-6 bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10 hover:bg-white/10 hover:border-purple-400/50 transition-all duration-300 hover:scale-105"
+        >
+          <h2 className="text-2xl font-bold text-white mb-2">Game Rules</h2>
+          <p className="text-gray-300">Learn how each move wins and loses</p>
+        </Link>
       </div>
     </main>
   );
