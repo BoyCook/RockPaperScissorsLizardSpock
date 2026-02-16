@@ -46,10 +46,9 @@ test.describe('Local Game', () => {
     // Player 2 selects scissors (second set of emojis)
     await page.getByText('✌️').nth(1).click({ force: true });
 
-    // Wait for countdown and result (2s countdown + 2s result display + buffer)
-    await page.waitForTimeout(5000);
-
-    // After auto-reset, move selectors should be available again
-    await expect(page.getByText('Player 1 - Choose Your Move')).toBeVisible();
+    // Move selector re-enables after countdown + result auto-reset
+    await expect(page.getByText('Player 1 - Choose Your Move')).toBeVisible({
+      timeout: 10000,
+    });
   });
 });

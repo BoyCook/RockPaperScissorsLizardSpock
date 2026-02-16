@@ -72,7 +72,7 @@ jobs:
           node-version: '24'
           cache: 'npm'
       - run: npm ci
-      - run: npx playwright install --with-deps
+      - run: npx playwright install --with-deps chromium firefox webkit
       - run: npm run test:e2e
       - name: Upload test results
         if: failure()

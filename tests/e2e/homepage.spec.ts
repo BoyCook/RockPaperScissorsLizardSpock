@@ -26,11 +26,10 @@ test.describe('Homepage - vs Computer Game', () => {
   test('should play a game when a move is selected', async ({ page }) => {
     await page.getByText('✊').first().click({ force: true });
 
-    // Wait for countdown and result (2s countdown + 2s result display + buffer)
-    await page.waitForTimeout(5000);
-
-    // After auto-reset, moves should be selectable again
-    await expect(page.getByText('Choose Your Move')).toBeVisible();
+    // Move selector re-enables after countdown + result auto-reset
+    await expect(page.getByText('Choose Your Move')).toBeVisible({
+      timeout: 10000,
+    });
   });
 
   test('should have navigation links', async ({ page }) => {
