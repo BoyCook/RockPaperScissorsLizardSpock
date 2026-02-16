@@ -57,7 +57,7 @@ export default function AboutPage() {
             Sheldon Explains It Best
           </h2>
           <iframe
-            className="w-full aspect-video rounded-xl"
+            className="w-full max-w-lg mx-auto aspect-video rounded-xl"
             src="https://www.youtube.com/embed/iapcKVn7DdY"
             title="Rock Paper Scissors Lizard Spock - The Big Bang Theory"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
