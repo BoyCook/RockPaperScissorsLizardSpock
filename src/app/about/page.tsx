@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import Link from 'next/link';
 
 export default function AboutPage() {
@@ -57,33 +56,15 @@ export default function AboutPage() {
           <h2 className="text-2xl font-bold text-white text-center">
             Sheldon Explains It Best
           </h2>
-          <a
-            href="https://www.youtube.com/watch?v=x5Q6-wMx-K8"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group relative block w-full aspect-video rounded-xl overflow-hidden"
-          >
-            <Image
-              src="https://img.youtube.com/vi/x5Q6-wMx-K8/maxresdefault.jpg"
-              alt="Sheldon explains Rock Paper Scissors Lizard Spock"
-              fill
-              className="object-cover transition-transform duration-300 group-hover:scale-105"
+          <div className="relative w-full aspect-video rounded-xl overflow-hidden">
+            <iframe
+              className="absolute inset-0 w-full h-full"
+              src="https://www.youtube.com/embed/iapcKVn7DdY"
+              title="Rock Paper Scissors Lizard Spock - The Big Bang Theory"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
             />
-            <div className="absolute inset-0 bg-black/30 flex items-center justify-center group-hover:bg-black/20 transition-colors">
-              <div className="w-16 h-16 sm:w-20 sm:h-20 bg-red-600 rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
-                <svg
-                  className="w-8 h-8 sm:w-10 sm:h-10 text-white ml-1"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M8 5v14l11-7z" />
-                </svg>
-              </div>
-            </div>
-          </a>
-          <p className="text-gray-400 text-sm">
-            Watch on YouTube: Rock Paper Scissors Lizard Spock (Extended Cut) &mdash; The Big Bang Theory
-          </p>
+          </div>
         </div>
 
         {/* How It Works */}
