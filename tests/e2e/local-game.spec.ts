@@ -27,12 +27,14 @@ test.describe('Local Game', () => {
     await expect(page.getByText('PLAYER 2', { exact: true })).toBeVisible();
   });
 
-  test('should have a back to home link', async ({ page }) => {
-    await expect(page.getByText('← Back to Home')).toBeVisible();
+  test('should have navigation links', async ({ page }) => {
+    await expect(page.getByRole('link', { name: /Play/ })).toBeVisible();
+    await expect(page.getByRole('link', { name: /Rules/ })).toBeVisible();
+    await expect(page.getByRole('link', { name: /About/ })).toBeVisible();
   });
 
   test('should navigate back to home', async ({ page }) => {
-    await page.getByText('← Back to Home').click();
+    await page.getByRole('link', { name: /Play/ }).click();
 
     await expect(page).toHaveURL('/');
   });

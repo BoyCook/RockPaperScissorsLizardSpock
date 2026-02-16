@@ -1,10 +1,10 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import Link from 'next/link';
 import { Move, playGame, GameResult } from '@/lib/game/rules';
 import MoveSelector from '@/components/game/MoveSelector';
 import HandBattle from '@/components/game/HandBattle';
+import NavBar from '@/components/NavBar';
 
 export default function LocalGamePage() {
   const [player1Move, setPlayer1Move] = useState<Move | null>(null);
@@ -64,15 +64,7 @@ export default function LocalGamePage() {
   return (
     <div className="min-h-screen bg-white py-8 px-4">
       <div className="container mx-auto max-w-6xl">
-        {/* Back Link */}
-        <div className="back-link-spacing">
-          <Link
-            href="/"
-            className="inline-block text-gray-600 hover:text-black transition-colors"
-          >
-            ← Back to Home
-          </Link>
-        </div>
+        <NavBar />
 
         {/* Hand Battle Display */}
         <div className="mb-8 mx-4 sm:mx-8 bg-black rounded-3xl p-6 sm:p-8">

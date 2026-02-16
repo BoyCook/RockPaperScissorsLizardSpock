@@ -1,9 +1,10 @@
-import Link from 'next/link';
+import NavBar from '@/components/NavBar';
 
 export default function AboutPage() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center p-4 sm:p-8 md:p-24 bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
+    <main className="flex min-h-screen flex-col items-center p-4 sm:p-8 md:p-24 bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
       <div className="max-w-4xl w-full text-center space-y-12">
+        <NavBar variant="dark" />
         <div className="space-y-4">
           <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold text-white mb-4 drop-shadow-lg">
             About the
@@ -82,13 +83,6 @@ export default function AboutPage() {
             has, rock crushes scissors.&rdquo;
           </p>
         </div>
-
-        <Link
-          href="/"
-          className="inline-block px-8 py-3 bg-white/10 backdrop-blur-sm rounded-xl border border-white/20 text-white font-semibold hover:bg-white/20 hover:border-purple-400/50 transition-all duration-300 hover:scale-105"
-        >
-          Back to Home
-        </Link>
       </div>
     </main>
   );

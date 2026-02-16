@@ -1,10 +1,10 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import Link from 'next/link';
 import { Move, playGame, GameResult, getRandomMove } from '@/lib/game/rules';
 import MoveSelector from '@/components/game/MoveSelector';
 import HandBattle from '@/components/game/HandBattle';
+import NavBar from '@/components/NavBar';
 
 export default function HomePage() {
   const [playerMove, setPlayerMove] = useState<Move | null>(null);
@@ -63,18 +63,7 @@ export default function HomePage() {
   return (
     <div className="min-h-screen bg-white py-8 px-4">
       <div className="container mx-auto max-w-6xl">
-        {/* Navigation */}
-        <nav className="nav-bar" data-testid="nav-bar">
-          <Link href="/play/local" className="nav-link">
-            👥 Local Game
-          </Link>
-          <Link href="/rules" className="nav-link">
-            📖 Rules
-          </Link>
-          <Link href="/about" className="nav-link">
-            ℹ️ About
-          </Link>
-        </nav>
+        <NavBar />
 
         {/* Hand Battle Display */}
         <div className="mb-8 mx-4 sm:mx-8 bg-black rounded-3xl p-6 sm:p-8">

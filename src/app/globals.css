@@ -108,6 +108,17 @@ body {
     color: #111827;
     border-color: #d1d5db;
   }
+
+  .nav-bar-dark .nav-link {
+    color: #d1d5db;
+    border-color: rgba(255, 255, 255, 0.2);
+  }
+
+  .nav-bar-dark .nav-link:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    border-color: rgba(255, 255, 255, 0.4);
+  }
 }
 
 @keyframes bounceIn {
