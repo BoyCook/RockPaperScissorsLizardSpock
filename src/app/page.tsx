@@ -1,65 +1,151 @@
+'use client';
+
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { Move, playGame, GameResult, getRandomMove } from '@/lib/game/rules';
+import MoveSelector from '@/components/game/MoveSelector';
+import HandBattle from '@/components/game/HandBattle';
 
 export default function HomePage() {
+  const [playerMove, setPlayerMove] = useState<Move | null>(null);
+  const [computerMove, setComputerMove] = useState<Move | null>(null);
+  const [result, setResult] = useState<GameResult | null>(null);
+  const [playerScore, setPlayerScore] = useState(0);
+  const [computerScore, setComputerScore] = useState(0);
+  const [isCountdown, setIsCountdown] = useState(false);
+
+  useEffect(() => {
+    if (playerMove && !result && !isCountdown) {
+      const cpuMove = getRandomMove();
+      setComputerMove(cpuMove);
+
+      setIsCountdown(true);
+
+      setTimeout(() => {
+        const gameResult = playGame(playerMove, cpuMove);
+        setResult(gameResult);
+        setIsCountdown(false);
+
+        if (!gameResult.isDraw) {
+          if (gameResult.winner === playerMove) {
+            setPlayerScore((prev) => prev + 1);
+          } else {
+            setComputerScore((prev) => prev + 1);
+          }
+        }
+      }, 2000);
+    }
+  }, [playerMove, result, isCountdown]);
+
+  useEffect(() => {
+    if (result) {
+      const timer = setTimeout(() => {
+        handleReset();
+      }, 2000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [result]);
+
+  const handleReset = () => {
+    setPlayerMove(null);
+    setComputerMove(null);
+    setResult(null);
+    setIsCountdown(false);
+  };
+
+  const handleNewGame = () => {
+    handleReset();
+    setPlayerScore(0);
+    setComputerScore(0);
+  };
+
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center p-4 sm:p-8 md:p-24 bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
-      <div className="max-w-4xl w-full text-center space-y-12">
-        {/* Header */}
-        <div className="space-y-4">
-          <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold text-white mb-4 drop-shadow-lg">
-            Rock Paper Scissors
-            <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">
-              Lizard Spock
-            </span>
-          </h1>
-          <p className="text-lg sm:text-xl text-gray-300 max-w-2xl mx-auto">
-            The legendary game invented by Sam Kass and Karen Bryla,
-            <br className="hidden sm:block" />
-            popularized by The Big Bang Theory
-          </p>
+    <div className="min-h-screen bg-white py-8 px-4">
+      <div className="container mx-auto max-w-6xl">
+        {/* Navigation */}
+        <nav className="nav-bar" data-testid="nav-bar">
+          <Link href="/play/local" className="nav-link">
+            👥 Local Game
+          </Link>
+          <Link href="/rules" className="nav-link">
+            📖 Rules
+          </Link>
+          <Link href="/about" className="nav-link">
+            ℹ️ About
+          </Link>
+        </nav>
+
+        {/* Hand Battle Display */}
+        <div className="mb-8 mx-4 sm:mx-8 bg-black rounded-3xl p-6 sm:p-8">
+          {/* Score Board */}
+          <div className="mb-8 flex justify-around items-center max-w-5xl mx-auto">
+            <div
+              className="text-center bg-white/10 backdrop-blur-sm rounded-2xl px-10 py-8 border-2 min-w-[180px]"
+              style={{ borderColor: '#60a5fa' }}
+            >
+              <div
+                className="text-3xl font-black mb-4"
+                style={{ color: '#60a5fa' }}
+              >
+                YOU
+              </div>
+              <div className="text-8xl font-black" style={{ color: '#60a5fa' }}>
+                {playerScore}
+              </div>
+            </div>
+            <div className="flex items-center">
+              <div className="text-3xl font-bold text-white/60">VS</div>
+            </div>
+            <div
+              className="text-center bg-white/10 backdrop-blur-sm rounded-2xl px-10 py-8 border-2 min-w-[180px]"
+              style={{ borderColor: '#f87171' }}
+            >
+              <div
+                className="text-3xl font-black mb-4"
+                style={{ color: '#f87171' }}
+              >
+                COMPUTER 🤖
+              </div>
+              <div className="text-8xl font-black" style={{ color: '#f87171' }}>
+                {computerScore}
+              </div>
+            </div>
+          </div>
+          <HandBattle
+            player1Move={playerMove}
+            player2Move={computerMove}
+            showResult={!!result}
+            isCountdown={isCountdown}
+            player1Label="You"
+            player2Label="Computer 🤖"
+            result={result}
+          />
         </div>
 
-        {/* Game Mode Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 px-4 max-w-3xl mx-auto">
-          <Link
-            href="/play/local"
-            className="group relative p-8 bg-white/10 backdrop-blur-sm rounded-2xl border border-white/20 hover:bg-white/20 hover:border-blue-400/50 transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/20"
-          >
-            <div className="text-5xl mb-4">👥</div>
-            <h3 className="text-2xl font-bold text-white mb-2">Local Game</h3>
-            <p className="text-gray-300">Two players, same device</p>
-          </Link>
+        {/* Game Area */}
+        <div className="space-y-8 mx-4 sm:mx-8 bg-black rounded-3xl p-6 sm:p-8">
+          <MoveSelector
+            label="Choose Your Move"
+            selectedMove={playerMove}
+            onSelect={setPlayerMove}
+            disabled={!!result}
+          />
 
-          <Link
-            href="/play/computer"
-            className="group relative p-8 bg-white/10 backdrop-blur-sm rounded-2xl border border-white/20 hover:bg-white/20 hover:border-green-400/50 transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-green-500/20"
-          >
-            <div className="text-5xl mb-4">🤖</div>
-            <h3 className="text-2xl font-bold text-white mb-2">vs Computer</h3>
-            <p className="text-gray-300">Test your luck against AI</p>
-          </Link>
-        </div>
-
-        {/* Info Links */}
-        <div className="flex flex-col sm:flex-row gap-4 justify-center px-4">
-          <Link
-            href="/rules"
-            className="group relative p-6 bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10 hover:bg-white/10 hover:border-purple-400/50 transition-all duration-300 hover:scale-105"
-          >
-            <h2 className="text-2xl font-bold text-white mb-2">Game Rules</h2>
-            <p className="text-gray-300">Learn how each move wins and loses</p>
-          </Link>
-
-          <Link
-            href="/about"
-            className="group relative p-6 bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10 hover:bg-white/10 hover:border-yellow-400/50 transition-all duration-300 hover:scale-105"
-          >
-            <h2 className="text-2xl font-bold text-white mb-2">About</h2>
-            <p className="text-gray-300">The story behind the game</p>
-          </Link>
+          {/* Action Buttons */}
+          {result && (
+            <div className="flex justify-center gap-4 pt-4">
+              <button
+                onClick={handleNewGame}
+                className="px-8 py-4 bg-white/10 text-white text-lg rounded-2xl font-bold border border-white/20
+                         hover:bg-white/20 transition-all hover:scale-105 active:scale-95"
+              >
+                New Game
+              </button>
+            </div>
+          )}
         </div>
       </div>
-    </main>
+    </div>
   );
 }

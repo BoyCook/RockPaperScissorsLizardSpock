@@ -1,55 +1,58 @@
 import { test, expect } from '@playwright/test';
 
-test.describe('Homepage', () => {
-  test('should display the homepage title', async ({ page }) => {
+test.describe('Homepage - vs Computer Game', () => {
+  test.beforeEach(async ({ page }) => {
     await page.goto('/');
-
-    await expect(page.locator('h1')).toContainText('Rock Paper Scissors');
-    await expect(page.locator('h1')).toContainText('Lizard Spock');
   });
 
-  test('should have links to game modes', async ({ page }) => {
-    await page.goto('/');
+  test('should display the game UI with scores', async ({ page }) => {
+    await expect(page.getByText('YOU', { exact: true })).toBeVisible();
+    await expect(page.getByText('COMPUTER 🤖')).toBeVisible();
+    await expect(page.getByText('VS').first()).toBeVisible();
+  });
 
+  test('should display all five move emojis', async ({ page }) => {
+    const moveEmojis = ['✊', '✋', '✌️', '🦎', '🖖'];
+
+    for (const emoji of moveEmojis) {
+      await expect(page.getByText(emoji).first()).toBeVisible();
+    }
+  });
+
+  test('should display choose your move prompt', async ({ page }) => {
+    await expect(page.getByText('Choose Your Move')).toBeVisible();
+  });
+
+  test('should play a game when a move is selected', async ({ page }) => {
+    await page.getByText('✊').first().click({ force: true });
+
+    // Wait for countdown and result (2s countdown + 2s result display + buffer)
+    await page.waitForTimeout(5000);
+
+    // After auto-reset, moves should be selectable again
+    await expect(page.getByText('Choose Your Move')).toBeVisible();
+  });
+
+  test('should have navigation links', async ({ page }) => {
     await expect(page.getByRole('link', { name: /Local Game/ })).toBeVisible();
-    await expect(page.getByRole('link', { name: /vs Computer/ })).toBeVisible();
-  });
-
-  test('should have links to rules and about pages', async ({ page }) => {
-    await page.goto('/');
-
-    await expect(page.getByRole('link', { name: /Game Rules/ })).toBeVisible();
+    await expect(page.getByRole('link', { name: /Rules/ })).toBeVisible();
     await expect(page.getByRole('link', { name: /About/ })).toBeVisible();
   });
 
   test('should navigate to local game', async ({ page }) => {
-    await page.goto('/');
-
     await page.getByRole('link', { name: /Local Game/ }).click();
 
     await expect(page).toHaveURL('/play/local');
   });
 
-  test('should navigate to computer game', async ({ page }) => {
-    await page.goto('/');
-
-    await page.getByRole('link', { name: /vs Computer/ }).click();
-
-    await expect(page).toHaveURL('/play/computer');
-  });
-
   test('should navigate to rules page', async ({ page }) => {
-    await page.goto('/');
-
-    await page.getByRole('link', { name: /Game Rules/ }).click();
+    await page.getByRole('link', { name: /Rules/ }).click();
 
     await expect(page).toHaveURL('/rules');
     await expect(page.locator('h1')).toContainText('Game Rules');
   });
 
   test('should navigate to about page', async ({ page }) => {
-    await page.goto('/');
-
     await page.getByRole('link', { name: /About/ }).click();
 
     await expect(page).toHaveURL('/about');
