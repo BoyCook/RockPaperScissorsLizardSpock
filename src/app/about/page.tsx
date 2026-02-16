@@ -56,7 +56,7 @@ export default function AboutPage() {
           <h2 className="text-2xl font-bold text-white text-center">
             Sheldon Explains It Best
           </h2>
-          <div style={{ maxWidth: '32rem', margin: '0 auto' }}>
+          <div className="video-container">
             <iframe
               className="w-full aspect-video rounded-xl"
               src="https://www.youtube.com/embed/iapcKVn7DdY"
