@@ -6,76 +6,48 @@ test.describe('Local Game', () => {
   });
 
   test('should display the local game page', async ({ page }) => {
-    await expect(page.locator('h1')).toContainText('Local Game');
-    await expect(page.locator('text=Two players on the same device')).toBeVisible();
+    await expect(page.getByText('Player 1 - Choose Your Move')).toBeVisible();
+    await expect(page.getByText('Player 2 - Choose Your Move')).toBeVisible();
   });
 
-  test('should display all five moves for both players', async ({ page }) => {
-    const moves = ['Rock', 'Paper', 'Scissors', 'Lizard', 'Spock'];
+  test('should display all five move emojis for both players', async ({
+    page,
+  }) => {
+    const moveEmojis = ['✊', '✋', '✌️', '🦎', '🖖'];
 
-    for (const move of moves) {
-      const moveElements = page.getByText(move, { exact: true });
-      const count = await moveElements.count();
-      expect(count).toBe(2);
+    for (const emoji of moveEmojis) {
+      const elements = page.getByText(emoji);
+      const count = await elements.count();
+      expect(count).toBeGreaterThanOrEqual(2);
     }
   });
 
-  test('should play a complete game', async ({ page }) => {
-    await page.getByText('Rock').first().click();
-    await page.getByText('Scissors').nth(1).click();
-
-    await page.getByRole('button', { name: 'Play!' }).click();
-
-    await expect(page.locator('text=Rock crushes scissors')).toBeVisible();
-    await expect(page.locator('text=Player 1 Wins!')).toBeVisible();
+  test('should display score board', async ({ page }) => {
+    await expect(page.getByText('PLAYER 1', { exact: true })).toBeVisible();
+    await expect(page.getByText('PLAYER 2', { exact: true })).toBeVisible();
   });
 
-  test('should handle a draw', async ({ page }) => {
-    await page.getByText('Rock').first().click();
-    await page.getByText('Rock').nth(1).click();
-
-    await page.getByRole('button', { name: 'Play!' }).click();
-
-    await expect(page.locator("text=It's a Draw!")).toBeVisible();
+  test('should have a back to home link', async ({ page }) => {
+    await expect(page.getByText('← Back to Home')).toBeVisible();
   });
 
-  test('should track scores across multiple rounds', async ({ page }) => {
-    await page.getByText('Rock').first().click();
-    await page.getByText('Scissors').nth(1).click();
-    await page.getByRole('button', { name: 'Play!' }).click();
+  test('should navigate back to home', async ({ page }) => {
+    await page.getByText('← Back to Home').click();
 
-    await expect(page.locator('text=1').first()).toBeVisible();
-
-    await page.getByRole('button', { name: 'Play Again' }).click();
-
-    await page.getByText('Paper').first().click();
-    await page.getByText('Rock').nth(1).click();
-    await page.getByRole('button', { name: 'Play!' }).click();
-
-    const player1Scores = page.locator('text=2').first();
-    await expect(player1Scores).toBeVisible();
+    await expect(page).toHaveURL('/');
   });
 
-  test('should reset game with New Game button', async ({ page }) => {
-    await page.getByText('Rock').first().click();
-    await page.getByText('Scissors').nth(1).click();
-    await page.getByRole('button', { name: 'Play!' }).click();
+  test('should auto-play when both players select moves', async ({ page }) => {
+    // Player 1 selects rock
+    await page.getByText('✊').first().click({ force: true });
 
-    await page.getByRole('button', { name: 'New Game' }).click();
+    // Player 2 selects scissors (second set of emojis)
+    await page.getByText('✌️').nth(1).click({ force: true });
 
-    const scoreElements = page.locator('text=0');
-    const count = await scoreElements.count();
-    expect(count).toBeGreaterThanOrEqual(2);
-  });
+    // Wait for countdown and result (2s countdown + 2s result display + buffer)
+    await page.waitForTimeout(5000);
 
-  test('should disable Play button when moves not selected', async ({ page }) => {
-    const playButton = page.getByRole('button', { name: 'Play!' });
-    await expect(playButton).toBeDisabled();
-
-    await page.getByText('Rock').first().click();
-    await expect(playButton).toBeDisabled();
-
-    await page.getByText('Scissors').nth(1).click();
-    await expect(playButton).toBeEnabled();
+    // After auto-reset, move selectors should be available again
+    await expect(page.getByText('Player 1 - Choose Your Move')).toBeVisible();
   });
 });

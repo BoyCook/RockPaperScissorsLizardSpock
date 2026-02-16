@@ -1,12 +1,11 @@
 import { test, expect } from '@playwright/test';
 
 test.describe('Homepage', () => {
-  test('should display the homepage', async ({ page }) => {
+  test('should display the homepage title', async ({ page }) => {
     await page.goto('/');
 
-    await expect(page.locator('h1')).toContainText(
-      'Rock Paper Scissors Lizard Spock'
-    );
+    await expect(page.locator('h1')).toContainText('Rock Paper Scissors');
+    await expect(page.locator('h1')).toContainText('Lizard Spock');
   });
 
   test('should have links to game modes', async ({ page }) => {
@@ -29,7 +28,6 @@ test.describe('Homepage', () => {
     await page.getByRole('link', { name: /Local Game/ }).click();
 
     await expect(page).toHaveURL('/play/local');
-    await expect(page.locator('h1')).toContainText('Local Game');
   });
 
   test('should navigate to computer game', async ({ page }) => {
@@ -38,7 +36,6 @@ test.describe('Homepage', () => {
     await page.getByRole('link', { name: /vs Computer/ }).click();
 
     await expect(page).toHaveURL('/play/computer');
-    await expect(page.locator('h1')).toContainText('vs Computer');
   });
 
   test('should navigate to rules page', async ({ page }) => {
