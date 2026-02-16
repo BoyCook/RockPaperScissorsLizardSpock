@@ -63,7 +63,7 @@ export default function AboutPage() {
               title="Rock Paper Scissors Lizard Spock - The Big Bang Theory"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
-            />
+            ></iframe>
           </div>
         </div>
 
